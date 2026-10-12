@@ -1,0 +1,13 @@
+:{$PORT:8080} {
+	basic_auth {
+		{$APP_USER} {$AUTH_HASH}
+	}
+	header {
+		X-Robots-Tag "noindex, nofollow"
+		Cache-Control "no-store"
+		Referrer-Policy "no-referrer"
+		X-Content-Type-Options "nosniff"
+	}
+	root * /srv
+	file_server
+}
