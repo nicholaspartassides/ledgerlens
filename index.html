@@ -29,6 +29,7 @@
   --good: #4fc287; --good-soft: #173528; --warn: #e2a64a; --warn-soft: #3a2c14; --bad: #ec6c61; --bad-soft: #3e1d1a; color-scheme: dark; }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html, body { background: var(--bg); color: var(--ink); }
 body { font-family: var(--f-body); font-size: 14.5px; line-height: 1.5; }
 h1, h2, h3 { font-family: var(--f-display); font-weight: 600; text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
@@ -188,6 +189,52 @@ td input[type=number] { text-align: right; font-family: var(--f-data); }
 
 .toast { position: fixed; left: 50%; bottom: calc(22px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 9px 16px; border-radius: var(--r); font-size: 0.88rem; z-index: 60; max-width: calc(100% - 32px); }
 
+/* DuPont */
+.dpeq { display: flex; flex-wrap: wrap; align-items: stretch; gap: 10px; margin-top: 12px; }
+.dpterm { flex: 1 1 150px; min-width: 0; border: 1px solid var(--line); border-radius: var(--r); padding: 12px 14px; background: var(--bg); }
+.dpterm.res { background: var(--accent-soft); border-color: var(--accent); }
+.dpterm .l { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); font-weight: 600; }
+.dpterm .v { font-family: var(--f-data); font-size: 1.4rem; margin-top: 4px; font-variant-numeric: tabular-nums; }
+.dpterm .s { font-family: var(--f-data); font-size: 0.8rem; color: var(--muted); }
+.dpop { align-self: center; font-family: var(--f-data); font-size: 1.3rem; color: var(--muted); }
+tr.optrow td { background: var(--bg); font-size: 0.78rem; color: var(--muted); font-weight: 600; }
+
+/* toolkit */
+.kitbar { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; background: var(--surface); }
+.seg button { border: 0; background: none; padding: 8px 14px; cursor: pointer; font-weight: 600; color: var(--muted); }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed=true] { background: var(--accent); color: var(--accent-ink); }
+.kitbar input[type=search] { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 8px 12px; flex: 1 1 220px; min-width: 0; }
+.kitbar select { background: var(--surface); }
+.kitch { display: flex; align-items: baseline; gap: 10px; margin-top: 8px; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+.kitch .code { font-family: var(--f-data); font-size: 0.78rem; color: var(--accent); font-weight: 500; }
+.calcs { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 16px; align-items: start; }
+.calc { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 18px; display: flex; flex-direction: column; gap: 12px; min-width: 0; scroll-margin-top: 80px; }
+.calc.flash { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
+.calc header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.calc h3 { font-size: 1.02rem; }
+.calc .reset { background: none; border: 1px solid var(--line); border-radius: var(--r); font-size: 0.75rem; padding: 3px 9px; cursor: pointer; color: var(--muted); white-space: nowrap; }
+.calc .reset:hover { border-color: var(--accent); color: var(--ink); }
+.cin { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px 10px; }
+.cin .ci { display: flex; flex-direction: column; gap: 3px; min-width: 0; font-size: 0.76rem; color: var(--muted); }
+.cin .ci.wide { grid-column: 1 / -1; }
+.cin .iw { display: flex; align-items: center; border: 1px solid var(--line); border-radius: var(--r); background: var(--bg); }
+.cin .iw:focus-within { border-color: var(--accent); }
+.cin input { border: 0; background: none; padding: 6px 8px; width: 100%; min-width: 0; font-family: var(--f-data); font-size: 0.88rem; color: var(--ink); }
+.cin input:focus { outline: none; }
+.cin .u { padding-right: 8px; font-family: var(--f-data); font-size: 0.8rem; color: var(--muted); }
+.cout { margin: 0; display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+.cout .co { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 7px 0; border-bottom: 1px dashed var(--line); }
+.cout .co:last-child { border-bottom: 0; }
+.cout dt { min-width: 0; font-size: 0.86rem; }
+.cout dt small { display: block; font-family: var(--f-data); font-size: 0.72rem; color: var(--muted); margin-top: 1px; overflow-wrap: anywhere; }
+.cout dd { margin: 0; font-family: var(--f-data); font-variant-numeric: tabular-nums; font-weight: 500; text-align: right; white-space: nowrap; }
+.calc .cnote { font-size: 0.78rem; color: var(--muted); }
+.libtable td.f { font-family: var(--f-data); font-size: 0.8rem; }
+.libtable .open { background: none; border: 1px solid var(--line); border-radius: var(--r); padding: 3px 9px; cursor: pointer; font-size: 0.78rem; white-space: nowrap; }
+.libtable .open:hover { border-color: var(--accent); }
+
 @media (max-width: 820px) {
   .app { grid-template-columns: minmax(0, 1fr); }
   nav.rail { flex-direction: row; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--line); padding: 8px 12px; position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; }
@@ -224,6 +271,7 @@ td input[type=number] { text-align: right; font-family: var(--f-data); }
     <button role="tab" data-tab="aud"><span class="k">04</span><span data-i18n="tabAud"></span></button>
     <button role="tab" data-tab="trend"><span class="k">05</span><span data-i18n="tabTrend"></span></button>
     <button role="tab" data-tab="board"><span class="k">06</span><span data-i18n="tabBoard"></span></button>
+    <button role="tab" data-tab="kit"><span class="k">07</span><span data-i18n="tabKit"></span></button>
     <div class="sep"></div>
     <button class="present" id="presentBtn"><span class="k">▶</span><span data-i18n="present"></span></button>
   </nav>
@@ -269,6 +317,7 @@ td input[type=number] { text-align: right; font-family: var(--f-data); }
           <div class="panel"><h3 data-i18n="wcTitle"></h3><div class="chartbox" style="height:220px"><canvas id="cWC"></canvas></div></div>
         </div>
       </div>
+      <div class="panel"><h3 data-i18n="dpTitle"></h3><div class="dpeq" id="dpEq"></div><p class="note" id="dpNote" style="margin-top:10px"></p></div>
       <div class="tablewrap"><table><thead><tr><th data-i18n="thRatio"></th><th class="num" data-i18n="thCur"></th><th class="num" data-i18n="thPrev"></th><th class="num" data-i18n="thChange"></th><th data-i18n="thRating"></th><th data-i18n="thLimits"></th></tr></thead><tbody id="ratioBody"></tbody></table></div>
       <p class="note" data-i18n="finNote"></p>
     </section>
@@ -324,6 +373,19 @@ td input[type=number] { text-align: right; font-family: var(--f-data); }
         <div class="btns"><button class="btn" id="copyReport" data-i18n="copyReport"></button><button class="btn primary" id="presentBtn2" data-i18n="startPres"></button></div>
       </div>
       <article class="report" id="report"></article>
+    </section>
+    <!-- 07 TOOLKIT -->
+    <section class="view" id="v-kit" hidden>
+      <div class="head">
+        <div><div class="eyebrow">AED600 · AED610</div><h2 data-i18n="kitTitle"></h2><p data-i18n="kitLead"></p></div>
+      </div>
+      <div class="kitbar">
+        <div class="seg" role="group"><button type="button" id="kitModeCalc" data-mode="calc"></button><button type="button" id="kitModeLib" data-mode="lib"></button></div>
+        <input type="search" id="kitSearch">
+        <select id="kitCh"></select>
+      </div>
+      <div id="kitCalcs"></div>
+      <div id="kitLib" hidden></div>
     </section>
   </main>
 </div>
@@ -676,11 +738,16 @@ var LL = (function () {
     ['int', 'Χρεωστικοί τόκοι'], ['np', 'Καθαρό κέρδος'], ['cash', 'Μετρητά'],
     ['ar', 'Εμπορικοί χρεώστες'], ['inv', 'Αποθέματα'], ['ca', 'Κυκλοφορούν ενεργητικό'],
     ['ta', 'Σύνολο ενεργητικού'], ['ap', 'Εμπορικοί πιστωτές'], ['cl', 'Βραχυπρόθεσμες υποχρεώσεις'],
-    ['tl', 'Σύνολο υποχρεώσεων'], ['eq', 'Ίδια κεφάλαια'], ['re', 'Αποθεματικό προσόδου'], ['ocf', 'Ταμειακές ροές από λειτουργίες']
+    ['tl', 'Σύνολο υποχρεώσεων'], ['eq', 'Ίδια κεφάλαια'], ['re', 'Αποθεματικό προσόδου'], ['ocf', 'Ταμειακές ροές από λειτουργίες'],
+    ['ncl', 'Μακροπρόθεσμες υποχρεώσεις', true], ['debt', 'Τοκοφόρος δανεισμός', true], ['da', 'Αποσβέσεις', true],
+    ['shares', 'Αριθμός μετοχών', true], ['price', 'Τιμή μετοχής', true]
   ];
+  // optional statement fields: missing -> NaN (never coerced to 0)
+  function o(f, k) { var v = f[k]; return (v === null || v === undefined || v === '') ? NaN : +v; }
+  function ebit(f) { return f.rev - f.cogs - f.opex; }
   var SAMPLE_FIN = {
-    cy: { rev: 4850000, cogs: 2910000, opex: 1320000, int: 95000, np: 455000, cash: 310000, ar: 820000, inv: 540000, ca: 1720000, ta: 4600000, ap: 610000, cl: 1180000, tl: 2700000, eq: 1900000, re: 1150000, ocf: 380000 },
-    py: { rev: 4420000, cogs: 2610000, opex: 1260000, int: 88000, np: 401000, cash: 420000, ar: 640000, inv: 470000, ca: 1580000, ta: 4250000, ap: 560000, cl: 1050000, tl: 2560000, eq: 1690000, re: 960000, ocf: 470000 }
+    cy: { rev: 4850000, cogs: 2910000, opex: 1320000, int: 95000, np: 455000, cash: 310000, ar: 820000, inv: 540000, ca: 1720000, ta: 4600000, ap: 610000, cl: 1180000, tl: 2700000, eq: 1900000, re: 1150000, ocf: 380000, ncl: 1520000, debt: 1250000, da: 180000, shares: 1000000, price: 3.2 },
+    py: { rev: 4420000, cogs: 2610000, opex: 1260000, int: 88000, np: 401000, cash: 420000, ar: 640000, inv: 470000, ca: 1580000, ta: 4250000, ap: 560000, cl: 1050000, tl: 2560000, eq: 1690000, re: 960000, ocf: 470000, ncl: 1510000, debt: 1300000, da: 170000, shares: 1000000, price: 2.9 }
   };
   // [id, label, group, fn, unit, dir(+1 higher better / -1 lower better / 0 info), good, warn]
   var RATIOS = [
@@ -692,13 +759,21 @@ var LL = (function () {
     ['nm', 'Καθαρό περιθώριο', 'Κερδοφορία', function (f) { return f.np / f.rev; }, '%', 1, 0.08, 0.03],
     ['roe', 'Απόδοση ιδίων κεφαλαίων (ROE)', 'Κερδοφορία', function (f) { return f.np / f.eq; }, '%', 1, 0.15, 0.08],
     ['roa', 'Απόδοση ενεργητικού (ROA)', 'Κερδοφορία', function (f) { return f.np / f.ta; }, '%', 1, 0.08, 0.04],
+    ['roce', 'ROCE', 'Κερδοφορία', function (f) { return ebit(f) / (f.eq + o(f, 'ncl')); }, '%', 1, 0.15, 0.08],
     ['de', 'Υποχρεώσεις / Ίδια κεφάλαια', 'Μόχλευση', function (f) { return f.tl / f.eq; }, 'x', -1, 1.5, 2.5],
+    ['gear', 'Gearing', 'Μόχλευση', function (f) { return o(f, 'debt') / (o(f, 'debt') + f.eq); }, '%', -1, 0.4, 0.6],
     ['icr', 'Κάλυψη τόκων', 'Μόχλευση', function (f) { return (f.rev - f.cogs - f.opex) / f.int; }, 'x', 1, 4, 2],
     ['dso', 'Μέρες είσπραξης (DSO)', 'Κεφάλαιο κίνησης', function (f) { return f.ar / f.rev * 365; }, 'd', -1, 45, 75],
     ['dio', 'Μέρες αποθέματος (DIO)', 'Κεφάλαιο κίνησης', function (f) { return f.inv / f.cogs * 365; }, 'd', -1, 60, 100],
     ['dpo', 'Μέρες πληρωμής (DPO)', 'Κεφάλαιο κίνησης', function (f) { return f.ap / f.cogs * 365; }, 'd', 0, 0, 0],
     ['ccc', 'Κύκλος μετατροπής μετρητών', 'Κεφάλαιο κίνησης', function (f) { return (f.ar / f.rev + f.inv / f.cogs - f.ap / f.cogs) * 365; }, 'd', -1, 60, 100],
-    ['ocfnp', 'Ποιότητα κερδών (OCF / Καθαρό κέρδος)', 'Ταμειακές ροές', function (f) { return f.ocf / f.np; }, 'x', 1, 1.0, 0.7]
+    ['ocfnp', 'Ποιότητα κερδών (OCF / Καθαρό κέρδος)', 'Ταμειακές ροές', function (f) { return f.ocf / f.np; }, 'x', 1, 1.0, 0.7],
+    ['at', 'Asset turnover', 'DuPont', function (f) { return f.rev / f.ta; }, 'x', 0, 0, 0],
+    ['em', 'Equity multiplier', 'DuPont', function (f) { return f.ta / f.eq; }, 'x', 0, 0, 0],
+    ['eps', 'EPS', 'Επενδυτικοί', function (f) { return f.np / o(f, 'shares'); }, 'e', 0, 0, 0],
+    ['pe', 'P/E', 'Επενδυτικοί', function (f) { return o(f, 'price') / (f.np / o(f, 'shares')); }, 'x', 0, 0, 0],
+    ['pb', 'P/B', 'Επενδυτικοί', function (f) { return o(f, 'price') * o(f, 'shares') / f.eq; }, 'x', 0, 0, 0],
+    ['evx', 'EV / EBITDA', 'Επενδυτικοί', function (f) { return (o(f, 'price') * o(f, 'shares') + o(f, 'debt') - f.cash) / (ebit(f) + o(f, 'da')); }, 'x', 0, 0, 0]
   ];
   function rag(v, dir, good, warn) {
     if (!isFinite(v) || dir === 0) return 'info';
@@ -842,6 +917,20 @@ el: {
   f_rev: 'Κύκλος εργασιών', f_cogs: 'Κόστος πωλήσεων', f_opex: 'Λειτουργικά έξοδα', f_int: 'Χρεωστικοί τόκοι', f_np: 'Καθαρό κέρδος', f_cash: 'Μετρητά', f_ar: 'Εμπορικοί χρεώστες', f_inv: 'Αποθέματα', f_ca: 'Κυκλοφορούν ενεργητικό', f_ta: 'Σύνολο ενεργητικού', f_ap: 'Εμπορικοί πιστωτές', f_cl: 'Βραχυπρόθεσμες υποχρεώσεις', f_tl: 'Σύνολο υποχρεώσεων', f_eq: 'Ίδια κεφάλαια', f_re: 'Αποθεματικό προσόδου', f_ocf: 'Ταμειακές ροές από λειτουργίες',
   g_liq: 'Ρευστότητα', g_prof: 'Κερδοφορία', g_lev: 'Μόχλευση', g_wc: 'Κεφάλαιο κίνησης', g_cf: 'Ταμειακές ροές',
   r_cur: 'Τρέχουσα ρευστότητα', r_quick: 'Άμεση ρευστότητα', r_cashr: 'Ταμειακή ρευστότητα', r_gm: 'Μικτό περιθώριο', r_ebitm: 'Λειτουργικό περιθώριο (EBIT)', r_nm: 'Καθαρό περιθώριο', r_roe: 'Απόδοση ιδίων κεφαλαίων (ROE)', r_roa: 'Απόδοση ενεργητικού (ROA)', r_de: 'Υποχρεώσεις / Ίδια κεφάλαια', r_icr: 'Κάλυψη τόκων', r_dso: 'Μέρες είσπραξης (DSO)', r_dio: 'Μέρες αποθέματος (DIO)', r_dpo: 'Μέρες πληρωμής (DPO)', r_ccc: 'Κύκλος μετατροπής μετρητών', r_ocfnp: 'Ποιότητα κερδών (OCF / Καθαρό κέρδος)',
+  tabKit: 'Εργαλειοθήκη', kitTitle: 'Χρηματοοικονομικοί υπολογιστές', kitLead: 'Υπολογιστές για τους τύπους των AED600 και AED610, με αρχικές τιμές τα παραδείγματα των σημειώσεων. Άλλαξε οποιαδήποτε τιμή και τα αποτελέσματα ενημερώνονται αμέσως.',
+  kitCalc: 'Υπολογιστές', kitLib: 'Βιβλιοθήκη τύπων ({0})', kitSearch: 'Αναζήτηση τύπου ή έννοιας', allCh: 'Όλα τα κεφάλαια', resetEx: 'Παράδειγμα', resetAria: 'Επαναφορά τιμών παραδείγματος: {0}', listHint: 'τιμές χωρισμένες με ;',
+  noRes: 'Κανένα αποτέλεσμα για αυτή την αναζήτηση.', libName: 'Όνομα', libFormula: 'Τύπος', libShows: 'Τι δείχνει', libCh: 'Κεφ.', libOpen: 'Υπολογιστής', openCalc: 'Άνοιγμα',
+  years: 'έτη', daysU: 'ημέρες', fShort: 'F', aShort: 'A', over: 'Υπεραπορρόφηση', under: 'Υποαπορρόφηση',
+  dk_make: 'Παραγωγή', dk_buy: 'Αγορά', dk_accept: 'Αποδοχή', dk_reject: 'Απόρριψη', dk_keep: 'Διατήρηση', dk_close: 'Κλείσιμο', dk_aFirst: 'Πρώτα το A', dk_bFirst: 'Πρώτα το B', dk_premium: 'Υπέρ το άρτιο', dk_discount: 'Υπό το άρτιο', dk_par: 'Στο άρτιο', dk_absorption: 'Πλήρης κοστολόγηση', dk_marginal: 'Οριακή κοστολόγηση', dk_same: 'Ίδιο κέρδος', dk_elastic: 'Ελαστική ζήτηση', dk_inelastic: 'Ανελαστική ζήτηση', dk_unit: 'Μοναδιαία ελαστικότητα', dk_addsValue: 'Δημιουργεί αξία', dk_destroys: 'Καταστρέφει αξία', notRec: 'Δεν ανακτάται',
+  'ch_600-1': 'Χρηματοοικονομική λογιστική', 'ch_600-2': 'Ανάλυση δεικτών', 'ch_600-3': 'Συμπεριφορά κόστους και CVP', 'ch_600-4': 'Κοστολόγηση', 'ch_600-5': 'Προϋπολογισμός και αποκλίσεις', 'ch_600-6': 'Σχετικό κόστος και αποφάσεις', 'ch_610-1': 'Διαχρονική αξία του χρήματος', 'ch_610-2': 'Αξιολόγηση επενδύσεων', 'ch_610-3': 'Κίνδυνος, απόδοση και CAPM', 'ch_610-4': 'Αποτίμηση ομολόγων και μετοχών', 'ch_610-5': 'Κόστος κεφαλαίου', 'ch_610-6': 'Κεφαλαιακή διάρθρωση και κεφάλαιο κίνησης',
+  dpTitle: 'Ανάλυση ROE κατά DuPont', dpNm: 'Καθαρό περιθώριο', dpAt: 'Κυκλοφοριακή ταχύτητα ενεργητικού', dpEm: 'Πολλαπλασιαστής ιδίων κεφαλαίων', dpRoe: 'ROE',
+  dpNote: function (drv, up) { return 'Ο παράγοντας που άλλαξε περισσότερο το ROE έναντι πέρσι είναι: ' + drv + ' (' + (up ? 'αύξησε το ROE' : 'μείωσε το ROE') + ').'; },
+  optFields: 'Προαιρετικά: για ROCE, gearing και επενδυτικούς δείκτες',
+  f_ncl: 'Μακροπρόθεσμες υποχρεώσεις', f_debt: 'Τοκοφόρος δανεισμός', f_da: 'Αποσβέσεις', f_shares: 'Αριθμός μετοχών', f_price: 'Τιμή μετοχής (€)',
+  g_dup: 'DuPont', g_inv: 'Επενδυτικοί δείκτες',
+  r_roce: 'Απόδοση απασχολούμενων κεφαλαίων (ROCE)', r_gear: 'Δανειακή μόχλευση (gearing)', r_at: 'Κυκλοφοριακή ταχύτητα ενεργητικού', r_em: 'Πολλαπλασιαστής ιδίων κεφαλαίων', r_eps: 'Κέρδη ανά μετοχή (EPS)', r_pe: 'P/E', r_pb: 'P/B', r_evx: 'EV / EBITDA',
+  a_dup: 'DuPont', kRoce: 'ROCE',
+  nDup: function (roe, nm, at, em, drv, up) { return 'ROE ' + roe + ' = καθαρό περιθώριο ' + nm + ' × κυκλοφοριακή ταχύτητα ' + at + ' × πολλαπλασιαστής ιδίων κεφαλαίων ' + em + '.' + (drv ? ' Κύριος οδηγός της μεταβολής έναντι πέρσι: ' + drv + ' (' + (up ? 'αύξησε το ROE' : 'μείωσε το ROE') + ').' : ''); },
   budNames: ['Πωλήσεις', 'Λοιπά έσοδα', 'Κόστος πωλήσεων', 'Μισθοδοσία', 'Ενοίκια και κοινόχρηστα', 'Μάρκετινγκ', 'IT και λογισμικό', 'Λοιπά λειτουργικά'],
   months: ['Ιαν', 'Φεβ', 'Μαρ', 'Απρ', 'Μαΐ', 'Ιουν', 'Ιουλ', 'Αυγ', 'Σεπ', 'Οκτ', 'Νοε', 'Δεκ']
 },
@@ -933,12 +1022,359 @@ en: {
   f_rev: 'Revenue', f_cogs: 'Cost of sales', f_opex: 'Operating expenses', f_int: 'Interest expense', f_np: 'Net profit', f_cash: 'Cash', f_ar: 'Trade receivables', f_inv: 'Inventory', f_ca: 'Current assets', f_ta: 'Total assets', f_ap: 'Trade payables', f_cl: 'Current liabilities', f_tl: 'Total liabilities', f_eq: 'Equity', f_re: 'Retained earnings', f_ocf: 'Operating cash flow',
   g_liq: 'Liquidity', g_prof: 'Profitability', g_lev: 'Leverage', g_wc: 'Working capital', g_cf: 'Cash flow',
   r_cur: 'Current ratio', r_quick: 'Quick ratio', r_cashr: 'Cash ratio', r_gm: 'Gross margin', r_ebitm: 'Operating margin (EBIT)', r_nm: 'Net margin', r_roe: 'Return on equity (ROE)', r_roa: 'Return on assets (ROA)', r_de: 'Liabilities / Equity', r_icr: 'Interest cover', r_dso: 'Days sales outstanding (DSO)', r_dio: 'Days inventory outstanding (DIO)', r_dpo: 'Days payables outstanding (DPO)', r_ccc: 'Cash conversion cycle', r_ocfnp: 'Earnings quality (OCF / Net profit)',
+  tabKit: 'Toolkit', kitTitle: 'Finance calculators', kitLead: 'Calculators for the AED600 and AED610 formulas, pre-filled with the course examples. Change any value and the results update at once.',
+  kitCalc: 'Calculators', kitLib: 'Formula library ({0})', kitSearch: 'Search a formula or concept', allCh: 'All chapters', resetEx: 'Example', resetAria: 'Restore example values: {0}', listHint: 'values separated by ;',
+  noRes: 'No results for this search.', libName: 'Name', libFormula: 'Formula', libShows: 'What it shows', libCh: 'Ch.', libOpen: 'Calculator', openCalc: 'Open',
+  years: 'years', daysU: 'days', fShort: 'F', aShort: 'A', over: 'Over-absorbed', under: 'Under-absorbed',
+  dk_make: 'Make', dk_buy: 'Buy', dk_accept: 'Accept', dk_reject: 'Reject', dk_keep: 'Keep', dk_close: 'Close', dk_aFirst: 'A first', dk_bFirst: 'B first', dk_premium: 'Premium', dk_discount: 'Discount', dk_par: 'Par', dk_absorption: 'Absorption costing', dk_marginal: 'Marginal costing', dk_same: 'Same profit', dk_elastic: 'Elastic demand', dk_inelastic: 'Inelastic demand', dk_unit: 'Unit elastic', dk_addsValue: 'Adds value', dk_destroys: 'Destroys value', notRec: 'Not recovered',
+  'ch_600-1': 'Financial accounting', 'ch_600-2': 'Ratio analysis', 'ch_600-3': 'Cost behaviour and CVP', 'ch_600-4': 'Costing', 'ch_600-5': 'Budgeting and variances', 'ch_600-6': 'Relevant costing and decisions', 'ch_610-1': 'Time value of money', 'ch_610-2': 'Capital budgeting', 'ch_610-3': 'Risk, return and CAPM', 'ch_610-4': 'Valuation of bonds and shares', 'ch_610-5': 'Cost of capital', 'ch_610-6': 'Capital structure and working capital',
+  dpTitle: 'DuPont analysis of ROE', dpNm: 'Net margin', dpAt: 'Asset turnover', dpEm: 'Equity multiplier', dpRoe: 'ROE',
+  dpNote: function (drv, up) { return 'The factor that moved ROE most versus last year is ' + drv + ' (' + (up ? 'raised ROE' : 'lowered ROE') + ').'; },
+  optFields: 'Optional: for ROCE, gearing and investor ratios',
+  f_ncl: 'Non-current liabilities', f_debt: 'Interest-bearing debt', f_da: 'Depreciation and amortisation', f_shares: 'Number of shares', f_price: 'Share price (€)',
+  g_dup: 'DuPont', g_inv: 'Investor ratios',
+  r_roce: 'Return on capital employed (ROCE)', r_gear: 'Gearing (debt / (debt + equity))', r_at: 'Asset turnover', r_em: 'Equity multiplier', r_eps: 'Earnings per share (EPS)', r_pe: 'P/E', r_pb: 'P/B', r_evx: 'EV / EBITDA',
+  a_dup: 'DuPont', kRoce: 'ROCE',
+  nDup: function (roe, nm, at, em, drv, up) { return 'ROE of ' + roe + ' = net margin ' + nm + ' × asset turnover ' + at + ' × equity multiplier ' + em + '.' + (drv ? ' Main driver of the change versus last year: ' + drv + ' (' + (up ? 'raised ROE' : 'lowered ROE') + ').' : ''); },
   budNames: ['Sales', 'Other income', 'Cost of sales', 'Payroll', 'Rent and service charges', 'Marketing', 'IT and software', 'Other operating costs'],
   months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
   acct: { 'Αναλώσιμα': 'Consumables', 'Υπηρεσίες IT': 'IT services', 'Μεταφορικά': 'Freight', 'Συντήρηση κτιρίων': 'Building maintenance', 'Ενέργεια': 'Energy', 'Μάρκετινγκ': 'Marketing', 'Τροφοδοσία': 'Catering', 'Νομικά': 'Legal', 'Ασφάλιστρα': 'Insurance', 'Καθαριότητα': 'Cleaning' }
 }
 };
-var GROUP_KEY = { 'Ρευστότητα': 'g_liq', 'Κερδοφορία': 'g_prof', 'Μόχλευση': 'g_lev', 'Κεφάλαιο κίνησης': 'g_wc', 'Ταμειακές ροές': 'g_cf' };
+var GROUP_KEY = { 'Ρευστότητα': 'g_liq', 'Κερδοφορία': 'g_prof', 'Μόχλευση': 'g_lev', 'Κεφάλαιο κίνησης': 'g_wc', 'Ταμειακές ροές': 'g_cf', 'DuPont': 'g_dup', 'Επενδυτικοί': 'g_inv' };
+
+</script>
+<script>
+/* ===== Ledgerlens toolkit: AED600 / AED610 calculators (pure functions, no DOM) ===== */
+var KIT = (function () {
+  'use strict';
+  function L(el, en) { return [el, en]; }
+  function sum(a) { return a.reduce(function (s, x) { return s + x; }, 0); }
+  function npv(r, cf) { return cf.reduce(function (s, c, t) { return s + c / Math.pow(1 + r, t); }, 0); }
+  function irr(cf) {
+    var lo = -0.99, hi = 10, flo = npv(lo, cf), fhi = npv(hi, cf);
+    if (!isFinite(flo) || !isFinite(fhi) || flo * fhi > 0) return NaN;
+    for (var i = 0; i < 200; i++) { var mid = (lo + hi) / 2, fm = npv(mid, cf); if (Math.abs(fm) < 1e-9) return mid; if (flo * fm < 0) { hi = mid; } else { lo = mid; flo = fm; } }
+    return (lo + hi) / 2;
+  }
+  function payback(flows) {
+    var cum = 0;
+    for (var t = 0; t < flows.length; t++) {
+      var prev = cum; cum += flows[t];
+      if (t > 0 && prev < 0 && cum >= 0) return (t - 1) + (-prev) / flows[t];
+    }
+    return NaN;
+  }
+  function regress(x, y) {
+    var n = Math.min(x.length, y.length); if (n < 2) return { b: NaN, a: NaN, r2: NaN };
+    x = x.slice(0, n); y = y.slice(0, n);
+    var mx = sum(x) / n, my = sum(y) / n, sxx = 0, sxy = 0, syy = 0;
+    for (var i = 0; i < n; i++) { sxx += (x[i] - mx) * (x[i] - mx); sxy += (x[i] - mx) * (y[i] - my); syy += (y[i] - my) * (y[i] - my); }
+    var b = sxy / sxx; return { b: b, a: my - b * mx, r2: sxy * sxy / (sxx * syy) };
+  }
+  function bondPrice(face, c, y, n) { var cp = face * c; return cp * (1 - Math.pow(1 + y, -n)) / y + face / Math.pow(1 + y, n); }
+  function macaulay(face, c, y, n) {
+    var cp = face * c, pv = 0, tpv = 0;
+    for (var t = 1; t <= Math.round(n); t++) { var cf = cp + (t === Math.round(n) ? face : 0), d = cf / Math.pow(1 + y, t); pv += d; tpv += t * d; }
+    return tpv / pv;
+  }
+  function ytm(price, face, c, n) {
+    var lo = -0.5, hi = 2;
+    for (var i = 0; i < 200; i++) { var mid = (lo + hi) / 2; if (bondPrice(face, c, mid, n) > price) lo = mid; else hi = mid; }
+    return (lo + hi) / 2;
+  }
+  var sign = function (v) { return v >= 0 ? 'F' : 'A'; };
+
+  // inputs: [key, label, default, unit]  unit: '€' money, '%' percent (entered as 5 for 5%), 'n' plain number, 'list' / 'list%' values separated by ;
+  // outputs: [label, fn(values), type, formula]  type: eur | pct | x | n | n4 | n6 | int | yrs | days | dec | var | oa
+  var CALCS = [
+    { id: 'accEq', ch: '600-1', title: L('Λογιστική εξίσωση και κίνηση ιδίων κεφαλαίων', 'Accounting equation and equity movement'),
+      inputs: [['A', L('Ενεργητικό', 'Assets'), 250000, '€'], ['Li', L('Υποχρεώσεις', 'Liabilities'), 90000, '€'], ['P', L('Κέρδος χρήσης', 'Profit for the year'), 30000, '€'], ['N', L('Νέο κεφάλαιο', 'New capital'), 0, '€'], ['D', L('Μερίσματα', 'Dividends'), 10000, '€']],
+      outputs: [[L('Αρχικά ίδια κεφάλαια', 'Opening equity'), function (v) { return v.A - v.Li; }, 'eur', L('Ενεργητικό − Υποχρεώσεις', 'Assets − Liabilities')],
+        [L('Τελικά ίδια κεφάλαια', 'Closing equity'), function (v) { return v.A - v.Li + v.P + v.N - v.D; }, 'eur', L('Αρχικά ΙΚ + Κέρδος + Νέο κεφάλαιο − Μερίσματα', 'Opening equity + Profit + New capital − Dividends')]],
+      note: L('Άσκηση 1: τελικά ίδια κεφάλαια 180.000 €.', 'Exercise 1: closing equity €180,000.') },
+    { id: 'dep', ch: '600-1', title: L('Αποσβέσεις', 'Depreciation'),
+      inputs: [['C', L('Κόστος παγίου', 'Asset cost'), 50000, '€'], ['R', L('Υπολειμματική αξία', 'Residual value'), 5000, '€'], ['n', L('Ωφέλιμη ζωή (έτη)', 'Useful life (years)'), 5, 'n'], ['rb', L('Συντελεστής φθίνουσας', 'Reducing balance rate'), 25, '%'], ['nbv', L('Αρχική αναπόσβεστη αξία', 'Opening NBV'), 50000, '€']],
+      outputs: [[L('Σταθερή απόσβεση ανά έτος', 'Straight-line charge per year'), function (v) { return (v.C - v.R) / v.n; }, 'eur', L('(Κόστος − Υπολειμματική) / Ωφέλιμη ζωή', '(Cost − Residual) / Useful life')],
+        [L('Φθίνουσα απόσβεση', 'Reducing balance charge'), function (v) { return v.rb * v.nbv; }, 'eur', L('% × Αναπόσβεστη αξία', '% × NBV')],
+        [L('Τελική αναπόσβεστη αξία', 'Closing NBV'), function (v) { return v.nbv - v.rb * v.nbv; }, 'eur', L('Αναπόσβεστη − Απόσβεση', 'NBV − Depreciation')]] },
+    { id: 'nrv', ch: '600-1', title: L('Αποτίμηση αποθεμάτων (ΔΛΠ 2)', 'Inventory valuation (IAS 2)'),
+      inputs: [['c', L('Κόστος αποθέματος', 'Inventory cost'), 10000, '€'], ['sp', L('Αναμενόμενη τιμή πώλησης', 'Expected selling price'), 11000, '€'], ['cc', L('Κόστος ολοκλήρωσης και πώλησης', 'Costs to complete and sell'), 2000, '€']],
+      outputs: [[L('Καθαρή ρευστοποιήσιμη αξία', 'Net realisable value'), function (v) { return v.sp - v.cc; }, 'eur', L('Τιμή πώλησης − Κόστος ολοκλήρωσης/πώλησης', 'Selling price − Costs to complete and sell')],
+        [L('Αξία στον ισολογισμό', 'Carrying amount'), function (v) { return Math.min(v.c, v.sp - v.cc); }, 'eur', L('Χαμηλότερη από κόστος και ΚΡΑ', 'Lower of cost and NRV')],
+        [L('Απομείωση', 'Write-down'), function (v) { return Math.max(0, v.c - (v.sp - v.cc)); }, 'eur', L('Κόστος − ΚΡΑ, αν θετικό', 'Cost − NRV, if positive')]] },
+    { id: 'wc', ch: '600-1', title: L('Κεφάλαιο κίνησης και ρευστότητα', 'Working capital and liquidity'),
+      inputs: [['ca', L('Κυκλοφορούν ενεργητικό', 'Current assets'), 120000, '€'], ['inv', L('εκ των οποίων αποθέματα', 'of which inventory'), 40000, '€'], ['cl', L('Βραχυπρόθεσμες υποχρεώσεις', 'Current liabilities'), 80000, '€']],
+      outputs: [[L('Κεφάλαιο κίνησης', 'Working capital'), function (v) { return v.ca - v.cl; }, 'eur', L('Κυκλοφορούν − Βραχυπρόθεσμες', 'Current assets − Current liabilities')],
+        [L('Τρέχουσα ρευστότητα', 'Current ratio'), function (v) { return v.ca / v.cl; }, 'x', L('Κυκλοφορούν / Βραχυπρόθεσμες', 'CA / CL')],
+        [L('Άμεση ρευστότητα', 'Quick ratio'), function (v) { return (v.ca - v.inv) / v.cl; }, 'x', L('(Κυκλοφορούν − Αποθέματα) / Βραχυπρόθεσμες', '(CA − Inventory) / CL')]],
+      note: L('Άσκηση 2: 1,5 και 1,0.', 'Exercise 2: 1.5 and 1.0.') },
+    { id: 'ratios', ch: '600-2', title: L('Ανάλυση δεικτών και DuPont', 'Ratio analysis and DuPont'),
+      inputs: [['rev', L('Κύκλος εργασιών', 'Revenue'), 1000000, '€'], ['cos', L('Κόστος πωλήσεων', 'Cost of sales'), 600000, '€'], ['ebit', 'EBIT', 150000, '€'], ['int', L('Τόκοι', 'Interest'), 20000, '€'], ['np', L('Καθαρό κέρδος', 'Net profit'), 100000, '€'], ['po', L('Κέρδος για κοινούς μετόχους', 'Profit to ordinary shareholders'), 95000, '€'], ['eq', L('Ίδια κεφάλαια', 'Equity'), 800000, '€'], ['ncl', L('Μακροπρόθεσμες υποχρεώσεις', 'Non-current liabilities'), 300000, '€'], ['debt', L('Δανεισμός', 'Debt'), 300000, '€'], ['ta', L('Σύνολο ενεργητικού', 'Total assets'), 1350000, '€'], ['ca', L('Κυκλοφορούν ενεργητικό', 'Current assets'), 400000, '€'], ['cl', L('Βραχυπρόθεσμες υποχρεώσεις', 'Current liabilities'), 250000, '€'], ['inv', L('Αποθέματα', 'Inventory'), 120000, '€'], ['rec', L('Χρεώστες', 'Receivables'), 150000, '€'], ['pay', L('Πιστωτές', 'Payables'), 90000, '€'], ['sh', L('Αριθμός μετοχών', 'No. of shares'), 500000, 'n'], ['px', L('Τιμή μετοχής', 'Share price'), 2.5, '€']],
+      outputs: [[L('Μικτό περιθώριο', 'Gross margin'), function (v) { return (v.rev - v.cos) / v.rev; }, 'pct', L('Μικτό κέρδος / Πωλήσεις', 'Gross profit / Revenue')],
+        [L('Λειτουργικό περιθώριο (EBIT)', 'Operating (EBIT) margin'), function (v) { return v.ebit / v.rev; }, 'pct', 'EBIT / Revenue'],
+        ['ROCE', function (v) { return v.ebit / (v.eq + v.ncl); }, 'pct', L('EBIT / (Ίδια κεφάλαια + Μακροπρόθεσμες)', 'EBIT / (Equity + Non-current liabilities)')],
+        ['ROE', function (v) { return v.np / v.eq; }, 'pct', L('Καθαρό κέρδος / Ίδια κεφάλαια', 'Net profit / Equity')],
+        [L('Τρέχουσα ρευστότητα', 'Current ratio'), function (v) { return v.ca / v.cl; }, 'x', 'CA / CL'],
+        [L('Άμεση ρευστότητα', 'Quick (acid test)'), function (v) { return (v.ca - v.inv) / v.cl; }, 'x', '(CA − Inventory) / CL'],
+        [L('Μέρες είσπραξης', 'Receivable days'), function (v) { return v.rec / v.rev * 365; }, 'days', L('Χρεώστες / Πωλήσεις × 365', 'Receivables / Revenue × 365')],
+        [L('Μέρες πληρωμής', 'Payable days'), function (v) { return v.pay / v.cos * 365; }, 'days', L('Πιστωτές / Κόστος πωλήσεων × 365', 'Payables / Cost of sales × 365')],
+        [L('Μέρες αποθέματος', 'Inventory days'), function (v) { return v.inv / v.cos * 365; }, 'days', L('Αποθέματα / Κόστος πωλήσεων × 365', 'Inventory / Cost of sales × 365')],
+        [L('Ταμειακός λειτουργικός κύκλος', 'Cash operating cycle'), function (v) { return (v.inv / v.cos + v.rec / v.rev - v.pay / v.cos) * 365; }, 'days', L('Αποθ. + Είσπρ. − Πληρωμής (μέρες)', 'Inventory + Receivable − Payable days')],
+        ['Gearing', function (v) { return v.debt / (v.debt + v.eq); }, 'pct', L('Δανεισμός / (Δανεισμός + Ίδια κεφάλαια)', 'Debt / (Debt + Equity)')],
+        [L('Κάλυψη τόκων', 'Interest cover'), function (v) { return v.ebit / v.int; }, 'x', 'EBIT / Interest'],
+        ['EPS', function (v) { return v.po / v.sh; }, 'eur', L('Κέρδος κοινών μετόχων / Αρ. μετοχών', 'Profit to ordinary shareholders / No. of shares')],
+        ['P/E', function (v) { return v.px / (v.po / v.sh); }, 'x', L('Τιμή μετοχής / EPS', 'Share price / EPS')],
+        [L('DuPont: καθαρό περιθώριο', 'DuPont: net margin'), function (v) { return v.np / v.rev; }, 'pct', L('Καθαρό κέρδος / Πωλήσεις', 'Net profit / Revenue')],
+        [L('DuPont: κυκλοφοριακή ταχύτητα', 'DuPont: asset turnover'), function (v) { return v.rev / v.ta; }, 'x', L('Πωλήσεις / Σύνολο ενεργητικού', 'Revenue / Total assets')],
+        [L('DuPont: πολλαπλασιαστής ΙΚ', 'DuPont: equity multiplier'), function (v) { return v.ta / v.eq; }, 'x', L('Σύνολο ενεργητικού / Ίδια κεφάλαια', 'Total assets / Equity')],
+        [L('ROE κατά DuPont', 'ROE (DuPont)'), function (v) { return (v.np / v.rev) * (v.rev / v.ta) * (v.ta / v.eq); }, 'pct', L('Περιθώριο × Ταχύτητα × Πολλαπλασιαστής', 'Margin × Turnover × Multiplier')]],
+      note: L('Για τα μεγέθη ενός πελάτη με δύο χρήσεις, χρησιμοποίησε την ενότητα «Οικονομική υγεία».', 'For a client\'s figures across two years, use the Financial health section.') },
+    { id: 'cvp', ch: '600-3', title: L('Ανάλυση κόστους-όγκου-κέρδους (CVP)', 'Cost-volume-profit (CVP)'),
+      inputs: [['p', L('Τιμή πώλησης ανά μονάδα', 'Selling price per unit'), 12, '€'], ['vc', L('Μεταβλητό κόστος ανά μονάδα', 'Variable cost per unit'), 4, '€'], ['F', L('Σταθερά κόστη', 'Fixed costs'), 4000, '€'], ['TP', L('Στόχος κέρδους', 'Target profit'), 2000, '€'], ['BU', L('Προϋπολογισμένες πωλήσεις (μονάδες)', 'Budgeted sales (units)'), 800, 'n']],
+      outputs: [[L('Συνεισφορά ανά μονάδα', 'Contribution per unit'), function (v) { return v.p - v.vc; }, 'eur', L('Τιμή − Μεταβλητό κόστος', 'Price − Variable cost')],
+        [L('Λόγος C/S', 'C/S ratio'), function (v) { return (v.p - v.vc) / v.p; }, 'pct', L('Συνεισφορά / Πωλήσεις', 'Contribution / Sales')],
+        [L('Νεκρό σημείο (μονάδες)', 'Break-even (units)'), function (v) { return v.F / (v.p - v.vc); }, 'n', L('Σταθερά / Συνεισφορά ανά μονάδα', 'Fixed costs / Contribution per unit')],
+        [L('Νεκρό σημείο (€)', 'Break-even (€)'), function (v) { return v.F / ((v.p - v.vc) / v.p); }, 'eur', L('Σταθερά / Λόγος C/S', 'Fixed costs / C/S ratio')],
+        [L('Μονάδες για στόχο κέρδους', 'Units for target profit'), function (v) { return (v.F + v.TP) / (v.p - v.vc); }, 'n', L('(Σταθερά + Στόχος) / Συνεισφορά ανά μονάδα', '(Fixed costs + Target profit) / Contribution per unit')],
+        [L('Περιθώριο ασφαλείας', 'Margin of safety'), function (v) { return (v.BU - v.F / (v.p - v.vc)) / v.BU; }, 'pct', L('(Προϋπ. − Νεκρό σημείο) / Προϋπ.', '(Budgeted − Break-even) / Budgeted')],
+        [L('Κέρδος στις προϋπολογισμένες πωλήσεις', 'Profit at budgeted sales'), function (v) { return v.BU * (v.p - v.vc) - v.F; }, 'eur', L('Μονάδες × Συνεισφορά − Σταθερά', 'Units × Contribution − Fixed costs')]],
+      note: L('Παράδειγμα πίτσας: νεκρό σημείο 500 μονάδες / 6.000 €, 750 μονάδες για τον στόχο, περιθώριο ασφαλείας 37,5%.', 'Pizza example: break-even 500 units / €6,000, 750 units for target, margin of safety 37.5%.') },
+    { id: 'highlow', ch: '600-3', title: L('Ημιμεταβλητό κόστος: μέθοδος high-low', 'Semi-variable cost: high-low method'),
+      inputs: [['uh', L('Μονάδες στη μέγιστη δραστηριότητα', 'Units at highest activity'), 1200, 'n'], ['ch', L('Κόστος στη μέγιστη', 'Cost at highest'), 8000, '€'], ['ul', L('Μονάδες στην ελάχιστη', 'Units at lowest activity'), 400, 'n'], ['cl', L('Κόστος στην ελάχιστη', 'Cost at lowest'), 4000, '€'], ['fx', L('Προβλεπόμενη δραστηριότητα', 'Forecast activity'), 1000, 'n']],
+      outputs: [[L('Μεταβλητό κόστος ανά μονάδα (b)', 'Variable cost per unit (b)'), function (v) { return (v.ch - v.cl) / (v.uh - v.ul); }, 'eur', L('(Κόστος high − low) / (Μονάδες high − low)', '(Cost high − Cost low) / (Units high − Units low)')],
+        [L('Σταθερό κόστος (a)', 'Fixed cost (a)'), function (v) { return v.ch - (v.ch - v.cl) / (v.uh - v.ul) * v.uh; }, 'eur', L('Κόστος − b × Μονάδες', 'Total cost − b × Units')],
+        [L('Προβλεπόμενο συνολικό κόστος', 'Forecast total cost'), function (v) { var b = (v.ch - v.cl) / (v.uh - v.ul); return v.ch - b * v.uh + b * v.fx; }, 'eur', 'y = a + b·x']] },
+    { id: 'regr', ch: '600-3', title: L('Ημιμεταβλητό κόστος: γραμμική παλινδρόμηση', 'Semi-variable cost: linear regression'),
+      inputs: [['x', L('Μονάδες ανά μήνα', 'Units per month'), '400; 600; 800; 900; 1000; 1200', 'list'], ['y', L('Κόστος ανά μήνα', 'Cost per month'), '4000; 5100; 5900; 6600; 7100; 8000', 'list']],
+      outputs: [[L('b: μεταβλητό κόστος ανά μονάδα', 'b: variable cost per unit'), function (v) { return regress(v.x, v.y).b; }, 'eur', 'SLOPE(cost, units)'],
+        [L('a: σταθερό κόστος', 'a: fixed cost'), function (v) { return regress(v.x, v.y).a; }, 'eur', 'INTERCEPT(cost, units)'],
+        ['R²', function (v) { return regress(v.x, v.y).r2; }, 'n4', L('Κοντά στο 1 = καλή προσαρμογή', 'Close to 1 = good fit')]],
+      note: L('Ισοδύναμο του R: lm(cost ~ units).', 'Equivalent to R: lm(cost ~ units).') },
+    { id: 'absorb', ch: '600-4', title: L('Πλήρης vs οριακή κοστολόγηση', 'Absorption vs marginal costing'),
+      inputs: [['pr', L('Παραγωγή (μονάδες)', 'Production (units)'), 1000, 'n'], ['sa', L('Πωλήσεις (μονάδες)', 'Sales (units)'), 800, 'n'], ['foh', L('Σταθερά γενικά ανά μονάδα', 'Fixed overhead per unit'), 10, '€']],
+      outputs: [[L('Μεταβολή αποθέματος (μονάδες)', 'Change in inventory (units)'), function (v) { return v.pr - v.sa; }, 'n', L('Παραγωγή − Πωλήσεις', 'Production − Sales')],
+        [L('Δ κέρδους (πλήρης − οριακή)', 'Δ profit (absorption − marginal)'), function (v) { return (v.pr - v.sa) * v.foh; }, 'eur', L('Δ αποθέματος × Σταθερά γενικά ανά μονάδα', 'Δ inventory × Fixed overhead per unit')],
+        [L('Μεγαλύτερο κέρδος', 'Higher profit'), function (v) { var d = v.pr - v.sa; return d > 0 ? ['absorption', 'info'] : d < 0 ? ['marginal', 'info'] : ['same', 'info']; }, 'dec', L('Παραγωγή > πωλήσεις → πλήρης', 'Production > sales → absorption')]],
+      note: L('Άσκηση 4: η πλήρης δίνει 2.000 € περισσότερο.', 'Exercise 4: absorption is €2,000 higher.') },
+    { id: 'oar', ch: '600-4', title: L('Συντελεστής απορρόφησης γενικών (OAR)', 'Overhead absorption rate (OAR)'),
+      inputs: [['bo', L('Προϋπολογισμένα γενικά', 'Budgeted overheads'), 100000, '€'], ['ba', L('Προϋπολογισμένη δραστηριότητα (ώρες)', 'Budgeted activity (hours)'), 20000, 'n'], ['aa', L('Πραγματική δραστηριότητα (ώρες)', 'Actual activity (hours)'), 21000, 'n'], ['ao', L('Πραγματικά γενικά', 'Actual overheads'), 103000, '€']],
+      outputs: [['OAR', function (v) { return v.bo / v.ba; }, 'eur', L('Προϋπ. γενικά / Προϋπ. δραστηριότητα', 'Budgeted overheads / Budgeted activity')],
+        [L('Απορροφημένα γενικά', 'Overheads absorbed'), function (v) { return v.bo / v.ba * v.aa; }, 'eur', L('OAR × Πραγματική δραστηριότητα', 'OAR × Actual activity')],
+        [L('Υπερ/(υπο)απορρόφηση', 'Over/(under) absorption'), function (v) { return v.bo / v.ba * v.aa - v.ao; }, 'oa', L('Απορροφημένα − Πραγματικά', 'Absorbed − Actual')]] },
+    { id: 'abc', ch: '600-4', title: L('Κοστολόγηση βάσει δραστηριοτήτων (ABC)', 'Activity-based costing (ABC)'),
+      inputs: [['pool', L('Κόστος δεξαμενής', 'Cost pool'), 30000, '€'], ['dr', L('Σύνολο οδηγών κόστους', 'Total cost drivers'), 60, 'n'], ['use', L('Οδηγοί που καταναλώνει το προϊόν', 'Drivers used by product'), 20, 'n']],
+      outputs: [[L('Κόστος ανά οδηγό', 'Cost per driver'), function (v) { return v.pool / v.dr; }, 'eur', L('Δεξαμενή / Σύνολο οδηγών', 'Cost pool / Total drivers')],
+        [L('Χρέωση στο προϊόν', 'Charge to product'), function (v) { return v.pool / v.dr * v.use; }, 'eur', L('Κόστος ανά οδηγό × Οδηγοί', 'Cost per driver × Drivers consumed')]],
+      note: L('Παράδειγμα: setups 30.000 € / 60 = 500 € ανά setup.', 'Example: setups €30,000 / 60 = €500 per setup.') },
+    { id: 'target', ch: '600-4', title: L('Κόστος-στόχος', 'Target costing'),
+      inputs: [['mp', L('Τιμή αγοράς', 'Market price'), 100, '€'], ['dp', L('Επιθυμητό κέρδος ανά μονάδα', 'Desired profit per unit'), 25, '€']],
+      outputs: [[L('Κόστος-στόχος', 'Target cost'), function (v) { return v.mp - v.dp; }, 'eur', L('Τιμή αγοράς − Επιθυμητό κέρδος', 'Market price − Desired profit')]] },
+    { id: 'prodBudget', ch: '600-5', title: L('Προϋπολογισμός παραγωγής', 'Production budget'),
+      inputs: [['s', L('Προϋπολογισμένες πωλήσεις (μονάδες)', 'Budgeted sales (units)'), 10000, 'n'], ['cl', L('Τελικό απόθεμα (μονάδες)', 'Closing inventory (units)'), 1500, 'n'], ['op', L('Αρχικό απόθεμα (μονάδες)', 'Opening inventory (units)'), 1000, 'n']],
+      outputs: [[L('Παραγωγή (μονάδες)', 'Production (units)'), function (v) { return v.s + v.cl - v.op; }, 'n', L('Πωλήσεις + Τελικό − Αρχικό απόθεμα', 'Sales + Closing inventory − Opening inventory')]] },
+    { id: 'material', ch: '600-5', title: L('Αποκλίσεις υλικών', 'Material variances'),
+      inputs: [['sk', L('Πρότυπα κιλά ανά μονάδα', 'Standard kg per unit'), 2, 'n'], ['sp', L('Πρότυπη τιμή ανά κιλό (SP)', 'Standard price per kg (SP)'), 5, '€'], ['u', L('Μονάδες που παρήχθησαν', 'Units produced'), 500, 'n'], ['aq', L('Πραγματικά κιλά (AQ)', 'Actual kg (AQ)'), 1100, 'n'], ['ap', L('Πραγματική τιμή ανά κιλό (AP)', 'Actual price per kg (AP)'), 4.8, '€']],
+      outputs: [[L('Πρότυπη ποσότητα (SQ)', 'Standard quantity (SQ)'), function (v) { return v.sk * v.u; }, 'n', L('Πρότυπα κιλά × Παραγωγή', 'Std kg per unit × Output')],
+        [L('Απόκλιση τιμής', 'Price variance'), function (v) { return (v.sp - v.ap) * v.aq; }, 'var', '(SP − AP) × AQ'],
+        [L('Απόκλιση χρήσης', 'Usage variance'), function (v) { return (v.sk * v.u - v.aq) * v.sp; }, 'var', '(SQ − AQ) × SP'],
+        [L('Συνολική απόκλιση υλικών', 'Total material variance'), function (v) { return (v.sp - v.ap) * v.aq + (v.sk * v.u - v.aq) * v.sp; }, 'var', L('Τιμής + Χρήσης', 'Price + Usage')]],
+      note: L('Άσκηση 5: τιμής 220 € F, χρήσης 500 € A, σύνολο 280 € A.', 'Exercise 5: price €220 F, usage €500 A, total €280 A.') },
+    { id: 'labour', ch: '600-5', title: L('Αποκλίσεις εργασίας', 'Labour variances'),
+      inputs: [['sr', L('Πρότυπη αμοιβή ανά ώρα (SR)', 'Standard rate per hour (SR)'), 15, '€'], ['shu', L('Πρότυπες ώρες ανά μονάδα', 'Standard hours per unit'), 0.5, 'n'], ['u', L('Μονάδες που παρήχθησαν', 'Units produced'), 500, 'n'], ['ah', L('Πραγματικές ώρες (AH)', 'Actual hours (AH)'), 260, 'n'], ['ar', L('Πραγματική αμοιβή ανά ώρα (AR)', 'Actual rate per hour (AR)'), 16, '€']],
+      outputs: [[L('Πρότυπες ώρες (SH)', 'Standard hours (SH)'), function (v) { return v.shu * v.u; }, 'n', L('Πρότυπες ώρες × Παραγωγή', 'Std hours per unit × Output')],
+        [L('Απόκλιση αμοιβής', 'Rate variance'), function (v) { return (v.sr - v.ar) * v.ah; }, 'var', '(SR − AR) × AH'],
+        [L('Απόκλιση αποδοτικότητας', 'Efficiency variance'), function (v) { return (v.shu * v.u - v.ah) * v.sr; }, 'var', '(SH − AH) × SR'],
+        [L('Συνολική απόκλιση εργασίας', 'Total labour variance'), function (v) { return (v.sr - v.ar) * v.ah + (v.shu * v.u - v.ah) * v.sr; }, 'var', L('Αμοιβής + Αποδοτικότητας', 'Rate + Efficiency')]] },
+    { id: 'salesVar', ch: '600-5', title: L('Αποκλίσεις πωλήσεων', 'Sales variances'),
+      inputs: [['ap', L('Πραγματική τιμή πώλησης', 'Actual selling price'), 48, '€'], ['sp', L('Πρότυπη τιμή πώλησης', 'Standard selling price'), 50, '€'], ['au', L('Πραγματικές μονάδες', 'Actual units sold'), 5200, 'n'], ['bu', L('Προϋπολογισμένες μονάδες', 'Budgeted units'), 5000, 'n'], ['sc', L('Πρότυπη συνεισφορά ανά μονάδα', 'Standard contribution per unit'), 20, '€']],
+      outputs: [[L('Απόκλιση τιμής πωλήσεων', 'Sales price variance'), function (v) { return (v.ap - v.sp) * v.au; }, 'var', '(AP − SP) × Actual units'],
+        [L('Απόκλιση όγκου (οριακή)', 'Sales volume variance (marginal)'), function (v) { return (v.au - v.bu) * v.sc; }, 'var', L('(Πραγμ. − Προϋπ. μονάδες) × Πρότυπη συνεισφορά', '(Actual − Budget units) × Std contribution')]] },
+    { id: 'roiri', ch: '600-5', title: L('ROI και υπολειμματικό εισόδημα', 'ROI and residual income'),
+      inputs: [['p', L('Κέρδος τμήματος', 'Divisional profit'), 120000, '€'], ['i', L('Επένδυση (απασχολούμενα κεφάλαια)', 'Investment (capital employed)'), 800000, '€'], ['k', L('Κόστος κεφαλαίου', 'Cost of capital'), 12, '%']],
+      outputs: [['ROI', function (v) { return v.p / v.i; }, 'pct', L('Κέρδος / Επένδυση', 'Profit / Investment')],
+        [L('Υπολειμματικό εισόδημα (RI)', 'Residual income (RI)'), function (v) { return v.p - v.i * v.k; }, 'eur', L('Κέρδος − Επένδυση × Κόστος κεφαλαίου', 'Profit − Investment × Cost of capital')],
+        [L('Αξιολόγηση', 'Assessment'), function (v) { return v.p - v.i * v.k > 0 ? ['addsValue', 'good'] : ['destroys', 'bad']; }, 'dec', 'RI > 0']] },
+    { id: 'transfer', ch: '600-5', title: L('Τιμές μεταβίβασης', 'Transfer pricing'),
+      inputs: [['vc', L('Μεταβλητό κόστος ανά μονάδα', 'Variable cost per unit'), 30, '€'], ['oc', L('Κόστος ευκαιρίας ανά μονάδα', 'Opportunity cost per unit'), 0, '€'], ['mp', L('Εξωτερική τιμή αγοράς', 'External market price'), 45, '€']],
+      outputs: [[L('Ελάχιστη τιμή μεταβίβασης', 'Minimum transfer price'), function (v) { return v.vc + v.oc; }, 'eur', L('Μεταβλητό + Κόστος ευκαιρίας', 'Variable cost + Opportunity cost')],
+        [L('Μέγιστη τιμή μεταβίβασης', 'Maximum transfer price'), function (v) { return v.mp; }, 'eur', L('Τιμή αγοράς', 'Market price')]] },
+    { id: 'makebuy', ch: '600-6', title: L('Παραγωγή ή αγορά', 'Make or buy'),
+      inputs: [['vc', L('Μεταβλητό κόστος παραγωγής', 'Variable cost to make'), 10, '€'], ['af', L('Επιμερισμένο σταθερό ανά μονάδα', 'Allocated fixed cost per unit'), 6, '€'], ['avf', L('Αποφεύξιμο σταθερό ανά μονάδα', 'Avoidable fixed cost per unit'), 0, '€'], ['sp', L('Τιμή προμηθευτή', 'Supplier price'), 13, '€']],
+      outputs: [[L('Πλήρες κόστος (όχι σχετικό)', 'Full cost (not relevant)'), function (v) { return v.vc + v.af; }, 'eur', L('Μεταβλητό + Επιμερισμένο σταθερό', 'Variable + Allocated fixed')],
+        [L('Σχετικό κόστος παραγωγής', 'Relevant cost of making'), function (v) { return v.vc + v.avf; }, 'eur', L('Μεταβλητό + Αποφεύξιμο σταθερό', 'Variable + Avoidable fixed')],
+        [L('Απόφαση', 'Decision'), function (v) { return v.vc + v.avf < v.sp ? ['make', 'good'] : ['buy', 'good']; }, 'dec', L('Παραγωγή αν σχετικό κόστος < τιμή αγοράς', 'Make if relevant cost < purchase price')],
+        [L('Εξοικονόμηση ανά μονάδα', 'Saving per unit'), function (v) { return Math.abs(v.sp - v.vc - v.avf); }, 'eur', '|Supplier price − Relevant cost|']] },
+    { id: 'special', ch: '600-6', title: L('Ειδική παραγγελία', 'Special order'),
+      inputs: [['p', L('Προσφερόμενη τιμή ανά μονάδα', 'Price offered per unit'), 22, '€'], ['vc', L('Μεταβλητό κόστος ανά μονάδα', 'Variable cost per unit'), 18, '€'], ['oc', L('Κόστος ευκαιρίας ανά μονάδα', 'Opportunity cost per unit'), 0, '€']],
+      outputs: [[L('Ελάχιστη αποδεκτή τιμή', 'Minimum acceptable price'), function (v) { return v.vc + v.oc; }, 'eur', L('Μεταβλητό + Κόστος ευκαιρίας', 'Variable cost + Opportunity cost')],
+        [L('Απόφαση', 'Decision'), function (v) { return v.p > v.vc + v.oc ? ['accept', 'good'] : ['reject', 'bad']; }, 'dec', L('Αποδοχή αν τιμή > ελάχιστη', 'Accept if price > minimum')]],
+      note: L('Κόστος ευκαιρίας 0 όταν υπάρχει αδρανής δυναμικότητα.', 'Opportunity cost is 0 when there is spare capacity.') },
+    { id: 'closeDiv', ch: '600-6', title: L('Κλείσιμο τμήματος', 'Closing a division'),
+      inputs: [['c', L('Συνεισφορά τμήματος', 'Division contribution'), 80000, '€'], ['af', L('Αποφεύξιμα σταθερά', 'Avoidable fixed costs'), 50000, '€'], ['al', L('Επιμερισμένα γενικά κεντρικών', 'Allocated head-office overheads'), 45000, '€']],
+      outputs: [[L('Λογιστικό αποτέλεσμα μετά τον επιμερισμό', 'Reported profit after allocation'), function (v) { return v.c - v.af - v.al; }, 'eur', L('Συνεισφορά − Αποφεύξιμα − Επιμερισμένα', 'Contribution − Avoidable − Allocated')],
+        [L('Συνεισφορά μετά τα αποφεύξιμα', 'Contribution after avoidable costs'), function (v) { return v.c - v.af; }, 'eur', L('Συνεισφορά − Αποφεύξιμα σταθερά', 'Contribution − Avoidable fixed costs')],
+        [L('Απόφαση', 'Decision'), function (v) { return v.c - v.af > 0 ? ['keep', 'good'] : ['close', 'bad']; }, 'dec', L('Διατήρηση αν > 0', 'Keep if > 0')]] },
+    { id: 'limiting', ch: '600-6', title: L('Περιοριστικός παράγοντας', 'Limiting factor'),
+      inputs: [['ca', L('Προϊόν A: συνεισφορά ανά μονάδα', 'Product A: contribution per unit'), 30, '€'], ['ha', L('Προϊόν A: ώρες μηχανής ανά μονάδα', 'Product A: machine hours per unit'), 3, 'n'], ['cb', L('Προϊόν B: συνεισφορά ανά μονάδα', 'Product B: contribution per unit'), 24, '€'], ['hb', L('Προϊόν B: ώρες μηχανής ανά μονάδα', 'Product B: machine hours per unit'), 2, 'n']],
+      outputs: [[L('A: συνεισφορά ανά ώρα', 'A: contribution per hour'), function (v) { return v.ca / v.ha; }, 'eur', L('Συνεισφορά / Πόρος ανά μονάδα', 'Contribution / Scarce resource per unit')],
+        [L('B: συνεισφορά ανά ώρα', 'B: contribution per hour'), function (v) { return v.cb / v.hb; }, 'eur', L('Συνεισφορά / Πόρος ανά μονάδα', 'Contribution / Scarce resource per unit')],
+        [L('Προτεραιότητα', 'Priority'), function (v) { return v.cb / v.hb > v.ca / v.ha ? ['bFirst', 'info'] : ['aFirst', 'info']; }, 'dec', L('Κατάταξη ανά περιοριστικό παράγοντα', 'Rank by contribution per limiting factor')]],
+      note: L('Άσκηση 6: A 10 €, B 12 €, πρώτα το B.', 'Exercise 6: A €10, B €12, B first.') },
+    { id: 'pricing', ch: '600-6', title: L('Τιμολόγηση και ελαστικότητα', 'Pricing and elasticity'),
+      inputs: [['fc', L('Πλήρες κόστος ανά μονάδα', 'Full cost per unit'), 40, '€'], ['mu', L('Περιθώριο κέρδους (mark-up)', 'Mark-up'), 25, '%'], ['q0', L('Ποσότητα πριν', 'Quantity before'), 1000, 'n'], ['q1', L('Ποσότητα μετά', 'Quantity after'), 900, 'n'], ['p0', L('Τιμή πριν', 'Price before'), 50, '€'], ['p1', L('Τιμή μετά', 'Price after'), 55, '€']],
+      outputs: [[L('Τιμή κόστους-συν', 'Cost-plus price'), function (v) { return v.fc * (1 + v.mu); }, 'eur', L('Κόστος × (1 + Mark-up)', 'Cost × (1 + Mark-up)')],
+        [L('Ελαστικότητα ζήτησης (PED)', 'Price elasticity (PED)'), function (v) { return ((v.q1 - v.q0) / v.q0) / ((v.p1 - v.p0) / v.p0); }, 'n', L('% μεταβολή ποσότητας / % μεταβολή τιμής', '% change in quantity / % change in price')],
+        [L('Χαρακτηρισμός', 'Classification'), function (v) { var e = Math.abs(((v.q1 - v.q0) / v.q0) / ((v.p1 - v.p0) / v.p0)); return e > 1 ? ['elastic', 'info'] : e < 1 ? ['inelastic', 'info'] : ['unit', 'info']; }, 'dec', '|PED| > 1']] },
+    { id: 'fv', ch: '610-1', title: L('Μελλοντική αξία', 'Future value'),
+      inputs: [['pv', L('Παρούσα αξία', 'Present value'), 10000, '€'], ['r', L('Επιτόκιο', 'Interest rate'), 5, '%'], ['n', L('Περίοδοι', 'Periods'), 3, 'n']],
+      outputs: [[L('Μελλοντική αξία', 'Future value'), function (v) { return v.pv * Math.pow(1 + v.r, v.n); }, 'eur', 'PV × (1 + r)^n'],
+        [L('Συντελεστής ανατοκισμού', 'Compound factor'), function (v) { return Math.pow(1 + v.r, v.n); }, 'n4', '(1 + r)^n']],
+      note: L('Άσκηση 1: 11.576,25 €. Excel: FV(rate, nper, 0, −PV).', 'Exercise 1: €11,576.25. Excel: FV(rate, nper, 0, −PV).') },
+    { id: 'pv', ch: '610-1', title: L('Παρούσα αξία', 'Present value'),
+      inputs: [['fv', L('Μελλοντική αξία', 'Future value'), 11576.25, '€'], ['r', L('Επιτόκιο', 'Interest rate'), 5, '%'], ['n', L('Περίοδοι', 'Periods'), 3, 'n']],
+      outputs: [[L('Παρούσα αξία', 'Present value'), function (v) { return v.fv / Math.pow(1 + v.r, v.n); }, 'eur', 'FV / (1 + r)^n'],
+        [L('Συντελεστής προεξόφλησης', 'Discount factor'), function (v) { return 1 / Math.pow(1 + v.r, v.n); }, 'n4', '1 / (1 + r)^n']] },
+    { id: 'annuity', ch: '610-1', title: L('Ράντα (annuity)', 'Annuity'),
+      inputs: [['c', L('Πληρωμή ανά περίοδο', 'Payment per period'), 1000, '€'], ['r', L('Επιτόκιο', 'Interest rate'), 8, '%'], ['n', L('Περίοδοι', 'Periods'), 5, 'n']],
+      outputs: [[L('Συντελεστής ράντας', 'Annuity factor'), function (v) { return (1 - Math.pow(1 + v.r, -v.n)) / v.r; }, 'n4', '[1 − (1 + r)^−n] / r'],
+        [L('Παρούσα αξία ράντας', 'PV of annuity'), function (v) { return v.c * (1 - Math.pow(1 + v.r, -v.n)) / v.r; }, 'eur', 'C × [1 − (1 + r)^−n] / r']],
+      note: L('Άσκηση 2: 3.992,71 €. Excel: PV(rate, nper, −C).', 'Exercise 2: €3,992.71. Excel: PV(rate, nper, −C).') },
+    { id: 'loan', ch: '610-1', title: L('Δόση δανείου', 'Loan repayment'),
+      inputs: [['L', L('Ποσό δανείου', 'Loan amount'), 200000, '€'], ['apr', L('Ετήσιο επιτόκιο (APR)', 'Annual rate (APR)'), 5, '%'], ['y', L('Έτη', 'Years'), 20, 'n'], ['m', L('Πληρωμές ανά έτος', 'Payments per year'), 12, 'n']],
+      outputs: [[L('Δόση ανά περίοδο', 'Payment per period'), function (v) { var i = v.apr / v.m, n = v.y * v.m; return v.L * i / (1 - Math.pow(1 + i, -n)); }, 'eur', 'PV × i / [1 − (1 + i)^−n]'],
+        [L('Αριθμός δόσεων', 'Number of payments'), function (v) { return v.y * v.m; }, 'int', L('Έτη × m', 'Years × m')],
+        [L('Σύνολο πληρωμών', 'Total paid'), function (v) { var i = v.apr / v.m, n = v.y * v.m; return n * v.L * i / (1 - Math.pow(1 + i, -n)); }, 'eur', L('Δόση × Αριθμός δόσεων', 'Payment × Number of payments')],
+        [L('Συνολικοί τόκοι', 'Total interest'), function (v) { var i = v.apr / v.m, n = v.y * v.m; return n * v.L * i / (1 - Math.pow(1 + i, -n)) - v.L; }, 'eur', L('Σύνολο πληρωμών − Δάνειο', 'Total paid − Loan')]],
+      note: L('Παράδειγμα: 1.319,91 € τον μήνα. Excel: PMT(rate, nper, −PV).', 'Example: €1,319.91 a month. Excel: PMT(rate, nper, −PV).') },
+    { id: 'perp', ch: '610-1', title: L('Διηνεκείς ράντες', 'Perpetuities'),
+      inputs: [['c', L('Ετήσια ταμειακή ροή', 'Annual cash flow'), 1000, '€'], ['r', L('Προεξοφλητικό επιτόκιο', 'Discount rate'), 8, '%'], ['g', L('Ρυθμός αύξησης', 'Growth rate'), 3, '%']],
+      outputs: [[L('ΠΑ διηνεκούς', 'PV of perpetuity'), function (v) { return v.c / v.r; }, 'eur', 'C / r'],
+        [L('ΠΑ αυξανόμενης διηνεκούς', 'PV of growing perpetuity'), function (v) { return v.r > v.g ? v.c / (v.r - v.g) : NaN; }, 'eur', L('C₁ / (r − g), με r > g', 'C₁ / (r − g), r > g')]] },
+    { id: 'ear', ch: '610-1', title: L('Πραγματικό επιτόκιο και Fisher', 'Effective rate and Fisher'),
+      inputs: [['apr', L('Ονομαστικό ετήσιο επιτόκιο (APR)', 'Nominal annual rate (APR)'), 5, '%'], ['m', L('Ανατοκισμοί ανά έτος', 'Compounding periods per year'), 12, 'n'], ['nom', L('Ονομαστικό επιτόκιο', 'Nominal rate'), 8, '%'], ['inf', L('Πληθωρισμός', 'Inflation'), 3, '%']],
+      outputs: [['EAR', function (v) { return Math.pow(1 + v.apr / v.m, v.m) - 1; }, 'pct', '(1 + APR / m)^m − 1'],
+        [L('Πραγματικό επιτόκιο (Fisher)', 'Real rate (exact Fisher)'), function (v) { return (1 + v.nom) / (1 + v.inf) - 1; }, 'pct', '(1 + nominal) / (1 + inflation) − 1'],
+        [L('Πραγματικό επιτόκιο (προσέγγιση)', 'Real rate (approximation)'), function (v) { return v.nom - v.inf; }, 'pct', L('Ονομαστικό − Πληθωρισμός', 'Nominal − Inflation')]] },
+    { id: 'capbud', ch: '610-2', title: L('Αξιολόγηση επένδυσης: NPV, IRR, payback', 'Investment appraisal: NPV, IRR, payback'),
+      inputs: [['r', L('Κόστος κεφαλαίου', 'Cost of capital'), 10, '%'], ['cf', L('Ταμειακές ροές έτους 0, 1, 2…', 'Cash flows, year 0, 1, 2…'), '-100000; 30000; 40000; 50000', 'list']],
+      outputs: [['NPV', function (v) { return npv(v.r, v.cf); }, 'eur', '−I₀ + Σ CFₜ / (1 + r)^t'],
+        [L('Απόφαση NPV', 'NPV decision'), function (v) { return npv(v.r, v.cf) > 0 ? ['accept', 'good'] : ['reject', 'bad']; }, 'dec', L('Αποδοχή αν NPV > 0', 'Accept if NPV > 0')],
+        ['IRR', function (v) { return irr(v.cf); }, 'pct', L('Επιτόκιο όπου NPV = 0', 'Rate at which NPV = 0')],
+        [L('Απόφαση IRR', 'IRR decision'), function (v) { var i = irr(v.cf); return isFinite(i) && i > v.r ? ['accept', 'good'] : ['reject', 'bad']; }, 'dec', L('Αποδοχή αν IRR > κόστος κεφαλαίου', 'Accept if IRR > cost of capital')],
+        [L('Δείκτης αποδοτικότητας (PI)', 'Profitability index'), function (v) { return (npv(v.r, v.cf) - v.cf[0]) / -v.cf[0]; }, 'n', L('ΠΑ εισροών / Αρχική επένδυση', 'PV of inflows / Initial investment')],
+        [L('Περίοδος αποπληρωμής', 'Payback'), function (v) { return payback(v.cf); }, 'yrs', L('Έτη ως την ανάκτηση του κεφαλαίου', 'Years until cumulative cash flow ≥ 0')],
+        [L('Προεξοφλημένη αποπληρωμή', 'Discounted payback'), function (v) { return payback(v.cf.map(function (c, t) { return c / Math.pow(1 + v.r, t); })); }, 'yrs', L('Ίδιο, με προεξοφλημένες ροές', 'Same, with discounted cash flows')]],
+      note: L('Άσκηση 3: NPV −2.103,68 €, IRR ≈ 8,9%, payback 2,6 έτη. Χώρισε τις ροές με ;', 'Exercise 3: NPV −€2,103.68, IRR ≈ 8.9%, payback 2.6 years. Separate flows with ;') },
+    { id: 'scen', ch: '610-3', title: L('Αναμενόμενη απόδοση και κίνδυνος', 'Expected return and risk'),
+      inputs: [['p', L('Πιθανότητες σεναρίων', 'Scenario probabilities'), '0.3; 0.5; 0.2', 'list'], ['R', L('Απόδοση ανά σενάριο (%)', 'Return per scenario (%)'), '15; 8; -5', 'list%']],
+      outputs: [['E(R)', function (v) { return sum(v.p.map(function (p, i) { return p * (v.R[i] || 0); })); }, 'pct', 'Σ pᵢ × Rᵢ'],
+        [L('Διακύμανση', 'Variance'), function (v) { var e = sum(v.p.map(function (p, i) { return p * (v.R[i] || 0); })); return sum(v.p.map(function (p, i) { return p * Math.pow((v.R[i] || 0) - e, 2); })); }, 'n6', 'Σ pᵢ × (Rᵢ − E(R))²'],
+        [L('Τυπική απόκλιση (σ)', 'Standard deviation (σ)'), function (v) { var e = sum(v.p.map(function (p, i) { return p * (v.R[i] || 0); })); return Math.sqrt(sum(v.p.map(function (p, i) { return p * Math.pow((v.R[i] || 0) - e, 2); }))); }, 'pct', '√σ²'],
+        [L('Άθροισμα πιθανοτήτων', 'Sum of probabilities'), function (v) { return sum(v.p); }, 'n', L('Πρέπει να είναι 1', 'Must equal 1')]] },
+    { id: 'hpr', ch: '610-3', title: L('Απόδοση περιόδου διακράτησης', 'Holding period return'),
+      inputs: [['p0', L('Τιμή αρχής (P₀)', 'Price at start (P₀)'), 20, '€'], ['p1', L('Τιμή τέλους (P₁)', 'Price at end (P₁)'), 22, '€'], ['d', L('Μέρισμα (D₁)', 'Dividend (D₁)'), 1, '€']],
+      outputs: [['HPR', function (v) { return (v.p1 - v.p0 + v.d) / v.p0; }, 'pct', '(P₁ − P₀ + D₁) / P₀']] },
+    { id: 'port', ch: '610-3', title: L('Χαρτοφυλάκιο δύο στοιχείων', 'Two-asset portfolio'),
+      inputs: [['w1', L('Βάρος στο A (w₁)', 'Weight in A (w₁)'), 60, '%'], ['r1', L('Απόδοση A', 'Return A'), 10, '%'], ['s1', L('Κίνδυνος A (σ₁)', 'Risk A (σ₁)'), 20, '%'], ['r2', L('Απόδοση B', 'Return B'), 6, '%'], ['s2', L('Κίνδυνος B (σ₂)', 'Risk B (σ₂)'), 10, '%'], ['rho', L('Συσχέτιση (ρ)', 'Correlation (ρ)'), 0.3, 'n']],
+      outputs: [['E(Rp)', function (v) { return v.w1 * v.r1 + (1 - v.w1) * v.r2; }, 'pct', 'w₁R₁ + w₂R₂'],
+        ['σp', function (v) { var w2 = 1 - v.w1; return Math.sqrt(v.w1 * v.w1 * v.s1 * v.s1 + w2 * w2 * v.s2 * v.s2 + 2 * v.w1 * w2 * v.s1 * v.s2 * v.rho); }, 'pct', '√(w₁²σ₁² + w₂²σ₂² + 2w₁w₂σ₁σ₂ρ)'],
+        [L('Σταθμισμένος μέσος κίνδυνος', 'Weighted average risk'), function (v) { return v.w1 * v.s1 + (1 - v.w1) * v.s2; }, 'pct', 'w₁σ₁ + w₂σ₂'],
+        [L('Όφελος διαφοροποίησης', 'Diversification benefit'), function (v) { var w2 = 1 - v.w1; return v.w1 * v.s1 + w2 * v.s2 - Math.sqrt(v.w1 * v.w1 * v.s1 * v.s1 + w2 * w2 * v.s2 * v.s2 + 2 * v.w1 * w2 * v.s1 * v.s2 * v.rho); }, 'pct', L('Σταθμ. μέσο σ − σp', 'Weighted average σ − σp')]],
+      note: L('Άσκηση 8: E(Rp) 8,4%, σp 13,74%.', 'Exercise 8: E(Rp) 8.4%, σp 13.74%.') },
+    { id: 'capm', ch: '610-3', title: 'CAPM',
+      inputs: [['rf', L('Επιτόκιο χωρίς κίνδυνο (Rf)', 'Risk-free rate (Rf)'), 3, '%'], ['rm', L('Αναμενόμενη απόδοση αγοράς', 'Expected market return'), 8, '%'], ['b', 'Beta (β)', 1.2, 'n']],
+      outputs: [[L('Ασφάλιστρο κινδύνου αγοράς', 'Market risk premium'), function (v) { return v.rm - v.rf; }, 'pct', 'E(Rm) − Rf'],
+        [L('Απαιτούμενη απόδοση', 'Required return'), function (v) { return v.rf + v.b * (v.rm - v.rf); }, 'pct', 'Rf + β × [E(Rm) − Rf]']],
+      note: L('Άσκηση 5: 9%.', 'Exercise 5: 9%.') },
+    { id: 'beta', ch: '610-3', title: L('Beta με παλινδρόμηση', 'Beta by regression'),
+      inputs: [['m', L('Αποδόσεις αγοράς (%)', 'Market returns (%)'), '2; -1; 3; 1.5; -2; 4', 'list%'], ['s', L('Αποδόσεις μετοχής (%)', 'Stock returns (%)'), '2.5; -1.5; 4; 1.5; -3; 5', 'list%']],
+      outputs: [['Beta', function (v) { return regress(v.m, v.s).b; }, 'n4', 'SLOPE(stock, market)'],
+        ['R²', function (v) { return regress(v.m, v.s).r2; }, 'n4', L('Μερίδιο συστηματικού κινδύνου', 'Share of risk that is systematic')]],
+      note: L('Ισοδύναμο του R: lm(stock_returns ~ market_returns).', 'Equivalent to R: lm(stock_returns ~ market_returns).') },
+    { id: 'bond', ch: '610-4', title: L('Τιμή και διάρκεια ομολόγου', 'Bond price and duration'),
+      inputs: [['F', L('Ονομαστική αξία', 'Face value'), 1000, '€'], ['c', L('Επιτόκιο κουπονιού', 'Coupon rate'), 6, '%'], ['y', L('Απόδοση αγοράς (YTM)', 'Market yield (YTM)'), 5, '%'], ['n', L('Έτη ως τη λήξη', 'Years to maturity'), 3, 'n']],
+      outputs: [[L('Ετήσιο κουπόνι', 'Annual coupon'), function (v) { return v.F * v.c; }, 'eur', L('Ονομαστική × Κουπόνι', 'Face value × Coupon rate')],
+        [L('Τιμή ομολόγου', 'Bond price'), function (v) { return bondPrice(v.F, v.c, v.y, v.n); }, 'eur', 'Σ Coupon / (1 + YTM)^t + Face / (1 + YTM)^n'],
+        [L('Θέση', 'Position'), function (v) { return v.c > v.y ? ['premium', 'info'] : v.c < v.y ? ['discount', 'info'] : ['par', 'info']; }, 'dec', L('Κουπόνι > YTM → υπέρ το άρτιο', 'Coupon > YTM → premium')],
+        [L('Διάρκεια Macaulay', 'Macaulay duration'), function (v) { return macaulay(v.F, v.c, v.y, v.n); }, 'yrs', 'Σ (t × PV) / Price'],
+        [L('Τροποποιημένη διάρκεια', 'Modified duration'), function (v) { return macaulay(v.F, v.c, v.y, v.n) / (1 + v.y); }, 'n', 'Macaulay / (1 + YTM)']],
+      note: L('Άσκηση 4: 1.027,23 €.', 'Exercise 4: €1,027.23.') },
+    { id: 'ytm', ch: '610-4', title: L('Απόδοση στη λήξη (YTM)', 'Yield to maturity'),
+      inputs: [['pr', L('Τιμή αγοράς ομολόγου', 'Market price of bond'), 1027.23, '€'], ['F', L('Ονομαστική αξία', 'Face value'), 1000, '€'], ['c', L('Επιτόκιο κουπονιού', 'Coupon rate'), 6, '%'], ['n', L('Έτη ως τη λήξη', 'Years to maturity'), 3, 'n']],
+      outputs: [['YTM', function (v) { return ytm(v.pr, v.F, v.c, v.n); }, 'pct', L('IRR του ομολόγου: RATE(n, κουπόνι, −τιμή, ονομαστική)', 'Bond IRR: RATE(n, coupon, −price, face)')]] },
+    { id: 'gordon', ch: '610-4', title: L('Μοντέλο Gordon (μερισματική προεξόφληση)', 'Gordon growth model'),
+      inputs: [['d0', L('Τελευταίο μέρισμα (D₀)', 'Last dividend (D₀)'), 2, '€'], ['g', L('Ρυθμός αύξησης μερίσματος', 'Dividend growth'), 5, '%'], ['re', L('Κόστος ιδίων κεφαλαίων', 'Cost of equity'), 9, '%']],
+      outputs: [[L('Επόμενο μέρισμα (D₁)', 'Next dividend (D₁)'), function (v) { return v.d0 * (1 + v.g); }, 'eur', 'D₀ × (1 + g)'],
+        [L('Αξία μετοχής (P₀)', 'Share value (P₀)'), function (v) { return v.re > v.g ? v.d0 * (1 + v.g) / (v.re - v.g) : NaN; }, 'eur', 'D₁ / (rₑ − g)']],
+      note: L('Άσκηση 6: 52,50 €.', 'Exercise 6: €52.50.') },
+    { id: 'costEq', ch: '610-4', title: L('Κόστος ιδίων κεφαλαίων (DGM)', 'Cost of equity (DGM)'),
+      inputs: [['p0', L('Τιμή μετοχής (P₀)', 'Share price (P₀)'), 52.5, '€'], ['d1', L('Επόμενο μέρισμα (D₁)', 'Next dividend (D₁)'), 2.1, '€'], ['g', L('Ρυθμός αύξησης', 'Growth'), 5, '%']],
+      outputs: [['rₑ', function (v) { return v.d1 / v.p0 + v.g; }, 'pct', 'D₁ / P₀ + g']] },
+    { id: 'multiples', ch: '610-4', title: L('Σχετική αποτίμηση (πολλαπλασιαστές)', 'Relative valuation (multiples)'),
+      inputs: [['px', L('Τιμή μετοχής', 'Share price'), 10, '€'], ['eps', 'EPS', 0.8, '€'], ['sh', L('Αριθμός μετοχών', 'Number of shares'), 1000000, 'n'], ['debt', L('Δανεισμός', 'Debt'), 3000000, '€'], ['cash', L('Ταμειακά διαθέσιμα', 'Cash'), 500000, '€'], ['ebitda', 'EBITDA', 1500000, '€'], ['bv', L('Λογιστική αξία ιδίων κεφαλαίων', 'Book value of equity'), 6000000, '€']],
+      outputs: [[L('Κεφαλαιοποίηση', 'Market capitalisation'), function (v) { return v.px * v.sh; }, 'eur', L('Τιμή × Μετοχές', 'Share price × Shares')],
+        [L('Αξία επιχείρησης (EV)', 'Enterprise value (EV)'), function (v) { return v.px * v.sh + v.debt - v.cash; }, 'eur', L('Κεφαλαιοποίηση + Δανεισμός − Ταμείο', 'Market cap + Debt − Cash')],
+        ['P/E', function (v) { return v.px / v.eps; }, 'x', 'Price / EPS'],
+        ['EV/EBITDA', function (v) { return (v.px * v.sh + v.debt - v.cash) / v.ebitda; }, 'x', 'EV / EBITDA'],
+        ['P/B', function (v) { return v.px * v.sh / v.bv; }, 'x', L('Κεφαλαιοποίηση / Λογιστική αξία', 'Market cap / Book equity')]] },
+    { id: 'wacc', ch: '610-5', title: L('Μέσο σταθμικό κόστος κεφαλαίου (WACC)', 'Weighted average cost of capital (WACC)'),
+      inputs: [['E', L('Αγοραία αξία ιδίων κεφαλαίων (E)', 'Market value of equity (E)'), 60, '€'], ['D', L('Αγοραία αξία δανεισμού (D)', 'Market value of debt (D)'), 40, '€'], ['re', L('Κόστος ιδίων κεφαλαίων (rₑ)', 'Cost of equity (rₑ)'), 12, '%'], ['rd', L('Κόστος δανεισμού προ φόρων (r_d)', 'Pre-tax cost of debt (r_d)'), 6, '%'], ['T', L('Φορολογικός συντελεστής', 'Tax rate'), 15, '%']],
+      outputs: [['E/V', function (v) { return v.E / (v.E + v.D); }, 'pct', 'E / (E + D)'],
+        ['D/V', function (v) { return v.D / (v.E + v.D); }, 'pct', 'D / (E + D)'],
+        [L('Κόστος δανεισμού μετά φόρων', 'After-tax cost of debt'), function (v) { return v.rd * (1 - v.T); }, 'pct', 'r_d × (1 − T)'],
+        ['WACC', function (v) { return v.E / (v.E + v.D) * v.re + v.D / (v.E + v.D) * v.rd * (1 - v.T); }, 'pct', '(E/V) × rₑ + (D/V) × r_d × (1 − T)']],
+      note: L('Άσκηση 7: 9,24%.', 'Exercise 7: 9.24%.') },
+    { id: 'mm', ch: '610-6', title: L('Φορολογική ασπίδα και MM με φόρους', 'Tax shield and MM with taxes'),
+      inputs: [['D', L('Δανεισμός', 'Debt'), 1000000, '€'], ['i', L('Επιτόκιο δανεισμού', 'Interest rate on debt'), 6, '%'], ['T', L('Φορολογικός συντελεστής', 'Tax rate'), 15, '%'], ['vu', L('Αξία χωρίς δανεισμό (V_U)', 'Unlevered value (V_U)'), 5000000, '€']],
+      outputs: [[L('Ετήσια φορολογική ασπίδα', 'Annual interest tax shield'), function (v) { return v.D * v.i * v.T; }, 'eur', L('Τόκοι × T', 'Interest × T')],
+        [L('ΠΑ φορολογικής ασπίδας', 'PV of tax shield'), function (v) { return v.T * v.D; }, 'eur', 'T × D'],
+        [L('Αξία με δανεισμό (V_L)', 'Levered value (V_L)'), function (v) { return v.vu + v.T * v.D; }, 'eur', 'V_U + T × D']] },
+    { id: 'ccc', ch: '610-6', title: L('Κύκλος μετατροπής μετρητών', 'Cash conversion cycle'),
+      inputs: [['rev', L('Πωλήσεις', 'Revenue'), 1000000, '€'], ['cos', L('Κόστος πωλήσεων', 'Cost of sales'), 600000, '€'], ['inv', L('Αποθέματα', 'Inventory'), 120000, '€'], ['rec', L('Χρεώστες', 'Receivables'), 150000, '€'], ['pay', L('Πιστωτές', 'Payables'), 90000, '€']],
+      outputs: [[L('Μέρες αποθέματος', 'Inventory days'), function (v) { return v.inv / v.cos * 365; }, 'days', 'Inventory / Cost of sales × 365'],
+        [L('Μέρες είσπραξης', 'Receivable days'), function (v) { return v.rec / v.rev * 365; }, 'days', 'Receivables / Revenue × 365'],
+        [L('Μέρες πληρωμής', 'Payable days'), function (v) { return v.pay / v.cos * 365; }, 'days', 'Payables / Cost of sales × 365'],
+        [L('Κύκλος μετατροπής μετρητών', 'Cash conversion cycle'), function (v) { return (v.inv / v.cos + v.rec / v.rev - v.pay / v.cos) * 365; }, 'days', L('Αποθέματος + Είσπραξης − Πληρωμής', 'Inventory + Receivable − Payable days')]] },
+    { id: 'eoq', ch: '610-6', title: L('Οικονομική ποσότητα παραγγελίας (EOQ)', 'Economic order quantity (EOQ)'),
+      inputs: [['d', L('Ετήσια ζήτηση (μονάδες)', 'Annual demand (units)'), 10000, 'n'], ['co', L('Κόστος ανά παραγγελία', 'Cost per order'), 50, '€'], ['ch', L('Κόστος διακράτησης ανά μονάδα/έτος', 'Holding cost per unit per year'), 2, '€']],
+      outputs: [['EOQ', function (v) { return Math.sqrt(2 * v.d * v.co / v.ch); }, 'n', '√(2 × D × Co / Ch)'],
+        [L('Παραγγελίες ανά έτος', 'Orders per year'), function (v) { return v.d / Math.sqrt(2 * v.d * v.co / v.ch); }, 'n', 'D / EOQ'],
+        [L('Συνολικό κόστος παραγγελίας και διακράτησης', 'Total ordering + holding cost'), function (v) { var q = Math.sqrt(2 * v.d * v.co / v.ch); return v.d / q * v.co + q / 2 * v.ch; }, 'eur', '(D/Q) × Co + (Q/2) × Ch']] }
+  ];
+
+  var CHAPTERS = [
+    ['600-1', L('Χρηματοοικονομική λογιστική', 'Financial accounting')], ['600-2', L('Ανάλυση δεικτών', 'Ratio analysis')], ['600-3', L('Συμπεριφορά κόστους και CVP', 'Cost behaviour and CVP')],
+    ['600-4', L('Κοστολόγηση', 'Costing')], ['600-5', L('Προϋπολογισμός και αποκλίσεις', 'Budgeting and variances')], ['600-6', L('Σχετικό κόστος και αποφάσεις', 'Relevant costing and decisions')],
+    ['610-1', L('Διαχρονική αξία του χρήματος', 'Time value of money')], ['610-2', L('Αξιολόγηση επενδύσεων', 'Capital budgeting')], ['610-3', L('Κίνδυνος, απόδοση και CAPM', 'Risk, return and CAPM')],
+    ['610-4', L('Αποτίμηση ομολόγων και μετοχών', 'Valuation of bonds and shares')], ['610-5', L('Κόστος κεφαλαίου', 'Cost of capital')], ['610-6', L('Κεφαλαιακή διάρθρωση και κεφάλαιο κίνησης', 'Capital structure and working capital')]
+  ];
+
+  function parseList(s, pct) {
+    return String(s == null ? '' : s).split(/[;\s]+|,\s+/).filter(function (x) { return x !== ''; }).map(function (x) { var n = parseFloat(x.replace(',', '.')); return pct ? n / 100 : n; }).filter(function (n) { return isFinite(n); });
+  }
+  function values(calc, raw) {
+    var v = {};
+    calc.inputs.forEach(function (inp) {
+      var k = inp[0], u = inp[3], r = raw && raw[k] !== undefined ? raw[k] : inp[2];
+      if (u === 'list') v[k] = parseList(r, false);
+      else if (u === 'list%') v[k] = parseList(r, true);
+      else { var n = typeof r === 'number' ? r : parseFloat(String(r).replace(',', '.')); v[k] = u === '%' ? n / 100 : n; }
+    });
+    return v;
+  }
+  function run(calc, raw) {
+    var v = values(calc, raw);
+    return calc.outputs.map(function (o) { var x; try { x = o[1](v); } catch (e) { x = NaN; } return x; });
+  }
+  return { CALCS: CALCS, CHAPTERS: CHAPTERS, run: run, parseList: parseList, npv: npv, irr: irr };
+})();
+
+
+</script>
+<script>
+/* AED600 / AED610 formula index: [no, chapter, name EN, name EL, formula, shows EN, shows EL, calculator] */
+var KIT_LIB = [[1, "600-1", "Accounting equation", "Λογιστική εξίσωση", "Assets = Liabilities + Equity", "Always holds", "Ισχύει πάντα", "accEq"], [2, "600-1", "Closing equity", "Τελικά ίδια κεφάλαια", "Opening equity + Profit + New capital − Dividends", "Equity movement", "Κίνηση ιδίων κεφαλαίων", "accEq"], [3, "600-1", "Double-entry check", "Έλεγχος διπλογραφίας", "Total debits = Total credits", "Every transaction", "Σε κάθε συναλλαγή", null], [4, "600-1", "Straight-line depreciation", "Σταθερή απόσβεση", "(Cost − Residual value) / Useful life", "Equal charge each year", "Ίση επιβάρυνση κάθε χρόνο", "dep"], [5, "600-1", "Reducing balance depreciation", "Φθίνουσα απόσβεση", "% × NBV", "Higher charge in early years", "Μεγαλύτερη επιβάρυνση τα πρώτα χρόνια", "dep"], [6, "600-1", "Net realisable value", "Καθαρή ρευστοποιήσιμη αξία", "Selling price − Costs to complete and sell", "IAS 2", "ΔΛΠ 2", "nrv"], [7, "600-1", "Inventory value", "Αξία αποθεμάτων", "Lower of cost and NRV", "IAS 2; FIFO or weighted average", "ΔΛΠ 2· FIFO ή μέσος σταθμικός", "nrv"], [8, "600-1", "Working capital", "Κεφάλαιο κίνησης", "Current assets − Current liabilities", "Short-term funding", "Βραχυπρόθεσμη χρηματοδότηση", "wc"], [9, "600-2", "Gross margin", "Μικτό περιθώριο", "Gross profit / Revenue", "Pricing power, cost of sales", "Τιμολογιακή δύναμη, κόστος πωλήσεων", "ratios"], [10, "600-2", "Operating (EBIT) margin", "Λειτουργικό περιθώριο (EBIT)", "EBIT / Revenue", "Control of operating costs", "Έλεγχος λειτουργικών εξόδων", "ratios"], [11, "600-2", "ROCE", "ROCE", "EBIT / (Equity + Non-current liabilities)", "Return on all capital employed", "Απόδοση όλων των απασχολούμενων κεφαλαίων", "ratios"], [12, "600-2", "ROE", "ROE", "Net profit / Equity", "Return to shareholders", "Απόδοση για τους μετόχους", "ratios"], [13, "600-2", "Current ratio", "Τρέχουσα ρευστότητα", "Current assets / Current liabilities", "Cover for short-term liabilities", "Κάλυψη βραχυπρόθεσμων υποχρεώσεων", "ratios"], [14, "600-2", "Quick (acid test)", "Άμεση ρευστότητα (acid test)", "(CA − Inventory) / CL", "Excludes hard-to-sell inventory", "Εξαιρεί τα δυσκολορευστοποίητα αποθέματα", "ratios"], [15, "600-2", "Receivable days", "Μέρες είσπραξης", "Receivables / Revenue × 365", "How fast we collect", "Πόσο γρήγορα εισπράττουμε", "ratios"], [16, "600-2", "Payable days", "Μέρες πληρωμής", "Payables / Cost of sales × 365", "How slowly we pay", "Πόσο αργά πληρώνουμε", "ratios"], [17, "600-2", "Inventory days", "Μέρες αποθέματος", "Inventory / Cost of sales × 365", "How long inventory sits", "Πόσο μένει το απόθεμα", "ratios"], [18, "600-2", "Gearing", "Δανειακή μόχλευση (gearing)", "Debt / (Debt + Equity)", "Financial risk", "Χρηματοοικονομικός κίνδυνος", "ratios"], [19, "600-2", "Interest cover", "Κάλυψη τόκων", "EBIT / Interest", "Ability to service debt", "Ικανότητα εξυπηρέτησης χρέους", "ratios"], [20, "600-2", "EPS", "Κέρδη ανά μετοχή (EPS)", "Profit to ordinary shareholders / No. of shares", "Earnings per share", "Κέρδη ανά μετοχή", "ratios"], [21, "600-2", "P/E", "P/E", "Share price / EPS", "What the market pays per €1 of earnings", "Τι πληρώνει η αγορά ανά €1 κερδών", "ratios"], [22, "600-2", "Cash operating cycle", "Ταμειακός λειτουργικός κύκλος", "Inventory days + Receivable days − Payable days", "Days cash is tied up in working capital", "Μέρες δέσμευσης μετρητών στο κεφάλαιο κίνησης", "ratios"], [23, "600-2", "Net profit margin", "Καθαρό περιθώριο", "Net profit / Revenue", "DuPont part 1: margin", "DuPont μέρος 1: περιθώριο", "ratios"], [24, "600-2", "Asset turnover", "Κυκλοφοριακή ταχύτητα ενεργητικού", "Revenue / Total assets", "DuPont part 2: asset efficiency", "DuPont μέρος 2: αποδοτικότητα ενεργητικού", "ratios"], [25, "600-2", "Equity multiplier", "Πολλαπλασιαστής ιδίων κεφαλαίων", "Total assets / Equity", "DuPont part 3: leverage", "DuPont μέρος 3: μόχλευση", "ratios"], [26, "600-2", "ROE (DuPont)", "ROE (DuPont)", "(NP / Revenue) × (Revenue / Total assets) × (Total assets / Equity)", "ROE broken into its 3 drivers", "Το ROE αναλυμένο στους 3 οδηγούς του", "ratios"], [27, "600-3", "Contribution per unit", "Συνεισφορά ανά μονάδα", "Price − Variable cost per unit", "Left to cover fixed costs & profit", "Μένει για σταθερά κόστη και κέρδος", "cvp"], [28, "600-3", "C/S ratio", "Λόγος C/S", "Contribution / Sales", "Contribution per €1 of sales", "Συνεισφορά ανά €1 πωλήσεων", "cvp"], [29, "600-3", "Break-even (units)", "Νεκρό σημείο (μονάδες)", "Fixed costs / Contribution per unit", "Sales level where profit = 0", "Πωλήσεις όπου κέρδος = 0", "cvp"], [30, "600-3", "Break-even (€)", "Νεκρό σημείο (€)", "Fixed costs / C/S ratio", "Sales value at profit = 0", "Αξία πωλήσεων όπου κέρδος = 0", "cvp"], [31, "600-3", "Units for target profit", "Μονάδες για στόχο κέρδους", "(Fixed costs + Target profit) / Contribution per unit", "Volume needed for a profit goal", "Όγκος για συγκεκριμένο στόχο κέρδους", "cvp"], [32, "600-3", "Margin of safety", "Περιθώριο ασφαλείας", "(Budgeted sales − Break-even sales) / Budgeted sales", "How far sales can fall before a loss", "Πόσο μπορούν να πέσουν οι πωλήσεις πριν τη ζημία", "cvp"], [33, "600-3", "High-low: variable cost (b)", "High-low: μεταβλητό κόστος (b)", "(Cost high − Cost low) / (Units high − Units low)", "Splits semi-variable cost", "Διαχωρίζει το ημιμεταβλητό κόστος", "highlow"], [34, "600-3", "High-low: fixed cost (a)", "High-low: σταθερό κόστος (a)", "Total cost − b × Units", "Fixed element", "Σταθερό στοιχείο", "highlow"], [35, "600-3", "Linear regression", "Γραμμική παλινδρόμηση", "y = a + bx  (a = fixed, b = variable per unit)", "R: lm(cost ~ units)", "R: lm(cost ~ units)", "regr"], [36, "600-4", "Δ Profit absorption vs marginal", "Δ κέρδους πλήρους vs οριακής", "Change in inventory (units) × Fixed overhead per unit", "Production > sales → absorption higher", "Παραγωγή > πωλήσεις → υψηλότερο στην πλήρη", "absorb"], [37, "600-4", "OAR", "Συντελεστής απορρόφησης (OAR)", "Budgeted overheads / Budgeted activity", "Rate to absorb overheads", "Συντελεστής απορρόφησης γενικών εξόδων", "oar"], [38, "600-4", "Over/(under) absorption", "Υπερ/(υπο)απορρόφηση", "Overheads absorbed − Actual overheads", "Over = add to profit; under = deduct", "Υπερ = προσθήκη στο κέρδος· υπο = αφαίρεση", "oar"], [39, "600-4", "ABC cost per driver", "ABC: κόστος ανά οδηγό", "Cost pool / Total drivers", "Activity-based overhead rate", "Συντελεστής γενικών βάσει δραστηριοτήτων", "abc"], [40, "600-4", "ABC charge to product", "ABC: χρέωση σε προϊόν", "Cost per driver × Drivers consumed", "Overhead per product", "Γενικά έξοδα ανά προϊόν", "abc"], [41, "600-4", "Target cost", "Κόστος-στόχος", "Market price − Desired profit", "Target costing", "Κοστολόγηση-στόχος", "target"], [42, "600-5", "Production budget", "Προϋπολογισμός παραγωγής", "Sales + Closing inventory − Opening inventory", "Units to produce", "Μονάδες προς παραγωγή", "prodBudget"], [43, "600-5", "Material price variance", "Απόκλιση τιμής υλικών", "(SP − AP) × AQ purchased", "Supplier change, discounts", "Αλλαγή προμηθευτή, εκπτώσεις", "material"], [44, "600-5", "Material usage variance", "Απόκλιση χρήσης υλικών", "(SQ − AQ) × SP", "Waste, material quality", "Φύρα, ποιότητα υλικών", "material"], [45, "600-5", "Labour rate variance", "Απόκλιση αμοιβής εργασίας", "(SR − AR) × AH paid", "Overtime, pay rises", "Υπερωρίες, αυξήσεις", "labour"], [46, "600-5", "Labour efficiency variance", "Απόκλιση αποδοτικότητας εργασίας", "(SH − AH worked) × SR", "Training, machinery", "Εκπαίδευση, μηχανήματα", "labour"], [47, "600-5", "Sales price variance", "Απόκλιση τιμής πωλήσεων", "(AP − SP) × Actual units sold", "Discounts, competition", "Εκπτώσεις, ανταγωνισμός", "salesVar"], [48, "600-5", "Sales volume variance (marginal)", "Απόκλιση όγκου πωλήσεων (οριακή)", "(Actual − Budget units) × Standard contribution", "Demand, marketing", "Ζήτηση, μάρκετινγκ", "salesVar"], [49, "600-5", "ROI", "ROI", "Profit / Investment", "Investment centre return", "Απόδοση κέντρου επένδυσης", "roiri"], [50, "600-5", "Residual Income", "Υπολειμματικό εισόδημα (RI)", "Profit − (Investment × Cost of capital)", "Avoids ROI dysfunctional behaviour", "Αποφεύγει τη δυσλειτουργική συμπεριφορά του ROI", "roiri"], [51, "600-5", "Minimum transfer price", "Ελάχιστη τιμή μεταβίβασης", "Variable cost + Opportunity cost", "Floor for selling division", "Κατώτατο όριο για το τμήμα που πουλά", "transfer"], [52, "600-5", "Maximum transfer price", "Μέγιστη τιμή μεταβίβασης", "Market price", "Ceiling for buying division", "Ανώτατο όριο για το τμήμα που αγοράζει", "transfer"], [53, "600-6", "Relevant cost of making", "Σχετικό κόστος παραγωγής", "Variable cost + Avoidable fixed costs", "Make if < purchase price", "Παραγωγή αν < τιμή αγοράς", "makebuy"], [54, "600-6", "Special order minimum price", "Ελάχιστη τιμή ειδικής παραγγελίας", "Variable cost + Opportunity cost", "Accept if price above", "Αποδοχή αν η τιμή είναι υψηλότερη", "special"], [55, "600-6", "Closing a division", "Κλείσιμο τμήματος", "Contribution − Avoidable fixed costs", "Keep if positive", "Διατήρηση αν θετικό", "closeDiv"], [56, "600-6", "Contribution per limiting factor", "Συνεισφορά ανά περιοριστικό παράγοντα", "Contribution per unit / Scarce resource per unit", "Rank products", "Κατάταξη προϊόντων", "limiting"], [57, "600-6", "Cost-plus price", "Τιμή κόστους-συν", "Cost × (1 + Mark-up %)", "Cost-based pricing", "Τιμολόγηση βάσει κόστους", "pricing"], [58, "600-6", "Price elasticity of demand", "Ελαστικότητα ζήτησης ως προς την τιμή", "% change in quantity / % change in price", "Price sensitivity", "Ευαισθησία στην τιμή", "pricing"], [59, "610-1", "Future value", "Μελλοντική αξία", "FV = PV × (1 + r)^n", "Value of money today at a future date", "Αξία των σημερινών χρημάτων σε μελλοντική ημερομηνία", "fv"], [60, "610-1", "Present value", "Παρούσα αξία", "PV = FV / (1 + r)^n", "Today’s value of a future amount", "Σημερινή αξία ενός μελλοντικού ποσού", "pv"], [61, "610-1", "Annuity", "Ράντα (annuity)", "PV = C × [1 − (1 + r)^−n] / r", "Equal payments over n periods", "Ίσες πληρωμές για n περιόδους", "annuity"], [62, "610-1", "Loan payment", "Δόση δανείου", "C = PV × r / [1 − (1 + r)^−n]", "Annuity solved for C (Excel PMT)", "Ράντα λυμένη ως προς C (Excel PMT)", "loan"], [63, "610-1", "Perpetuity", "Διηνεκής ράντα", "PV = C / r", "Payments forever", "Πληρωμές για πάντα", "perp"], [64, "610-1", "Growing perpetuity", "Αυξανόμενη διηνεκής ράντα", "PV = C₁ / (r − g), r > g", "Payments growing forever", "Πληρωμές που αυξάνονται για πάντα", "perp"], [65, "610-1", "Effective annual rate", "Πραγματικό ετήσιο επιτόκιο (EAR)", "EAR = (1 + APR / m)^m − 1", "True annual rate with compounding", "Πραγματικό ετήσιο επιτόκιο με ανατοκισμό", "ear"], [66, "610-1", "Fisher equation", "Εξίσωση Fisher", "(1 + nominal) = (1 + real) × (1 + inflation)", "Real vs nominal rates", "Πραγματικά vs ονομαστικά επιτόκια", "ear"], [67, "610-2", "NPV", "Καθαρή παρούσα αξία (NPV)", "−Initial investment + Σ CFₜ / (1 + r)^t", "Accept if NPV > 0", "Αποδοχή αν NPV > 0", "capbud"], [68, "610-2", "IRR", "Εσωτερικός βαθμός απόδοσης (IRR)", "Rate at which NPV = 0", "Accept if IRR > cost of capital", "Αποδοχή αν IRR > κόστος κεφαλαίου", "capbud"], [69, "610-2", "Payback", "Περίοδος αποπληρωμής", "Years until cumulative cash flow ≥ 0", "Accept if < target", "Αποδοχή αν < στόχου", "capbud"], [70, "610-2", "Discounted payback", "Προεξοφλημένη περίοδος αποπληρωμής", "Years until cumulative discounted CF ≥ 0", "Includes time value", "Λαμβάνει υπόψη τη διαχρονική αξία", "capbud"], [71, "610-2", "Profitability index", "Δείκτης αποδοτικότητας (PI)", "PV of inflows / Initial investment", "Accept if > 1; capital rationing", "Αποδοχή αν > 1· περιορισμός κεφαλαίων", "capbud"], [72, "610-3", "Expected return", "Αναμενόμενη απόδοση", "E(R) = Σ pᵢ × Rᵢ", "Probability-weighted average", "Μέσος όρος σταθμισμένος με πιθανότητες", "scen"], [73, "610-3", "Variance / Std deviation", "Διακύμανση / Τυπική απόκλιση", "σ² = Σ pᵢ × (Rᵢ − E(R))²;  σ = √σ²", "Total risk", "Συνολικός κίνδυνος", "scen"], [74, "610-3", "Holding period return", "Απόδοση περιόδου διακράτησης", "(P₁ − P₀ + D₁) / P₀", "Return over the holding period", "Απόδοση στην περίοδο διακράτησης", "hpr"], [75, "610-3", "Portfolio return", "Απόδοση χαρτοφυλακίου", "E(Rp) = w₁R₁ + w₂R₂", "Weighted average return", "Σταθμισμένη μέση απόδοση", "port"], [76, "610-3", "Portfolio risk", "Κίνδυνος χαρτοφυλακίου", "σp = √(w₁²σ₁² + w₂²σ₂² + 2w₁w₂σ₁σ₂ρ₁₂)", "Lower than average if ρ < 1", "Μικρότερος από τον μέσο όρο αν ρ < 1", "port"], [77, "610-3", "Market risk premium", "Ασφάλιστρο κινδύνου αγοράς", "E(Rm) − Rf", "Extra return of the market", "Επιπλέον απόδοση της αγοράς", "capm"], [78, "610-3", "CAPM", "CAPM", "E(Ri) = Rf + βi × [E(Rm) − Rf]", "Required return for systematic risk", "Απαιτούμενη απόδοση για συστηματικό κίνδυνο", "capm"], [79, "610-3", "Beta", "Beta", "Slope of stock returns on market returns", "Sensitivity to the market", "Ευαισθησία στην αγορά", "beta"], [80, "610-4", "Bond price", "Τιμή ομολόγου", "Σ Coupon / (1 + YTM)^t + Face value / (1 + YTM)^n", "Price falls when yield rises", "Η τιμή πέφτει όταν η απόδοση ανεβαίνει", "bond"], [81, "610-4", "Yield to maturity", "Απόδοση στη λήξη (YTM)", "Rate where PV of bond flows = price (bond IRR)", "Return if held to maturity", "Απόδοση αν διακρατηθεί ως τη λήξη", "ytm"], [82, "610-4", "Macaulay duration", "Διάρκεια Macaulay", "Σ (t × PV of CF) / Price", "Interest-rate sensitivity (standard formula)", "Ευαισθησία στα επιτόκια (τυπικός τύπος)", "bond"], [83, "610-4", "Modified duration", "Τροποποιημένη διάρκεια", "Macaulay duration / (1 + YTM)", "% price change per 1% rate change", "% μεταβολή τιμής ανά 1% μεταβολή επιτοκίου", "bond"], [84, "610-4", "Next dividend", "Επόμενο μέρισμα", "D₁ = D₀ × (1 + g)", "Gordon growth input", "Είσοδος του μοντέλου Gordon", "gordon"], [85, "610-4", "Gordon growth model", "Μοντέλο Gordon", "P₀ = D₁ / (rₑ − g)", "Share value", "Αξία μετοχής", "gordon"], [86, "610-4", "Cost of equity (DGM)", "Κόστος ιδίων κεφαλαίων (DGM)", "rₑ = D₁ / P₀ + g", "Model rearranged", "Το μοντέλο λυμένο ως προς rₑ", "costEq"], [87, "610-4", "Enterprise value", "Αξία επιχείρησης (EV)", "Market cap + Debt − Cash", "Value of the whole business", "Αξία ολόκληρης της επιχείρησης", "multiples"], [88, "610-4", "P/E, EV/EBITDA, P/B", "P/E, EV/EBITDA, P/B", "Price/EPS; EV/EBITDA; Market cap/Book equity", "Relative valuation vs peers", "Σχετική αποτίμηση έναντι ομοειδών", "multiples"], [89, "610-5", "After-tax cost of debt", "Κόστος δανεισμού μετά φόρων", "r_d × (1 − T)", "Interest is tax-deductible", "Οι τόκοι εκπίπτουν φορολογικά", "wacc"], [90, "610-5", "WACC", "WACC", "(E/V) × rₑ + (D/V) × r_d × (1 − T)", "Discount rate for same-risk projects", "Προεξοφλητικό επιτόκιο για έργα ίδιου κινδύνου", "wacc"], [91, "610-6", "Interest tax shield", "Φορολογική ασπίδα τόκων", "Interest × T", "Tax saving from debt", "Φορολογική εξοικονόμηση από τον δανεισμό", "mm"], [92, "610-6", "MM with taxes", "MM με φόρους", "V_L = V_U + T × D", "Debt adds value via tax shield", "Ο δανεισμός προσθέτει αξία μέσω της ασπίδας", "mm"], [93, "610-6", "Cash conversion cycle", "Κύκλος μετατροπής μετρητών", "Inventory days + Receivable days − Payable days", "Days cash tied up", "Μέρες δέσμευσης μετρητών", "ccc"], [94, "610-6", "EOQ", "EOQ", "√(2 × Annual demand × Order cost / Holding cost)", "Optimal order size (standard formula)", "Βέλτιστο μέγεθος παραγγελίας (τυπικός τύπος)", "eoq"]];
 
 </script>
 <script>
@@ -1002,7 +1438,11 @@ $('#client').value = t('defClient'); $('#period').value = t('defPeriod');
 try {
   var saved = JSON.parse(localStorage.getItem(STORE) || 'null');
   if (saved) {
-    if (saved.fin) S.fin = saved.fin; if (saved.budget) S.budget = saved.budget;
+    if (saved.fin) {
+      S.fin = saved.fin;
+      ['cy', 'py'].forEach(function (y) { if (S.fin[y] && S.fin[y].rev === LL.SAMPLE_FIN[y].rev) LL.FIN_FIELDS.forEach(function (f) { if (f[2] === true && S.fin[y][f[0]] === undefined) S.fin[y][f[0]] = LL.SAMPLE_FIN[y][f[0]]; }); });
+    }
+    if (saved.budget) S.budget = saved.budget;
     if (saved.client != null) $('#client').value = saved.client; if (saved.period != null) $('#period').value = saved.period;
     if (saved.thr != null) $('#thr').value = saved.thr;
   }
@@ -1020,8 +1460,9 @@ function compute() {
   R.conc = LL.concentration(S.rows);
   R.monthly = LL.monthly(S.rows);
   R.fc = LL.forecast(R.monthly, S.horizon);
-  var finOk = LL.FIN_FIELDS.every(function (f) { return filled(S.fin.cy[f[0]]); });
-  var pyOk = LL.FIN_FIELDS.every(function (f) { return filled(S.fin.py[f[0]]); });
+  var req = LL.FIN_FIELDS.filter(function (f) { return f[2] !== true; });
+  var finOk = req.every(function (f) { return filled(S.fin.cy[f[0]]); });
+  var pyOk = req.every(function (f) { return filled(S.fin.py[f[0]]); });
   R.finOk = finOk;
   R.ratios = finOk ? LL.ratios(S.fin.cy, pyOk ? S.fin.py : null) : [];
   R.z = finOk ? LL.altman(S.fin.cy) : null;
@@ -1126,14 +1567,35 @@ function renderData() {
 
 /* ---------- render: financial ---------- */
 function buildFinForm() {
-  $('#finBody').innerHTML = LL.FIN_FIELDS.map(function (f) {
+  var row = function (f) {
     var cy = S.fin.cy[f[0]], py = S.fin.py[f[0]], lab = t('f_' + f[0]);
     return '<tr><td>' + lab + '</td><td><input type="number" id="cy-' + f[0] + '" data-y="cy" data-k="' + f[0] + '" aria-label="' + esc(lab + ' · ' + t('thCY')) + '" value="' + (cy == null ? '' : cy) + '"></td><td><input type="number" id="py-' + f[0] + '" data-y="py" data-k="' + f[0] + '" aria-label="' + esc(lab + ' · ' + t('thPY')) + '" value="' + (py == null ? '' : py) + '"></td></tr>';
-  }).join('');
+  };
+  $('#finBody').innerHTML = LL.FIN_FIELDS.filter(function (f) { return f[2] !== true; }).map(row).join('') +
+    '<tr class="optrow"><td colspan="3">' + t('optFields') + '</td></tr>' +
+    LL.FIN_FIELDS.filter(function (f) { return f[2] === true; }).map(row).join('');
 }
-function fmtRatio(v, u) { return !isFinite(v) ? '–' : u === '%' ? pct(v) : u === 'd' ? nf0.format(v) + ' ' + t('daysShort') : dec(v) + 'x'; }
+function fmtRatio(v, u) { return !isFinite(v) ? '–' : u === '%' ? pct(v) : u === 'd' ? nf0.format(v) + ' ' + t('daysShort') : u === 'e' ? eur(v, true) : dec(v) + 'x'; }
+var DP = [['nm', 'dpNm'], ['at', 'dpAt'], ['em', 'dpEm']];
+function dupont() {
+  var g = function (id) { return R.ratios.filter(function (r) { return r.id === id; })[0]; };
+  var d = { nm: g('nm'), at: g('at'), em: g('em'), roe: g('roe'), driver: null, up: false };
+  if (isFinite(d.nm.py) && isFinite(d.at.py) && isFinite(d.em.py) && d.nm.py > 0 && d.nm.cy > 0) {
+    var best = 0;
+    DP.forEach(function (p) { var c = Math.log(d[p[0]].cy / d[p[0]].py); if (Math.abs(c) > Math.abs(best)) { best = c; d.driver = p[1]; d.up = c > 0; } });
+  }
+  return d;
+}
+function renderDupont() {
+  if (!R.finOk) { $('#dpEq').innerHTML = ''; $('#dpNote').textContent = ''; return; }
+  var d = dupont();
+  var term = function (lab, r, unit, cls) { return '<div class="dpterm' + (cls ? ' ' + cls : '') + '"><div class="l">' + lab + '</div><div class="v">' + fmtRatio(r.cy, unit) + '</div><div class="s">' + (isFinite(r.py) ? t('prior', fmtRatio(r.py, unit)) : '') + '</div></div>'; };
+  $('#dpEq').innerHTML = term(t('dpNm'), d.nm, '%') + '<span class="dpop">×</span>' + term(t('dpAt'), d.at, 'x') + '<span class="dpop">×</span>' + term(t('dpEm'), d.em, 'x') + '<span class="dpop">=</span>' + term(t('dpRoe'), d.roe, '%', 'res');
+  $('#dpNote').textContent = d.driver ? t('dpNote', t(d.driver).toLowerCase(), d.up) : '';
+}
 function renderFin() {
   $('#zt1').textContent = dec(1.1); $('#zt2').textContent = dec(2.6) + ' → ' + dec(5, 1) + '+';
+  renderDupont();
   if (!R.finOk) { $('#ratioBody').innerHTML = '<tr><td colspan="6" class="muted">' + t('finIncomplete') + '</td></tr>'; $('#zVal').textContent = '–'; $('#zChip').innerHTML = ''; $('#zPrev').textContent = ''; if (charts.cWC) { charts.cWC.destroy(); delete charts.cWC; } return; }
   var grp = '', html = '';
   R.ratios.forEach(function (r) {
@@ -1255,6 +1717,10 @@ function narrative() {
       out.recs.push(t('rDso', nf0.format(dso.py)));
     }
     if (oq.cy < 1 && isFinite(oq.py)) { add('cash', oq.rag, t('nOcf', pct(oq.cy, 0), pct(oq.py, 0))); out.recs.push(t('rOcf')); }
+    var dp = dupont();
+    add('dup', dp.roe.rag, t('nDup', pct(dp.roe.cy), pct(dp.nm.cy), dec(dp.at.cy) + 'x', dec(dp.em.cy) + 'x', dp.driver ? t(dp.driver).toLowerCase() : '', dp.up));
+    var roce = g('roce');
+    if (isFinite(roce.cy)) out.kpis.push({ l: t('kRoce'), v: pct(roce.cy), s: isFinite(roce.py) ? t('prior', pct(roce.py)) : '', lv: roce.rag });
     if (R.z.zone !== 'good') out.recs.push(t('rZ', dec(R.z.z)));
   }
   var V = R.var;
@@ -1341,9 +1807,97 @@ function showSlide(i) {
 function openDeck() { compute(); deck = slides(); $('#deck').hidden = false; showSlide(0); $('#nextS').focus(); }
 function closeDeck() { $('#deck').hidden = true; try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {} }
 
+/* ---------- toolkit ---------- */
+var KITSTORE = 'ledgerlens:kit';
+var K = { mode: 'calc', q: '', ch: '', vals: {} };
+try { var ks = JSON.parse(localStorage.getItem(KITSTORE) || 'null'); if (ks && ks.vals) K.vals = ks.vals; } catch (e) {}
+function kitPersist() { try { localStorage.setItem(KITSTORE, JSON.stringify({ vals: K.vals })); } catch (e) {} }
+var lx = function (x) { return Array.isArray(x) ? x[LANG === 'en' ? 1 : 0] : x; };
+var CALC_BY_ID = {}; KIT.CALCS.forEach(function (c) { CALC_BY_ID[c.id] = c; });
+function kitNorm(s) { return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); }
+function fmtOut(v, type) {
+  if (type === 'dec') return Array.isArray(v) ? '<span class="chip ' + v[1] + '">' + t('dk_' + v[0]) + '</span>' : '–';
+  if (typeof v !== 'number' || !isFinite(v)) return type === 'yrs' ? '<span class="chip warn">' + t('notRec') + '</span>' : '–';
+  switch (type) {
+    case 'eur': return eur(v, true);
+    case 'pct': return pct(v, 2);
+    case 'x': return dec(v, 2) + 'x';
+    case 'n': return nf2.format(v);
+    case 'n4': return dec(v, 4);
+    case 'n6': return dec(v, 6);
+    case 'int': return nf0.format(v);
+    case 'yrs': return dec(v, 2) + ' ' + t('years');
+    case 'days': return dec(v, 2) + ' ' + t('daysU');
+    case 'var': return eur(Math.abs(v), true) + ' <span class="chip ' + (v >= 0 ? 'good' : 'bad') + '">' + (v >= 0 ? t('fav') : t('adv')) + ' (' + (v >= 0 ? 'F' : 'A') + ')</span>';
+    case 'oa': return eur(Math.abs(v), true) + ' <span class="chip ' + (v >= 0 ? 'good' : 'warn') + '">' + t(v >= 0 ? 'over' : 'under') + '</span>';
+  }
+  return nf2.format(v);
+}
+function calcOutputsHtml(c) {
+  var res = KIT.run(c, K.vals[c.id]);
+  return c.outputs.map(function (o, i) { return '<div class="co"><dt>' + esc(lx(o[0])) + '<small>' + esc(lx(o[3])) + '</small></dt><dd>' + fmtOut(res[i], o[2]) + '</dd></div>'; }).join('');
+}
+function calcHtml(c) {
+  var vals = K.vals[c.id] || {};
+  var ins = c.inputs.map(function (inp) {
+    var k = inp[0], u = inp[3], isList = u === 'list' || u === 'list%', v = vals[k] !== undefined ? vals[k] : inp[2];
+    var unit = u === '€' ? '€' : u === '%' || u === 'list%' ? '%' : '';
+    return '<label class="ci' + (isList ? ' wide' : '') + '"><span>' + esc(lx(inp[1])) + (isList ? ' · ' + t('listHint') : '') + '</span><span class="iw"><input id="k-' + c.id + '-' + k + '" data-c="' + c.id + '" data-k="' + k + '" ' + (isList ? 'type="text" inputmode="decimal"' : 'type="number" step="any"') + ' value="' + esc(v) + '">' + (unit ? '<span class="u">' + unit + '</span>' : '') + '</span></label>';
+  }).join('');
+  return '<article class="calc" id="calc-' + c.id + '"><header><div><div class="eyebrow">' + c.ch + '</div><h3>' + esc(lx(c.title)) + '</h3></div><button type="button" class="reset" data-reset="' + c.id + '" aria-label="' + esc(t('resetAria', lx(c.title))) + '">' + t('resetEx') + '</button></header>' +
+    '<div class="cin">' + ins + '</div><dl class="cout" id="out-' + c.id + '">' + calcOutputsHtml(c) + '</dl>' + (c.note ? '<p class="cnote">' + esc(lx(c.note)) + '</p>' : '') + '</article>';
+}
+function kitMatches(c) {
+  if (K.ch && c.ch !== K.ch) return false;
+  if (!K.q) return true;
+  var q = kitNorm(K.q);
+  var hay = kitNorm([Array.isArray(c.title) ? c.title.join(' ') : c.title].concat(c.outputs.map(function (o) { return lx(o[0]) + ' ' + (Array.isArray(o[0]) ? o[0].join(' ') : '') + ' ' + lx(o[3]); })).join(' '));
+  return hay.indexOf(q) > -1;
+}
+function libMatches(r) {
+  if (K.ch && r[1] !== K.ch) return false;
+  if (!K.q) return true;
+  return kitNorm(r.slice(1, 7).join(' ')).indexOf(kitNorm(K.q)) > -1;
+}
+function renderKit() {
+  $('#kitModeCalc').setAttribute('aria-pressed', K.mode === 'calc');
+  $('#kitModeLib').setAttribute('aria-pressed', K.mode === 'lib');
+  $('#kitCalcs').hidden = K.mode !== 'calc'; $('#kitLib').hidden = K.mode !== 'lib';
+  if (K.mode === 'calc') {
+    var html = '';
+    KIT.CHAPTERS.forEach(function (ch) {
+      var list = KIT.CALCS.filter(function (c) { return c.ch === ch[0] && kitMatches(c); });
+      if (!list.length) return;
+      html += '<div class="kitch"><span class="code">' + ch[0] + '</span><h3>' + t('ch_' + ch[0]) + '</h3></div><div class="calcs">' + list.map(calcHtml).join('') + '</div>';
+    });
+    $('#kitCalcs').innerHTML = html ? '<div style="display:flex;flex-direction:column;gap:14px">' + html + '</div>' : '<p class="note">' + t('noRes') + '</p>';
+  } else {
+    var rows = KIT_LIB.filter(libMatches);
+    $('#kitLib').innerHTML = rows.length ? '<div class="tablewrap"><table class="libtable"><thead><tr><th class="num">#</th><th>' + t('libCh') + '</th><th>' + t('libName') + '</th><th>' + t('libFormula') + '</th><th>' + t('libShows') + '</th><th>' + t('libOpen') + '</th></tr></thead><tbody>' +
+      rows.map(function (r) {
+        return '<tr><td class="num muted">' + r[0] + '</td><td class="mono muted">' + r[1] + '</td><td>' + esc(LANG === 'en' ? r[2] : r[3]) + '</td><td class="f">' + esc(r[4]) + '</td><td class="muted">' + esc(LANG === 'en' ? r[5] : r[6]) + '</td><td>' + (r[7] ? '<button type="button" class="open" data-open="' + r[7] + '">' + t('openCalc') + ' →</button>' : '') + '</td></tr>';
+      }).join('') + '</tbody></table></div>' : '<p class="note">' + t('noRes') + '</p>';
+  }
+}
+function kitStatic() {
+  $('#kitModeCalc').textContent = t('kitCalc');
+  $('#kitModeLib').textContent = t('kitLib', KIT_LIB.length);
+  $('#kitSearch').placeholder = t('kitSearch'); $('#kitSearch').setAttribute('aria-label', t('kitSearch'));
+  $('#kitCh').innerHTML = '<option value="">' + t('allCh') + '</option>' + KIT.CHAPTERS.map(function (c) { return '<option value="' + c[0] + '"' + (K.ch === c[0] ? ' selected' : '') + '>' + c[0] + ' · ' + t('ch_' + c[0]) + '</option>'; }).join('');
+  $('#kitCh').setAttribute('aria-label', t('allCh'));
+}
+function openCalc(id) {
+  K.mode = 'calc'; K.q = ''; K.ch = ''; $('#kitSearch').value = ''; $('#kitCh').value = '';
+  renderKit();
+  var el = document.getElementById('calc-' + id); if (!el) return;
+  try { el.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); } catch (e) { el.scrollIntoView(); }
+  el.classList.add('flash'); setTimeout(function () { el.classList.remove('flash'); }, 1600);
+  var first = el.querySelector('input'); if (first) try { first.focus({ preventScroll: true }); } catch (e) {}
+}
+
 /* ---------- tabs ---------- */
 var current = 'data';
-var RENDER = { data: renderData, fin: renderFin, bud: function () { renderBud(true); }, aud: renderAud, trend: renderTrend, board: renderBoard };
+var RENDER = { data: renderData, fin: renderFin, bud: function () { renderBud(true); }, aud: renderAud, trend: renderTrend, board: renderBoard, kit: renderKit };
 function show(tab) {
   current = tab;
   document.querySelectorAll('.rail [role=tab]').forEach(function (b) { b.setAttribute('aria-selected', b.dataset.tab === tab); });
@@ -1359,6 +1913,7 @@ function applyStatic() {
   document.querySelectorAll('[data-i18n]').forEach(function (el) { el.textContent = t(el.dataset.i18n); });
   $('nav.rail').setAttribute('aria-label', t('navLabel'));
   document.querySelectorAll('.langsw button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.lang === LANG); });
+  kitStatic();
   if (!$('#mapPanel').hidden && S.matrix) buildMapping(currentMapping());
 }
 function setLang(next) {
@@ -1460,6 +2015,20 @@ $('#copyEx').addEventListener('click', function () {
 });
 $('#copyReport').addEventListener('click', function () { copyText(reportText(), t('tReportCopied')); });
 $('#horizon').addEventListener('change', function (e) { S.horizon = +e.target.value; refresh(); });
+document.querySelectorAll('.seg button[data-mode]').forEach(function (b) { b.addEventListener('click', function () { K.mode = b.dataset.mode; renderKit(); }); });
+$('#kitSearch').addEventListener('input', function (e) { K.q = e.target.value; renderKit(); });
+$('#kitCh').addEventListener('change', function (e) { K.ch = e.target.value; renderKit(); });
+$('#kitCalcs').addEventListener('input', function (e) {
+  var el = e.target; if (!el.dataset.c) return;
+  var c = CALC_BY_ID[el.dataset.c]; (K.vals[c.id] = K.vals[c.id] || {})[el.dataset.k] = el.value;
+  $('#out-' + c.id).innerHTML = calcOutputsHtml(c); kitPersist();
+});
+$('#kitCalcs').addEventListener('click', function (e) {
+  var b = e.target.closest('[data-reset]'); if (!b) return;
+  var c = CALC_BY_ID[b.dataset.reset]; delete K.vals[c.id]; kitPersist();
+  var card = document.getElementById('calc-' + c.id); var tmp = document.createElement('div'); tmp.innerHTML = calcHtml(c); card.replaceWith(tmp.firstChild);
+});
+$('#kitLib').addEventListener('click', function (e) { var b = e.target.closest('[data-open]'); if (b) openCalc(b.dataset.open); });
 try { window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () { RENDER[current](); }); } catch (e) {}
 new MutationObserver(function () { RENDER[current](); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
