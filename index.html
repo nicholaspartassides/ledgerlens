@@ -43,15 +43,19 @@ button, input, select { font: inherit; color: inherit; }
 
 /* engagement bar */
 .top { display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: center; justify-content: space-between; padding: 14px 20px; background: var(--surface); border-bottom: 1px solid var(--line); }
-.brand { display: flex; align-items: baseline; gap: 10px; }
+.brand { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
 .brand b { font-family: var(--f-display); font-size: 1.35rem; font-weight: 600; }
 .brand span { color: var(--muted); font-size: 0.82rem; }
-.engagement { display: flex; flex-wrap: wrap; gap: 10px 14px; }
+.engagement { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: flex-end; }
 .field { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
-.field label { font-size: 0.7rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.field label, .field .lbl { font-size: 0.7rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
 input[type=text], input[type=number], select { background: var(--bg); border: 1px solid var(--line); border-radius: var(--r); padding: 7px 10px; min-width: 0; }
 .engagement input { width: 190px; max-width: 100%; }
 .engagement input#thr { width: 120px; }
+.langsw { display: inline-flex; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; background: var(--bg); }
+.langsw button { border: 0; background: none; padding: 7px 13px; cursor: pointer; font-weight: 600; font-size: 0.82rem; letter-spacing: 0.04em; color: var(--muted); }
+.langsw button + button { border-left: 1px solid var(--line); }
+.langsw button[aria-pressed=true] { background: var(--accent); color: var(--accent-ink); }
 
 .app { display: grid; grid-template-columns: 236px minmax(0, 1fr); min-height: calc(100% - 70px); }
 nav.rail { border-right: 1px solid var(--line); padding: 18px 10px; display: flex; flex-direction: column; gap: 2px; background: var(--surface); }
@@ -128,7 +132,6 @@ td input[type=number] { text-align: right; font-family: var(--f-data); }
 .mapping { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
 .mapping select { width: 100%; }
 
-/* fin form */
 .finform td:first-child { white-space: nowrap; }
 
 /* z-score scale */
@@ -151,7 +154,7 @@ td input[type=number] { text-align: right; font-family: var(--f-data); }
 .overall.good .dot { background: var(--good); } .overall.warn .dot { background: var(--warn); } .overall.bad .dot { background: var(--bad); }
 .overall p { font-family: var(--f-display); font-size: 1.12rem; line-height: 1.35; }
 .findings { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; }
-.findings li { display: grid; grid-template-columns: 96px 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+.findings li { display: grid; grid-template-columns: 110px 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
 .findings li:last-child { border-bottom: 0; }
 .findings .area { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); font-weight: 600; }
 .recs { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; }
@@ -174,13 +177,16 @@ td input[type=number] { text-align: right; font-family: var(--f-data); }
 .slide .s-kpi .s { font-size: 1.3cqw; color: var(--s-muted); }
 .slide .s-chart { position: relative; min-height: 0; }
 .slide ul { margin: 0; padding-left: 2.2cqw; display: flex; flex-direction: column; gap: 1.1cqw; }
+.slide table { font-size: 1.5cqw; }
+.slide th { background: #eef2f0; color: #5a6a63; }
+.slide td { border-color: #d3ddd9; }
 .slide .s-foot { display: flex; justify-content: space-between; font-size: 1.15cqw; color: var(--s-muted); border-top: 1px solid var(--s-line); padding-top: 1cqw; }
 .slide .s-title { justify-content: center; }
 .slide .s-rule { width: 9cqw; height: 0.5cqw; background: #17614f; }
 .deckbar { display: flex; gap: 10px; align-items: center; color: #c9d6d1; font-family: var(--f-data); font-size: 0.85rem; flex-wrap: wrap; justify-content: center; }
 .deckbar button { background: #1c2a26; color: #e3ece8; border: 1px solid #2f413b; border-radius: var(--r); padding: 6px 13px; cursor: pointer; }
 
-.toast { position: fixed; left: 50%; bottom: calc(22px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 9px 16px; border-radius: var(--r); font-size: 0.88rem; z-index: 60; }
+.toast { position: fixed; left: 50%; bottom: calc(22px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 9px 16px; border-radius: var(--r); font-size: 0.88rem; z-index: 60; max-width: calc(100% - 32px); }
 
 @media (max-width: 820px) {
   .app { grid-template-columns: minmax(0, 1fr); }
@@ -193,106 +199,105 @@ td input[type=number] { text-align: right; font-family: var(--f-data); }
   .findings li { grid-template-columns: 1fr; gap: 2px; }
   .grid2 { grid-template-columns: minmax(0, 1fr); }
 }
-@media (prefers-reduced-motion: no-preference) { .rail button, .test, .btn { transition: background .15s, border-color .15s; } }
+@media (prefers-reduced-motion: no-preference) { .rail button, .test, .btn, .langsw button { transition: background .15s, border-color .15s; } }
 </style>
 
 </head>
 <body>
 <div class="top">
-  <div class="brand"><b>Ledgerlens</b><span>Αναλυτική λογιστικών δεδομένων και αναφορές ΔΣ</span></div>
+  <div class="brand"><b>Ledgerlens</b><span data-i18n="brandSub"></span></div>
   <div class="engagement">
-    <div class="field"><label for="client">Πελάτης / Οργανισμός</label><input type="text" id="client" value="Παράδειγμα Λτδ"></div>
-    <div class="field"><label for="period">Περίοδος αναφοράς</label><input type="text" id="period" value="Ιαν–Σεπ 2026"></div>
-    <div class="field"><label for="thr">Όριο έγκρισης €</label><input type="number" id="thr" value="10000" min="0" step="500"></div>
+    <div class="field"><label for="client" data-i18n="lblClient"></label><input type="text" id="client"></div>
+    <div class="field"><label for="period" data-i18n="lblPeriod"></label><input type="text" id="period"></div>
+    <div class="field"><label for="thr" data-i18n="lblThr"></label><input type="number" id="thr" value="10000" min="0" step="500"></div>
+    <div class="field"><span class="lbl" id="langLbl" data-i18n="lblLang"></span>
+      <div class="langsw" role="group" aria-labelledby="langLbl"><button type="button" data-lang="el" lang="el">ΕΛ</button><button type="button" data-lang="en" lang="en">EN</button></div>
+    </div>
   </div>
 </div>
 
 <div class="app">
-  <nav class="rail" role="tablist" aria-label="Ενότητες">
-    <button role="tab" data-tab="data" aria-selected="true"><span class="k">01</span>Δεδομένα</button>
-    <button role="tab" data-tab="fin"><span class="k">02</span>Οικονομική υγεία</button>
-    <button role="tab" data-tab="bud"><span class="k">03</span>Budget vs Πραγματικά</button>
-    <button role="tab" data-tab="aud"><span class="k">04</span>Audit analytics</button>
-    <button role="tab" data-tab="trend"><span class="k">05</span>Τάσεις και πρόβλεψη</button>
-    <button role="tab" data-tab="board"><span class="k">06</span>Αναφορά ΔΣ</button>
+  <nav class="rail" role="tablist">
+    <button role="tab" data-tab="data" aria-selected="true"><span class="k">01</span><span data-i18n="tabData"></span></button>
+    <button role="tab" data-tab="fin"><span class="k">02</span><span data-i18n="tabFin"></span></button>
+    <button role="tab" data-tab="bud"><span class="k">03</span><span data-i18n="tabBud"></span></button>
+    <button role="tab" data-tab="aud"><span class="k">04</span><span data-i18n="tabAud"></span></button>
+    <button role="tab" data-tab="trend"><span class="k">05</span><span data-i18n="tabTrend"></span></button>
+    <button role="tab" data-tab="board"><span class="k">06</span><span data-i18n="tabBoard"></span></button>
     <div class="sep"></div>
-    <button class="present" id="presentBtn"><span class="k">▶</span>Παρουσίαση</button>
+    <button class="present" id="presentBtn"><span class="k">▶</span><span data-i18n="present"></span></button>
   </nav>
 
   <main>
     <!-- 01 DATA -->
     <section class="view" id="v-data">
       <div class="head">
-        <div><div class="eyebrow">Βήμα 1</div><h2>Δεδομένα συναλλαγών</h2>
-          <p>Φόρτωσε ένα export πληρωμών, τιμολογίων ή general ledger σε Excel ή CSV. Τα δεδομένα επεξεργάζονται μόνο μέσα στον browser σου και δεν αποστέλλονται πουθενά.</p></div>
-        <span class="badge-sample" id="sampleBadge">Δείγμα δεδομένων</span>
+        <div><div class="eyebrow" data-i18n="step1"></div><h2 data-i18n="dataTitle"></h2><p data-i18n="dataLead"></p></div>
+        <span class="badge-sample" id="sampleBadge" data-i18n="sampleBadge"></span>
       </div>
       <label class="drop" id="drop" for="file">
-        <div><h3>Σύρε εδώ αρχείο .xlsx, .xls ή .csv</h3><p class="muted" id="fileInfo">Αυτή τη στιγμή φορτωμένο: δείγμα 1.800 πληρωμών προμηθευτών (Ιαν 2025 – Σεπ 2026).</p></div>
-        <div class="btns"><span class="btn primary">Επιλογή αρχείου</span><button class="btn" type="button" id="resetSample">Επαναφορά δείγματος</button></div>
+        <div><h3 data-i18n="dropTitle"></h3><p class="muted" id="fileInfo"></p></div>
+        <div class="btns"><span class="btn primary" data-i18n="chooseFile"></span><button class="btn" type="button" id="resetSample" data-i18n="resetSample"></button></div>
         <input type="file" id="file" accept=".xlsx,.xls,.csv,.txt">
       </label>
       <div class="panel" id="mapPanel" hidden>
-        <h3>Αντιστοίχιση στηλών</h3>
-        <p class="note">Έγινε αυτόματη αναγνώριση από τους τίτλους των στηλών. Έλεγξε και διόρθωσε αν χρειάζεται.</p>
+        <h3 data-i18n="mapTitle"></h3>
+        <p class="note" data-i18n="mapNote"></p>
         <div class="mapping" id="mapping" style="margin-top:12px"></div>
-        <div class="btns" style="margin-top:14px"><button class="btn primary" id="applyMap">Εφαρμογή</button></div>
+        <div class="btns" style="margin-top:14px"><button class="btn primary" id="applyMap" data-i18n="apply"></button></div>
       </div>
       <div class="stats" id="profileStats"></div>
-      <div class="panel"><h3>Ποιότητα δεδομένων</h3><div id="dq"></div></div>
-      <div><h3 style="margin-bottom:10px">Προεπισκόπηση (πρώτες 12 γραμμές)</h3><div class="tablewrap" id="preview"></div></div>
+      <div class="panel"><h3 data-i18n="dqTitle"></h3><div id="dq"></div></div>
+      <div><h3 style="margin-bottom:10px" data-i18n="previewTitle"></h3><div class="tablewrap" id="preview"></div></div>
     </section>
 
     <!-- 02 FIN -->
     <section class="view" id="v-fin" hidden>
       <div class="head">
-        <div><div class="eyebrow">Βήμα 2</div><h2>Οικονομική υγεία</h2>
-          <p>Συμπλήρωσε τα βασικά μεγέθη των οικονομικών καταστάσεων για δύο χρήσεις. Οι δείκτες, η χρωματική αξιολόγηση και το Altman Z'' υπολογίζονται αυτόματα.</p></div>
-        <div class="btns"><button class="btn" id="finSample">Φόρτωση παραδείγματος</button><button class="btn" id="finClear">Καθαρισμός</button></div>
+        <div><div class="eyebrow" data-i18n="step2"></div><h2 data-i18n="finTitle"></h2><p data-i18n="finLead"></p></div>
+        <div class="btns"><button class="btn" id="finSample" data-i18n="loadSample"></button><button class="btn" id="finClear" data-i18n="clear"></button></div>
       </div>
       <div class="grid2">
-        <div class="tablewrap finform"><table><thead><tr><th>Μέγεθος (€)</th><th class="num">Τρέχουσα χρήση</th><th class="num">Προηγ. χρήση</th></tr></thead><tbody id="finBody"></tbody></table></div>
+        <div class="tablewrap finform"><table><thead><tr><th data-i18n="thFigure"></th><th class="num" data-i18n="thCY"></th><th class="num" data-i18n="thPY"></th></tr></thead><tbody id="finBody"></tbody></table></div>
         <div style="display:flex;flex-direction:column;gap:18px;min-width:0">
-          <div class="panel"><div class="eyebrow">Altman Z'' (ιδιωτικές, μη μεταποιητικές)</div>
+          <div class="panel"><div class="eyebrow" data-i18n="altmanEyebrow"></div>
             <div style="display:flex;align-items:baseline;gap:12px;margin-top:6px;flex-wrap:wrap"><span class="num" style="font-size:2.2rem" id="zVal">–</span><span id="zChip"></span><span class="muted num" id="zPrev"></span></div>
-            <div class="zwrap"><div class="zscale"><div class="z1">Κίνδυνος</div><div class="z2">Γκρίζα</div><div class="z3">Ασφαλής</div></div><div class="zmark" id="zMark"></div></div>
-            <div class="zticks"><span>0</span><span>1,10</span><span>2,60 → 5,0+</span></div>
-            <p class="note" style="margin-top:10px">Z'' = 6,56·X1 + 3,26·X2 + 6,72·X3 + 1,05·X4, όπου X1 κεφάλαιο κίνησης/ενεργητικό, X2 αποθεματικό προσόδου/ενεργητικό, X3 EBIT/ενεργητικό, X4 ίδια κεφάλαια/υποχρεώσεις.</p>
+            <div class="zwrap"><div class="zscale"><div class="z1" data-i18n="zRisk"></div><div class="z2" data-i18n="zGrey"></div><div class="z3" data-i18n="zSafe"></div></div><div class="zmark" id="zMark"></div></div>
+            <div class="zticks"><span>0</span><span id="zt1"></span><span id="zt2"></span></div>
+            <p class="note" style="margin-top:10px" data-i18n="zFormula"></p>
           </div>
-          <div class="panel"><h3>Κεφάλαιο κίνησης σε μέρες</h3><div class="chartbox" style="height:220px"><canvas id="cWC"></canvas></div></div>
+          <div class="panel"><h3 data-i18n="wcTitle"></h3><div class="chartbox" style="height:220px"><canvas id="cWC"></canvas></div></div>
         </div>
       </div>
-      <div class="tablewrap"><table><thead><tr><th>Δείκτης</th><th class="num">Τρέχουσα</th><th class="num">Προηγ.</th><th class="num">Μεταβολή</th><th>Αξιολόγηση</th><th>Όρια (καλό / προσοχή)</th></tr></thead><tbody id="ratioBody"></tbody></table></div>
-      <p class="note">Τα όρια αξιολόγησης είναι γενικά ενδεικτικά. Σύγκρινε πάντα με τον μέσο όρο του κλάδου του πελάτη πριν από την παρουσίαση στο ΔΣ.</p>
+      <div class="tablewrap"><table><thead><tr><th data-i18n="thRatio"></th><th class="num" data-i18n="thCur"></th><th class="num" data-i18n="thPrev"></th><th class="num" data-i18n="thChange"></th><th data-i18n="thRating"></th><th data-i18n="thLimits"></th></tr></thead><tbody id="ratioBody"></tbody></table></div>
+      <p class="note" data-i18n="finNote"></p>
     </section>
 
     <!-- 03 BUDGET -->
     <section class="view" id="v-bud" hidden>
       <div class="head">
-        <div><div class="eyebrow">Βήμα 3</div><h2>Budget έναντι πραγματικών</h2>
-          <p>Ανάλυση αποκλίσεων ανά γραμμή αποτελεσμάτων και γέφυρα από το προϋπολογισθέν στο πραγματικό κέρδος. Οι αποκλίσεις χαρακτηρίζονται ευνοϊκές ή δυσμενείς ανάλογα με το αν η γραμμή είναι έσοδο ή έξοδο.</p></div>
-        <div class="btns"><button class="btn" id="budAdd">Προσθήκη γραμμής</button><button class="btn" id="budSample">Φόρτωση παραδείγματος</button></div>
+        <div><div class="eyebrow" data-i18n="step3"></div><h2 data-i18n="budTitle"></h2><p data-i18n="budLead"></p></div>
+        <div class="btns"><button class="btn" id="budAdd" data-i18n="addLine"></button><button class="btn" id="budSample" data-i18n="loadSample"></button></div>
       </div>
       <div class="stats" id="budStats"></div>
-      <div class="panel"><h3>Γέφυρα κέρδους: budget → πραγματικό</h3><div class="chartbox tall"><canvas id="cBridge"></canvas></div></div>
-      <div class="tablewrap"><table><thead><tr><th>Γραμμή</th><th>Τύπος</th><th class="num">Budget €</th><th class="num">Πραγματικό €</th><th class="num">Απόκλιση €</th><th class="num">%</th><th>Επίπτωση</th><th></th></tr></thead><tbody id="budBody"></tbody></table></div>
+      <div class="panel"><h3 data-i18n="bridgeTitle"></h3><div class="chartbox tall"><canvas id="cBridge"></canvas></div></div>
+      <div class="tablewrap"><table><thead><tr><th data-i18n="thLine"></th><th data-i18n="thType"></th><th class="num" data-i18n="thBudget"></th><th class="num" data-i18n="thActual"></th><th class="num" data-i18n="thVar"></th><th class="num">%</th><th data-i18n="thImpact"></th><th></th></tr></thead><tbody id="budBody"></tbody></table></div>
     </section>
 
     <!-- 04 AUDIT -->
     <section class="view" id="v-aud" hidden>
       <div class="head">
-        <div><div class="eyebrow">Βήμα 4</div><h2>Audit analytics σε όλο τον πληθυσμό</h2>
-          <p>Πέντε τεστ ελέγχου εφαρμόζονται σε κάθε συναλλαγή, όχι σε δείγμα. Τα ευρήματα είναι ενδείξεις για διερεύνηση, όχι αποδείξεις λάθους ή απάτης (ISA 240, IIA GTAG 16).</p></div>
-        <div class="btns"><button class="btn" id="copyEx">Αντιγραφή εξαιρέσεων για Excel</button></div>
+        <div><div class="eyebrow" data-i18n="step4"></div><h2 data-i18n="audTitle"></h2><p data-i18n="audLead"></p></div>
+        <div class="btns"><button class="btn" id="copyEx" data-i18n="copyEx"></button></div>
       </div>
       <div class="stats" id="audStats"></div>
       <div class="tests" id="tests"></div>
       <div class="grid2">
-        <div class="panel"><h3>Νόμος του Benford, πρώτο ψηφίο</h3><div class="chartbox"><canvas id="cBenford"></canvas></div><p class="note" id="benNote" style="margin-top:10px"></p></div>
-        <div class="panel"><h3>Συγκέντρωση προμηθευτών</h3><div class="chartbox"><canvas id="cConc"></canvas></div><p class="note" id="concNote" style="margin-top:10px"></p></div>
+        <div class="panel"><h3 data-i18n="benTitle"></h3><div class="chartbox"><canvas id="cBenford"></canvas></div><p class="note" id="benNote" style="margin-top:10px"></p></div>
+        <div class="panel"><h3 data-i18n="concTitle"></h3><div class="chartbox"><canvas id="cConc"></canvas></div><p class="note" id="concNote" style="margin-top:10px"></p></div>
       </div>
       <div>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px"><h3 id="exTitle">Εξαιρέσεις</h3><span class="note" id="exNote"></span></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px"><h3 id="exTitle"></h3><span class="note" id="exNote"></span></div>
         <div class="tablewrap scroll" id="exTable"></div>
       </div>
     </section>
@@ -300,25 +305,23 @@ td input[type=number] { text-align: right; font-family: var(--f-data); }
     <!-- 05 TREND -->
     <section class="view" id="v-trend" hidden>
       <div class="head">
-        <div><div class="eyebrow">Βήμα 5</div><h2>Τάσεις και πρόβλεψη</h2>
-          <p>Μηνιαία σύνολα από τα δεδομένα συναλλαγών, με γραμμική τάση και πρόβλεψη για τους επόμενους μήνες. Η σκιασμένη ζώνη είναι το διάστημα πρόβλεψης 95%.</p></div>
-        <div class="field"><label for="horizon">Ορίζοντας πρόβλεψης</label><select id="horizon"><option value="3">3 μήνες</option><option value="6" selected>6 μήνες</option><option value="12">12 μήνες</option></select></div>
+        <div><div class="eyebrow" data-i18n="step5"></div><h2 data-i18n="trendTitle"></h2><p data-i18n="trendLead"></p></div>
+        <div class="field"><label for="horizon" data-i18n="lblHorizon"></label><select id="horizon"><option value="3" data-i18n="h3"></option><option value="6" selected data-i18n="h6"></option><option value="12" data-i18n="h12"></option></select></div>
       </div>
       <div class="stats" id="trendStats"></div>
-      <div class="panel"><h3>Μηνιαίο σύνολο και πρόβλεψη</h3><div class="chartbox tall"><canvas id="cTrend"></canvas></div></div>
+      <div class="panel"><h3 data-i18n="trendChartTitle"></h3><div class="chartbox tall"><canvas id="cTrend"></canvas></div></div>
       <div class="grid2">
-        <div class="panel"><h3>Ανά κατηγορία λογαριασμού</h3><div class="chartbox"><canvas id="cAcct"></canvas></div></div>
+        <div class="panel"><h3 data-i18n="acctTitle"></h3><div class="chartbox"><canvas id="cAcct"></canvas></div></div>
         <div class="tablewrap scroll" id="fcTable"></div>
       </div>
-      <p class="note">Η γραμμική τάση είναι κατάλληλη για βραχυπρόθεσμες εκτιμήσεις. Για εποχικά δεδομένα με 24+ μήνες ιστορικού, προτίμησε μοντέλο ETS ή Prophet (βλ. Φάση 5 του πλάνου εκμάθησης).</p>
+      <p class="note" data-i18n="trendNote"></p>
     </section>
 
     <!-- 06 BOARD -->
     <section class="view" id="v-board" hidden>
       <div class="head">
-        <div><div class="eyebrow">Βήμα 6</div><h2>Αναφορά προς το Διοικητικό Συμβούλιο</h2>
-          <p>Σύνοψη που συντάσσεται αυτόματα από τις προηγούμενες ενότητες, με τη δομή που περιμένει ένα ΔΣ: συμπέρασμα πρώτα, μετά τα στοιχεία, μετά οι ενέργειες.</p></div>
-        <div class="btns"><button class="btn" id="copyReport">Αντιγραφή κειμένου</button><button class="btn primary" id="presentBtn2">Έναρξη παρουσίασης</button></div>
+        <div><div class="eyebrow" data-i18n="step6"></div><h2 data-i18n="boardTitle"></h2><p data-i18n="boardLead"></p></div>
+        <div class="btns"><button class="btn" id="copyReport" data-i18n="copyReport"></button><button class="btn primary" id="presentBtn2" data-i18n="startPres"></button></div>
       </div>
       <article class="report" id="report"></article>
     </section>
@@ -327,7 +330,7 @@ td input[type=number] { text-align: right; font-family: var(--f-data); }
 
 <div class="deck" id="deck" hidden>
   <div class="slide" id="slide"></div>
-  <div class="deckbar"><button id="prevS">← Προηγ.</button><span id="sNum">1 / 7</span><button id="nextS">Επόμ. →</button><button id="fsS">Πλήρης οθόνη</button><button id="closeS">Κλείσιμο (Esc)</button></div>
+  <div class="deckbar"><button id="prevS" data-i18n="prevS"></button><span id="sNum">1 / 7</span><button id="nextS" data-i18n="nextS"></button><button id="fsS" data-i18n="fsS"></button><button id="closeS" data-i18n="closeS"></button></div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
@@ -573,8 +576,8 @@ var LL = (function () {
         if (!a[i].date || !a[i - 1].date) continue;
         var days = Math.round((a[i].date - a[i - 1].date) / 86400000);
         if (days <= 30) {
-          flag(a[i - 1], 'dup', 'ίδιο ποσό/προμηθευτής');
-          flag(a[i], 'dup', days + ' ημ. μετά το ' + (a[i - 1].doc || '#' + a[i - 1].i));
+          flag(a[i - 1], 'dup', ['dupPair']);
+          flag(a[i], 'dup', ['dupAfter', days, a[i - 1].doc || '#' + a[i - 1].i]);
           if (!dupSeen[a[i].i]) { dupSeen[a[i].i] = 1; res.dup.recover += a[i].amount; }
         }
       }
@@ -584,15 +587,15 @@ var LL = (function () {
     Object.keys(gd).forEach(function (k) {
       var a = gd[k]; if (a.length < 2) return;
       a.forEach(function (x, j) {
-        flag(x, 'dup', 'διπλός αρ. παραστατικού');
+        flag(x, 'dup', ['dupDoc']);
         if (j > 0 && !dupSeen[x.i]) { dupSeen[x.i] = 1; res.dup.recover += x.amount; }
       });
     });
 
     pos.forEach(function (x) {
-      if (x.date && (x.date.getDay() === 0 || x.date.getDay() === 6)) flag(x, 'wkd', x.date.getDay() === 0 ? 'Κυριακή' : 'Σάββατο');
-      if (threshold > 0 && x.amount >= threshold * 0.95 && x.amount < threshold) flag(x, 'thr', ((threshold - x.amount)).toFixed(0) + ' € κάτω από το όριο');
-      if (x.amount >= 1000 && Math.abs(x.amount - Math.round(x.amount / 1000) * 1000) < 0.005) flag(x, 'rnd', 'στρογγυλό ποσό');
+      if (x.date && (x.date.getDay() === 0 || x.date.getDay() === 6)) flag(x, 'wkd', [x.date.getDay() === 0 ? 'sun' : 'sat']);
+      if (threshold > 0 && x.amount >= threshold * 0.95 && x.amount < threshold) flag(x, 'thr', ['below', threshold - x.amount]);
+      if (x.amount >= 1000 && Math.abs(x.amount - Math.round(x.amount / 1000) * 1000) < 0.005) flag(x, 'rnd', ['round']);
     });
 
     // outliers: log-amount z-score within each party (>= 8 payments), otherwise across the ledger
@@ -607,7 +610,7 @@ var LL = (function () {
       if (!(s > 0)) return;
       a.forEach(function (x, j) {
         var z = (logs[j] - m) / s;
-        if (z > 3) flag(x, 'out', 'z = ' + z.toFixed(1) + ' (×' + (x.amount / Math.exp(m)).toFixed(0) + ' του τυπικού)');
+        if (z > 3) flag(x, 'out', ['z', z, x.amount / Math.exp(m)]);
       });
     });
 
@@ -749,29 +752,253 @@ var LL = (function () {
 
 </script>
 <script>
+/* ===== Ledgerlens translations (el / en) ===== */
+var I18N = {
+el: {
+  brandSub: 'Αναλυτική λογιστικών δεδομένων και αναφορές ΔΣ', lblClient: 'Πελάτης / Οργανισμός', lblPeriod: 'Περίοδος αναφοράς', lblThr: 'Όριο έγκρισης €', lblLang: 'Γλώσσα',
+  defClient: 'Παράδειγμα Λτδ', defPeriod: 'Ιαν–Σεπ 2026',
+  tabData: 'Δεδομένα', tabFin: 'Οικονομική υγεία', tabBud: 'Budget vs Πραγματικά', tabAud: 'Audit analytics', tabTrend: 'Τάσεις και πρόβλεψη', tabBoard: 'Αναφορά ΔΣ', present: 'Παρουσίαση', navLabel: 'Ενότητες',
+  step1: 'Βήμα 1', step2: 'Βήμα 2', step3: 'Βήμα 3', step4: 'Βήμα 4', step5: 'Βήμα 5', step6: 'Βήμα 6',
+  dataTitle: 'Δεδομένα συναλλαγών', dataLead: 'Φόρτωσε ένα export πληρωμών, τιμολογίων ή general ledger σε Excel ή CSV. Τα δεδομένα επεξεργάζονται μόνο μέσα στον browser σου και δεν αποστέλλονται πουθενά.',
+  sampleBadge: 'Δείγμα δεδομένων', dropTitle: 'Σύρε εδώ αρχείο .xlsx, .xls ή .csv', chooseFile: 'Επιλογή αρχείου', resetSample: 'Επαναφορά δείγματος',
+  fileSample: 'Αυτή τη στιγμή φορτωμένο: δείγμα 1.800 πληρωμών προμηθευτών (Ιαν 2025 – Σεπ 2026).',
+  fileRead: function (f, n, sh) { return f + ' · ' + n + ' γραμμές στο φύλλο «' + sh + '». Έλεγξε την αντιστοίχιση στηλών.'; },
+  fileApplied: function (f, n) { return f + ' · φορτώθηκαν ' + n + ' γραμμές.'; },
+  mapTitle: 'Αντιστοίχιση στηλών', mapNote: 'Έγινε αυτόματη αναγνώριση από τους τίτλους των στηλών. Έλεγξε και διόρθωσε αν χρειάζεται.', apply: 'Εφαρμογή',
+  mDate: 'Ημερομηνία *', mAmount: 'Ποσό *', mParty: 'Προμηθευτής / πελάτης', mAccount: 'Λογαριασμός / κατηγορία', mDoc: 'Αρ. παραστατικού', none: '— καμία —', colN: 'Στήλη {0}',
+  dqTitle: 'Ποιότητα δεδομένων', previewTitle: 'Προεπισκόπηση (πρώτες 12 γραμμές)',
+  stRows: 'Γραμμές', stTotal: 'Συνολική αξία', stTotalS: 'καθαρό, με πιστωτικά', stPeriod: 'Περίοδος', until: 'έως {0}', stParties: 'Αντισυμβαλλόμενοι', stPartiesS: 'μοναδικά ονόματα', stNeg: 'Πιστωτικά / αρνητικά', rowsWord: 'γραμμές',
+  dqDate: 'Χωρίς έγκυρη ημερομηνία', dqAmt: 'Χωρίς ποσό', dqParty: 'Χωρίς αντισυμβαλλόμενο', dqGood: 'Πλήρες', dqWarn: 'Μικρό κενό', dqBad: 'Χρειάζεται καθαρισμό',
+  dqNote: 'Πριν από κάθε ανάλυση, συμφώνησε το σύνολο με το ισοζύγιο (trial balance) του λογαριασμού για την ίδια περίοδο.',
+  thDate: 'Ημερομηνία', thParty: 'Αντισυμβαλλόμενος', thAccount: 'Λογαριασμός', thDoc: 'Παραστατικό', thAmount: 'Ποσό €', thAmountPlain: 'Ποσό', thFindings: 'Ευρήματα',
+  finTitle: 'Οικονομική υγεία', finLead: 'Συμπλήρωσε τα βασικά μεγέθη των οικονομικών καταστάσεων για δύο χρήσεις. Οι δείκτες, η χρωματική αξιολόγηση και το Altman Z\'\' υπολογίζονται αυτόματα.',
+  loadSample: 'Φόρτωση παραδείγματος', clear: 'Καθαρισμός', thFigure: 'Μέγεθος (€)', thCY: 'Τρέχουσα χρήση', thPY: 'Προηγ. χρήση',
+  altmanEyebrow: 'Altman Z\'\' (ιδιωτικές, μη μεταποιητικές)', zRisk: 'Κίνδυνος', zGrey: 'Γκρίζα', zSafe: 'Ασφαλής',
+  zFormula: 'Z\'\' = 6,56·X1 + 3,26·X2 + 6,72·X3 + 1,05·X4, όπου X1 κεφάλαιο κίνησης/ενεργητικό, X2 αποθεματικό προσόδου/ενεργητικό, X3 EBIT/ενεργητικό, X4 ίδια κεφάλαια/υποχρεώσεις.',
+  zgood: 'Ασφαλής ζώνη', zwarn: 'Γκρίζα ζώνη', zbad: 'Ζώνη κινδύνου', prior: 'προηγ. {0}',
+  wcTitle: 'Κεφάλαιο κίνησης σε μέρες', thRatio: 'Δείκτης', thCur: 'Τρέχουσα', thPrev: 'Προηγ.', thChange: 'Μεταβολή', thRating: 'Αξιολόγηση', thLimits: 'Όρια (καλό / προσοχή)',
+  finNote: 'Τα όρια αξιολόγησης είναι γενικά ενδεικτικά. Σύγκρινε πάντα με τον μέσο όρο του κλάδου του πελάτη πριν από την παρουσίαση στο ΔΣ.',
+  finIncomplete: 'Συμπλήρωσε όλα τα πεδία της τρέχουσας χρήσης για να υπολογιστούν οι δείκτες.',
+  rgood: 'Ισχυρό', rwarn: 'Προσοχή', rbad: 'Αδύναμο', rinfo: 'Πληροφοριακό', daysShort: 'ημ.', daysLong: 'ημέρες',
+  wcDSO: 'Είσπραξη (DSO)', wcDIO: 'Απόθεμα (DIO)', wcDPO: 'Πληρωμή (DPO)', wcCCC: 'Κύκλος μετρητών', axisDays: 'Ημέρες', prevShort: 'Προηγ. χρήση', curShort: 'Τρέχουσα', cycle: 'Κύκλος',
+  budTitle: 'Budget έναντι πραγματικών', budLead: 'Ανάλυση αποκλίσεων ανά γραμμή αποτελεσμάτων και γέφυρα από το προϋπολογισθέν στο πραγματικό κέρδος. Οι αποκλίσεις χαρακτηρίζονται ευνοϊκές ή δυσμενείς ανάλογα με το αν η γραμμή είναι έσοδο ή έξοδο.',
+  addLine: 'Προσθήκη γραμμής', bridgeTitle: 'Γέφυρα κέρδους: budget → πραγματικό', thLine: 'Γραμμή', thType: 'Τύπος', thBudget: 'Budget €', thActual: 'Πραγματικό €', thVar: 'Απόκλιση €', thImpact: 'Επίπτωση',
+  bBudget: 'Budget κέρδος', bActual: 'Πραγματικό κέρδος', bVar: 'Απόκλιση', bVarS: '{0} έναντι budget', inc: 'Έσοδο', exp: 'Έξοδο', noVar: 'Χωρίς απόκλιση', fav: 'Ευνοϊκή', adv: 'Δυσμενής', profit: 'Κέρδος', delLine: 'Διαγραφή γραμμής', newLine: 'Νέα γραμμή',
+  audTitle: 'Audit analytics σε όλο τον πληθυσμό', audLead: 'Πέντε τεστ ελέγχου εφαρμόζονται σε κάθε συναλλαγή, όχι σε δείγμα. Τα ευρήματα είναι ενδείξεις για διερεύνηση, όχι αποδείξεις λάθους ή απάτης (ISA 240, IIA GTAG 16).',
+  copyEx: 'Αντιγραφή εξαιρέσεων για Excel', benTitle: 'Νόμος του Benford, πρώτο ψηφίο', concTitle: 'Συγκέντρωση προμηθευτών',
+  aPop: 'Πληθυσμός', aPopS: 'θετικές συναλλαγές, 100% κάλυψη', aEx: 'Εξαιρέσεις', aExS: '{0} του πληθυσμού', aVal: 'Αξία εξαιρέσεων', aValS: 'προς διερεύνηση', aRec: 'Πιθανή ανάκτηση', aRecS: 'από διπλές πληρωμές',
+  t_dup: 'Πιθανές διπλές πληρωμές', d_dup: 'Ίδιος προμηθευτής και ποσό μέσα σε 30 ημέρες, ή ίδιος αριθμός παραστατικού',
+  t_thr: 'Λίγο κάτω από το όριο', d_thr: 'Ποσά 95–100% του ορίου έγκρισης: πιθανό σπάσιμο τιμολογίων',
+  t_wkd: 'Εγγραφές Σαββατοκύριακου', d_wkd: 'Συναλλαγές με ημερομηνία Σάββατο ή Κυριακή',
+  t_rnd: 'Στρογγυλά ποσά', d_rnd: 'Ακέραιες χιλιάδες ευρώ, συχνά εκτιμήσεις ή μη τυποποιημένες χρεώσεις',
+  t_out: 'Ακραίες τιμές', d_out: 'Ποσό πάνω από 3 τυπικές αποκλίσεις από το σύνηθες του προμηθευτή',
+  benExp: 'Αναμενόμενο (Benford)', benObs: 'Πραγματικό', firstDigit: 'Πρώτο ψηφίο',
+  vClose: 'Στενή συμμόρφωση', vAcc: 'Αποδεκτή συμμόρφωση', vMarg: 'Οριακά αποδεκτή συμμόρφωση', vNon: 'Μη συμμόρφωση',
+  benNote: function (mad, chi, n) { return 'MAD ' + mad + ' (όρια Nigrini: 0,006 / 0,012 / 0,015), χ² = ' + chi + ' με κρίσιμη τιμή 15,51 στο 5%, n = ' + n + '.'; },
+  share: 'Μερίδιο', hhiHigh: 'υψηλή', hhiMid: 'μέτρια', hhiLow: 'χαμηλή',
+  concNote: function (top5, hhi, lvl) { return 'Οι 5 μεγαλύτεροι προμηθευτές συγκεντρώνουν ' + top5 + ' των πληρωμών. Δείκτης HHI ' + hhi + ' (' + lvl + ' συγκέντρωση).'; },
+  exAll: 'Όλες οι εξαιρέσεις', exOne: 'Εξαιρέσεις: {0}',
+  exNote: function (n, more, filtered) { return n + ' γραμμές' + (more ? ', εμφανίζονται οι πρώτες 300' : '') + (filtered ? ' · πάτα ξανά την κάρτα για όλες' : ' · ταξινόμηση κατά πλήθος ευρημάτων και ποσό'); },
+  n_dupPair: 'ίδιο ποσό/προμηθευτής', n_dupAfter: function (d, ref) { return d + ' ημ. μετά το ' + ref; }, n_dupDoc: 'διπλός αρ. παραστατικού', n_sat: 'Σάββατο', n_sun: 'Κυριακή',
+  n_below: function (x) { return x + ' € κάτω από το όριο'; }, n_round: 'στρογγυλό ποσό', n_z: function (z, x) { return 'z = ' + z + ' (×' + x + ' του τυπικού)'; },
+  trendTitle: 'Τάσεις και πρόβλεψη', trendLead: 'Μηνιαία σύνολα από τα δεδομένα συναλλαγών, με γραμμική τάση και πρόβλεψη για τους επόμενους μήνες. Η σκιασμένη ζώνη είναι το διάστημα πρόβλεψης 95%.',
+  lblHorizon: 'Ορίζοντας πρόβλεψης', h3: '3 μήνες', h6: '6 μήνες', h12: '12 μήνες', trendChartTitle: 'Μηνιαίο σύνολο και πρόβλεψη', acctTitle: 'Ανά κατηγορία λογαριασμού',
+  trendNote: 'Η γραμμική τάση είναι κατάλληλη για βραχυπρόθεσμες εκτιμήσεις. Για εποχικά δεδομένα με 24+ μήνες ιστορικού, προτίμησε μοντέλο ETS ή Prophet.',
+  noDates: 'Δεν υπάρχουν ημερομηνίες για ανάλυση.', tAvg: 'Μέσος όρος μήνα', tAvgS: '{0} μήνες ιστορικού', tLast3: 'Τελευταίο τρίμηνο', tYoy: '{0} έναντι ίδιου τριμήνου πέρσι', tSlope: 'Τάση ανά μήνα', tSlopeS: '{0} του μέσου όρου · R² {1}', tFc: 'Πρόβλεψη {0} μηνών', tFcS: 'σύνολο περιόδου',
+  dsActual: 'Πραγματικό', dsTrend: 'Τάση', dsBand: 'Διάστημα 95%', dsFc: 'Πρόβλεψη', noCategory: 'Χωρίς κατηγορία',
+  fcMonth: 'Μήνας', fcVal: 'Πρόβλεψη €', fcLo: 'Χαμηλό 95%', fcHi: 'Υψηλό 95%', fcNeed: 'Χρειάζονται τουλάχιστον 4 μήνες δεδομένων για πρόβλεψη.',
+  boardTitle: 'Αναφορά προς το Διοικητικό Συμβούλιο', boardLead: 'Σύνοψη που συντάσσεται αυτόματα από τις προηγούμενες ενότητες, με τη δομή που περιμένει ένα ΔΣ: συμπέρασμα πρώτα, μετά τα στοιχεία, μετά οι ενέργειες.',
+  copyReport: 'Αντιγραφή κειμένου', startPres: 'Έναρξη παρουσίασης', prevS: '← Προηγ.', nextS: 'Επόμ. →', fsS: 'Πλήρης οθόνη', closeS: 'Κλείσιμο (Esc)',
+  rEyebrow: 'Αναφορά προς το Διοικητικό Συμβούλιο', confidential: 'Εμπιστευτικό', keyFindings: 'Βασικά ευρήματα', recsTitle: 'Προτεινόμενες αποφάσεις και ενέργειες',
+  txtHead: 'ΑΝΑΦΟΡΑ ΠΡΟΣ ΤΟ ΔΙΟΙΚΗΤΙΚΟ ΣΥΜΒΟΥΛΙΟ', txtKpi: 'ΒΑΣΙΚΑ ΜΕΓΕΘΗ', txtFind: 'ΒΑΣΙΚΑ ΕΥΡΗΜΑΤΑ', txtRecs: 'ΠΡΟΤΕΙΝΟΜΕΝΕΣ ΕΝΕΡΓΕΙΕΣ',
+  sources: function (n, sample) { return 'Πηγές: οικονομικές καταστάσεις και budget όπως καταχωρήθηκαν, αρχείο συναλλαγών ' + n + ' γραμμών' + (sample ? ' (δείγμα δεδομένων)' : '') + '. Οι εξαιρέσεις ελέγχου αποτελούν ενδείξεις για περαιτέρω διερεύνηση.'; },
+  lv_good: 'Σε τάξη', lv_warn: 'Προσοχή', lv_bad: 'Απαιτεί ενέργεια', lv_info: 'Πληροφορία',
+  a_res: 'Αποτελέσματα', a_liq: 'Ρευστότητα', a_wc: 'Κεφάλαιο κίνησης', a_cash: 'Ταμειακές ροές', a_bud: 'Budget', a_aud: 'Εσωτερικός έλεγχος', a_ben: 'Benford', a_fc: 'Πρόβλεψη',
+  kRev: 'Κύκλος εργασιών', kRevS: '{0} σε ετήσια βάση', kNm: 'Καθαρό περιθώριο', kZ: 'Altman Z\'\'', kBud: 'Κέρδος έναντι budget', kBudS: '{0} · πραγματικό {1}', kAud: 'Εξαιρέσεις ελέγχου', kAudS: '{0} σε {1} συναλλαγές',
+  nRev: function (up, g, rev, nm, nmPy) { return 'Ο κύκλος εργασιών ' + (up ? 'αυξήθηκε' : 'μειώθηκε') + ' κατά ' + g + ' στα ' + rev + ', με καθαρό περιθώριο ' + nm + ' (προηγ. ' + nmPy + ').'; },
+  nLiq: function (c, cp, down, cash) { return 'Η τρέχουσα ρευστότητα είναι ' + c + 'x (προηγ. ' + cp + 'x) και τα μετρητά ' + (down ? 'μειώθηκαν' : 'αυξήθηκαν') + ' στα ' + cash + '.'; },
+  nDso: function (py, cy, tied) { return 'Οι μέρες είσπραξης αυξήθηκαν από ' + py + ' σε ' + cy + '. Περίπου ' + tied + ' επιπλέον ρευστότητα είναι δεσμευμένη στους χρεώστες.'; },
+  rDso: function (py) { return 'Αυστηροποίηση πιστωτικού ελέγχου: ανασκόπηση ορίων πίστωσης και ηλικίας χρεωστών άνω των 60 ημερών, με στόχο επιστροφή των DSO στις ' + py + ' ημέρες.'; },
+  nOcf: function (cy, py) { return 'Οι λειτουργικές ταμειακές ροές καλύπτουν μόνο το ' + cy + ' του καθαρού κέρδους (προηγ. ' + py + '). Τα κέρδη δεν μετατρέπονται πλήρως σε μετρητά.'; },
+  rOcf: 'Μηνιαία παρακολούθηση της μετατροπής κερδών σε μετρητά (OCF / καθαρό κέρδος) και πρόβλεψη ρευστότητας 13 εβδομάδων.',
+  rZ: function (z) { return 'Τριμηνιαία παρακολούθηση του Altman Z\'\' (σήμερα ' + z + ') και σχέδιο ενίσχυσης κεφαλαίου κίνησης.'; },
+  nBud: function (act, above, diff, p, drivers) { return 'Το κέρδος περιόδου διαμορφώθηκε στα ' + act + ', ' + (above ? 'πάνω' : 'κάτω') + ' από το budget κατά ' + diff + ' (' + p + ')' + (drivers ? '. Κύριοι παράγοντες: ' + drivers : '') + '.'; },
+  and: 'και',
+  rBud: function (lines) { return 'Αιτιολόγηση από τη Διεύθυνση των δυσμενών αποκλίσεων σε ' + lines + ', με διορθωτικές ενέργειες για το υπόλοιπο της χρήσης.'; },
+  nAud: function (pop, cnt, val, dup, thr) { return 'Ο έλεγχος του 100% των ' + pop + ' πληρωμών εντόπισε ' + cnt + ' εξαιρέσεις αξίας ' + val + ', μεταξύ τους ' + dup + ' συναλλαγές σε πιθανά διπλότυπα και ' + thr + ' ποσά ακριβώς κάτω από το όριο έγκρισης.'; },
+  rDup: function (v) { return 'Διερεύνηση και ανάκτηση πιθανών διπλών πληρωμών έως ' + v + ', και ενεργοποίηση ελέγχου διπλοτύπων στο σύστημα πληρωμών.'; },
+  rThr: function (n, lim) { return 'Ανασκόπηση των ' + n + ' πληρωμών μεταξύ 95% και 100% του ορίου έγκρισης (' + lim + ') για πιθανό σπάσιμο τιμολογίων.'; },
+  rWkd: function (n) { return 'Έλεγχος δικαιωμάτων πρόσβασης για τις ' + n + ' εγγραφές με ημερομηνία Σαββατοκύριακου.'; },
+  nBen: function (v, mad) { return 'Η κατανομή πρώτου ψηφίου δείχνει ' + v.toLowerCase() + ' με τον νόμο του Benford (MAD ' + mad + ').'; },
+  nFc: function (m, h, sum, band) { return 'Με βάση την τάση ' + m + ' μηνών, οι πληρωμές των επόμενων ' + h + ' μηνών εκτιμώνται σε ' + sum + ' (διάστημα 95% ανά μήνα ±' + band + ').'; },
+  headGood: function (c) { return 'Η οικονομική θέση του ' + c + ' είναι υγιής και δεν εντοπίστηκαν σημαντικές εξαιρέσεις ελέγχου.'; },
+  headWarn: function (c) { return 'Η οικονομική θέση του ' + c + ' παραμένει σταθερή, αλλά η ρευστότητα και ορισμένοι έλεγχοι χρειάζονται προσοχή.'; },
+  headBad: function (c) { return 'Η οικονομική θέση του ' + c + ' παραμένει σταθερή, όμως εντοπίστηκαν ευρήματα ελέγχου και αποκλίσεις που απαιτούν απόφαση του ΔΣ.'; },
+  clientFallback: 'οργανισμού', rDefault: 'Συνέχιση της τριμηνιαίας παρακολούθησης δεικτών και ελέγχων.',
+  sTitleSub: 'Οικονομική επισκόπηση, απόδοση έναντι budget και ευρήματα ελέγχου', sSummary: 'Σύνοψη', sFin: 'Οικονομική υγεία', sBud: 'Απόδοση έναντι budget', sTrend: 'Τάση πληρωμών και πρόβλεψη', sAud: 'Εσωτερικός έλεγχος · 100% των συναλλαγών', sDecide: 'Προς απόφαση', sActions: 'Προτεινόμενες ενέργειες',
+  thTest: 'Τεστ', thCount: 'Πλήθος', thValue: 'Αξία',
+  tLib: 'Η βιβλιοθήκη Excel δεν φορτώθηκε. Δοκίμασε ξανά σε λίγο.', tReadFail: 'Το αρχείο δεν διαβάστηκε. Αποθήκευσέ το ως .xlsx ή .csv και δοκίμασε ξανά.', tPickCols: 'Επίλεξε τουλάχιστον στήλη ημερομηνίας και ποσού.', tNoRows: 'Δεν βρέθηκαν γραμμές με έγκυρο ποσό ή ημερομηνία.',
+  tLoaded: 'Φορτώθηκαν {0} συναλλαγές', tCopied: 'Αντιγράφηκαν {0} γραμμές. Κάνε επικόλληση στο Excel.', tReportCopied: 'Η αναφορά αντιγράφηκε', tManual: 'Επίλεξε και αντίγραψε χειροκίνητα', tFs: 'Η πλήρης οθόνη δεν υποστηρίζεται εδώ',
+  f_rev: 'Κύκλος εργασιών', f_cogs: 'Κόστος πωλήσεων', f_opex: 'Λειτουργικά έξοδα', f_int: 'Χρεωστικοί τόκοι', f_np: 'Καθαρό κέρδος', f_cash: 'Μετρητά', f_ar: 'Εμπορικοί χρεώστες', f_inv: 'Αποθέματα', f_ca: 'Κυκλοφορούν ενεργητικό', f_ta: 'Σύνολο ενεργητικού', f_ap: 'Εμπορικοί πιστωτές', f_cl: 'Βραχυπρόθεσμες υποχρεώσεις', f_tl: 'Σύνολο υποχρεώσεων', f_eq: 'Ίδια κεφάλαια', f_re: 'Αποθεματικό προσόδου', f_ocf: 'Ταμειακές ροές από λειτουργίες',
+  g_liq: 'Ρευστότητα', g_prof: 'Κερδοφορία', g_lev: 'Μόχλευση', g_wc: 'Κεφάλαιο κίνησης', g_cf: 'Ταμειακές ροές',
+  r_cur: 'Τρέχουσα ρευστότητα', r_quick: 'Άμεση ρευστότητα', r_cashr: 'Ταμειακή ρευστότητα', r_gm: 'Μικτό περιθώριο', r_ebitm: 'Λειτουργικό περιθώριο (EBIT)', r_nm: 'Καθαρό περιθώριο', r_roe: 'Απόδοση ιδίων κεφαλαίων (ROE)', r_roa: 'Απόδοση ενεργητικού (ROA)', r_de: 'Υποχρεώσεις / Ίδια κεφάλαια', r_icr: 'Κάλυψη τόκων', r_dso: 'Μέρες είσπραξης (DSO)', r_dio: 'Μέρες αποθέματος (DIO)', r_dpo: 'Μέρες πληρωμής (DPO)', r_ccc: 'Κύκλος μετατροπής μετρητών', r_ocfnp: 'Ποιότητα κερδών (OCF / Καθαρό κέρδος)',
+  budNames: ['Πωλήσεις', 'Λοιπά έσοδα', 'Κόστος πωλήσεων', 'Μισθοδοσία', 'Ενοίκια και κοινόχρηστα', 'Μάρκετινγκ', 'IT και λογισμικό', 'Λοιπά λειτουργικά'],
+  months: ['Ιαν', 'Φεβ', 'Μαρ', 'Απρ', 'Μαΐ', 'Ιουν', 'Ιουλ', 'Αυγ', 'Σεπ', 'Οκτ', 'Νοε', 'Δεκ']
+},
+en: {
+  brandSub: 'Accounting data analytics and board reporting', lblClient: 'Client / Organisation', lblPeriod: 'Reporting period', lblThr: 'Approval limit €', lblLang: 'Language',
+  defClient: 'Example Ltd', defPeriod: 'Jan–Sep 2026',
+  tabData: 'Data', tabFin: 'Financial health', tabBud: 'Budget vs Actual', tabAud: 'Audit analytics', tabTrend: 'Trends and forecast', tabBoard: 'Board report', present: 'Present', navLabel: 'Sections',
+  step1: 'Step 1', step2: 'Step 2', step3: 'Step 3', step4: 'Step 4', step5: 'Step 5', step6: 'Step 6',
+  dataTitle: 'Transaction data', dataLead: 'Load a payments, invoices or general ledger export in Excel or CSV. Data is processed only inside your browser and is never sent anywhere.',
+  sampleBadge: 'Sample data', dropTitle: 'Drop an .xlsx, .xls or .csv file here', chooseFile: 'Choose file', resetSample: 'Restore sample',
+  fileSample: 'Currently loaded: sample of 1,800 supplier payments (Jan 2025 – Sep 2026).',
+  fileRead: function (f, n, sh) { return f + ' · ' + n + ' rows in sheet "' + sh + '". Check the column mapping.'; },
+  fileApplied: function (f, n) { return f + ' · ' + n + ' rows loaded.'; },
+  mapTitle: 'Column mapping', mapNote: 'Columns were matched automatically from their headers. Check and correct them if needed.', apply: 'Apply',
+  mDate: 'Date *', mAmount: 'Amount *', mParty: 'Supplier / customer', mAccount: 'Account / category', mDoc: 'Document no.', none: '— none —', colN: 'Column {0}',
+  dqTitle: 'Data quality', previewTitle: 'Preview (first 12 rows)',
+  stRows: 'Rows', stTotal: 'Total value', stTotalS: 'net, incl. credit notes', stPeriod: 'Period', until: 'to {0}', stParties: 'Counterparties', stPartiesS: 'unique names', stNeg: 'Credits / negatives', rowsWord: 'rows',
+  dqDate: 'Missing or invalid date', dqAmt: 'Missing amount', dqParty: 'Missing counterparty', dqGood: 'Complete', dqWarn: 'Minor gap', dqBad: 'Needs cleaning',
+  dqNote: 'Before any analysis, reconcile the total to the trial balance for the same account and period.',
+  thDate: 'Date', thParty: 'Counterparty', thAccount: 'Account', thDoc: 'Document', thAmount: 'Amount €', thAmountPlain: 'Amount', thFindings: 'Findings',
+  finTitle: 'Financial health', finLead: 'Enter the key financial statement figures for two years. Ratios, ratings and the Altman Z\'\' score are calculated automatically.',
+  loadSample: 'Load example', clear: 'Clear', thFigure: 'Item (€)', thCY: 'Current year', thPY: 'Prior year',
+  altmanEyebrow: 'Altman Z\'\' (private, non-manufacturing)', zRisk: 'Distress', zGrey: 'Grey', zSafe: 'Safe',
+  zFormula: 'Z\'\' = 6.56·X1 + 3.26·X2 + 6.72·X3 + 1.05·X4, where X1 is working capital/total assets, X2 retained earnings/total assets, X3 EBIT/total assets, X4 equity/total liabilities.',
+  zgood: 'Safe zone', zwarn: 'Grey zone', zbad: 'Distress zone', prior: 'prior {0}',
+  wcTitle: 'Working capital in days', thRatio: 'Ratio', thCur: 'Current', thPrev: 'Prior', thChange: 'Change', thRating: 'Rating', thLimits: 'Thresholds (good / watch)',
+  finNote: 'Thresholds are general guides. Always compare with the client\'s industry average before presenting to the Board.',
+  finIncomplete: 'Fill in every current-year field to calculate the ratios.',
+  rgood: 'Strong', rwarn: 'Watch', rbad: 'Weak', rinfo: 'Info', daysShort: 'days', daysLong: 'days',
+  wcDSO: 'Collection (DSO)', wcDIO: 'Inventory (DIO)', wcDPO: 'Payment (DPO)', wcCCC: 'Cash cycle', axisDays: 'Days', prevShort: 'Prior year', curShort: 'Current', cycle: 'Cycle',
+  budTitle: 'Budget vs actual', budLead: 'Variance analysis by income statement line and a bridge from budgeted to actual profit. Variances are marked favourable or adverse depending on whether the line is income or expense.',
+  addLine: 'Add line', bridgeTitle: 'Profit bridge: budget → actual', thLine: 'Line', thType: 'Type', thBudget: 'Budget €', thActual: 'Actual €', thVar: 'Variance €', thImpact: 'Impact',
+  bBudget: 'Budgeted profit', bActual: 'Actual profit', bVar: 'Variance', bVarS: '{0} vs budget', inc: 'Income', exp: 'Expense', noVar: 'No variance', fav: 'Favourable', adv: 'Adverse', profit: 'Profit', delLine: 'Delete line', newLine: 'New line',
+  audTitle: 'Full-population audit analytics', audLead: 'Five audit tests run on every transaction, not a sample. Findings are indicators to investigate, not proof of error or fraud (ISA 240, IIA GTAG 16).',
+  copyEx: 'Copy exceptions for Excel', benTitle: 'Benford\'s Law, first digit', concTitle: 'Supplier concentration',
+  aPop: 'Population', aPopS: 'positive transactions, 100% coverage', aEx: 'Exceptions', aExS: '{0} of population', aVal: 'Value of exceptions', aValS: 'to investigate', aRec: 'Potential recovery', aRecS: 'from duplicate payments',
+  t_dup: 'Possible duplicate payments', d_dup: 'Same supplier and amount within 30 days, or same document number',
+  t_thr: 'Just below the limit', d_thr: 'Amounts at 95–100% of the approval limit: possible invoice splitting',
+  t_wkd: 'Weekend postings', d_wkd: 'Transactions dated Saturday or Sunday',
+  t_rnd: 'Round amounts', d_rnd: 'Whole thousands of euros, often estimates or non-standard charges',
+  t_out: 'Outliers', d_out: 'Amount more than 3 standard deviations above the supplier\'s norm',
+  benExp: 'Expected (Benford)', benObs: 'Actual', firstDigit: 'First digit',
+  vClose: 'Close conformity', vAcc: 'Acceptable conformity', vMarg: 'Marginally acceptable conformity', vNon: 'Nonconformity',
+  benNote: function (mad, chi, n) { return 'MAD ' + mad + ' (Nigrini thresholds: 0.006 / 0.012 / 0.015), χ² = ' + chi + ' against a 5% critical value of 15.51, n = ' + n + '.'; },
+  share: 'Share', hhiHigh: 'high', hhiMid: 'moderate', hhiLow: 'low',
+  concNote: function (top5, hhi, lvl) { return 'The top 5 suppliers account for ' + top5 + ' of payments. HHI ' + hhi + ' (' + lvl + ' concentration).'; },
+  exAll: 'All exceptions', exOne: 'Exceptions: {0}',
+  exNote: function (n, more, filtered) { return n + ' rows' + (more ? ', showing the first 300' : '') + (filtered ? ' · click the card again to show all' : ' · sorted by number of findings and amount'); },
+  n_dupPair: 'same amount/supplier', n_dupAfter: function (d, ref) { return d + ' days after ' + ref; }, n_dupDoc: 'duplicate document no.', n_sat: 'Saturday', n_sun: 'Sunday',
+  n_below: function (x) { return '€' + x + ' below the limit'; }, n_round: 'round amount', n_z: function (z, x) { return 'z = ' + z + ' (×' + x + ' typical)'; },
+  trendTitle: 'Trends and forecast', trendLead: 'Monthly totals from the transaction data, with a linear trend and a forecast for the coming months. The shaded band is the 95% prediction interval.',
+  lblHorizon: 'Forecast horizon', h3: '3 months', h6: '6 months', h12: '12 months', trendChartTitle: 'Monthly total and forecast', acctTitle: 'By account category',
+  trendNote: 'A linear trend suits short-term estimates. For seasonal data with 24+ months of history, prefer an ETS or Prophet model.',
+  noDates: 'No dates available for analysis.', tAvg: 'Monthly average', tAvgS: '{0} months of history', tLast3: 'Last quarter', tYoy: '{0} vs same quarter last year', tSlope: 'Trend per month', tSlopeS: '{0} of average · R² {1}', tFc: '{0}-month forecast', tFcS: 'period total',
+  dsActual: 'Actual', dsTrend: 'Trend', dsBand: '95% interval', dsFc: 'Forecast', noCategory: 'Uncategorised',
+  fcMonth: 'Month', fcVal: 'Forecast €', fcLo: 'Low 95%', fcHi: 'High 95%', fcNeed: 'At least 4 months of data are needed for a forecast.',
+  boardTitle: 'Report to the Board of Directors', boardLead: 'A summary drafted automatically from the previous sections, in the order a Board expects: conclusion first, then the evidence, then the actions.',
+  copyReport: 'Copy text', startPres: 'Start presentation', prevS: '← Prev', nextS: 'Next →', fsS: 'Full screen', closeS: 'Close (Esc)',
+  rEyebrow: 'Report to the Board of Directors', confidential: 'Confidential', keyFindings: 'Key findings', recsTitle: 'Recommended decisions and actions',
+  txtHead: 'REPORT TO THE BOARD OF DIRECTORS', txtKpi: 'KEY FIGURES', txtFind: 'KEY FINDINGS', txtRecs: 'RECOMMENDED ACTIONS',
+  sources: function (n, sample) { return 'Sources: financial statements and budget as entered, transaction file of ' + n + ' rows' + (sample ? ' (sample data)' : '') + '. Audit exceptions are indicators for further investigation.'; },
+  lv_good: 'On track', lv_warn: 'Watch', lv_bad: 'Action needed', lv_info: 'For information',
+  a_res: 'Results', a_liq: 'Liquidity', a_wc: 'Working capital', a_cash: 'Cash flow', a_bud: 'Budget', a_aud: 'Internal audit', a_ben: 'Benford', a_fc: 'Forecast',
+  kRev: 'Revenue', kRevS: '{0} year on year', kNm: 'Net margin', kZ: 'Altman Z\'\'', kBud: 'Profit vs budget', kBudS: '{0} · actual {1}', kAud: 'Audit exceptions', kAudS: '{0} across {1} transactions',
+  nRev: function (up, g, rev, nm, nmPy) { return 'Revenue ' + (up ? 'grew' : 'fell') + ' by ' + g + ' to ' + rev + ', with a net margin of ' + nm + ' (prior year ' + nmPy + ').'; },
+  nLiq: function (c, cp, down, cash) { return 'The current ratio is ' + c + 'x (prior year ' + cp + 'x) and cash ' + (down ? 'fell' : 'rose') + ' to ' + cash + '.'; },
+  nDso: function (py, cy, tied) { return 'Debtor days rose from ' + py + ' to ' + cy + '. Roughly ' + tied + ' of additional cash is tied up in receivables.'; },
+  rDso: function (py) { return 'Tighten credit control: review credit limits and debtors over 60 days, aiming to bring DSO back to ' + py + ' days.'; },
+  nOcf: function (cy, py) { return 'Operating cash flow covers only ' + cy + ' of net profit (prior year ' + py + '). Profits are not fully converting into cash.'; },
+  rOcf: 'Monitor cash conversion (OCF / net profit) monthly and introduce a 13-week cash flow forecast.',
+  rZ: function (z) { return 'Track the Altman Z\'\' score quarterly (currently ' + z + ') and prepare a plan to strengthen working capital.'; },
+  nBud: function (act, above, diff, p, drivers) { return 'Profit for the period was ' + act + ', ' + diff + ' (' + p + ') ' + (above ? 'above' : 'below') + ' budget' + (drivers ? '. Main drivers: ' + drivers : '') + '.'; },
+  and: 'and',
+  rBud: function (lines) { return 'Management to explain the adverse variances in ' + lines + ' and set corrective actions for the rest of the year.'; },
+  nAud: function (pop, cnt, val, dup, thr) { return 'Testing 100% of ' + pop + ' payments found ' + cnt + ' exceptions worth ' + val + ', including ' + dup + ' transactions in possible duplicates and ' + thr + ' amounts just below the approval limit.'; },
+  rDup: function (v) { return 'Investigate and recover possible duplicate payments of up to ' + v + ', and enable duplicate checks in the payment system.'; },
+  rThr: function (n, lim) { return 'Review the ' + n + ' payments between 95% and 100% of the approval limit (' + lim + ') for possible invoice splitting.'; },
+  rWkd: function (n) { return 'Review system access rights for the ' + n + ' entries dated on a weekend.'; },
+  nBen: function (v, mad) { return 'The first-digit distribution shows ' + v.toLowerCase() + ' with Benford\'s Law (MAD ' + mad + ').'; },
+  nFc: function (m, h, sum, band) { return 'Based on the ' + m + '-month trend, payments over the next ' + h + ' months are estimated at ' + sum + ' (95% interval ±' + band + ' per month).'; },
+  headGood: function (c) { return c + ' is in a sound financial position and no significant audit exceptions were found.'; },
+  headWarn: function (c) { return c + ' remains financially stable, but liquidity and some controls need attention.'; },
+  headBad: function (c) { return c + ' remains financially stable, but audit findings and budget variances require a Board decision.'; },
+  clientFallback: 'The organisation', rDefault: 'Continue quarterly monitoring of ratios and controls.',
+  sTitleSub: 'Financial review, performance against budget and audit findings', sSummary: 'Summary', sFin: 'Financial health', sBud: 'Performance against budget', sTrend: 'Payment trend and forecast', sAud: 'Internal audit · 100% of transactions', sDecide: 'For decision', sActions: 'Recommended actions',
+  thTest: 'Test', thCount: 'Count', thValue: 'Value',
+  tLib: 'The Excel library did not load. Try again in a moment.', tReadFail: 'The file could not be read. Save it as .xlsx or .csv and try again.', tPickCols: 'Select at least a date and an amount column.', tNoRows: 'No rows with a valid amount or date were found.',
+  tLoaded: '{0} transactions loaded', tCopied: '{0} rows copied. Paste them into Excel.', tReportCopied: 'Report copied', tManual: 'Select and copy manually', tFs: 'Full screen is not supported here',
+  f_rev: 'Revenue', f_cogs: 'Cost of sales', f_opex: 'Operating expenses', f_int: 'Interest expense', f_np: 'Net profit', f_cash: 'Cash', f_ar: 'Trade receivables', f_inv: 'Inventory', f_ca: 'Current assets', f_ta: 'Total assets', f_ap: 'Trade payables', f_cl: 'Current liabilities', f_tl: 'Total liabilities', f_eq: 'Equity', f_re: 'Retained earnings', f_ocf: 'Operating cash flow',
+  g_liq: 'Liquidity', g_prof: 'Profitability', g_lev: 'Leverage', g_wc: 'Working capital', g_cf: 'Cash flow',
+  r_cur: 'Current ratio', r_quick: 'Quick ratio', r_cashr: 'Cash ratio', r_gm: 'Gross margin', r_ebitm: 'Operating margin (EBIT)', r_nm: 'Net margin', r_roe: 'Return on equity (ROE)', r_roa: 'Return on assets (ROA)', r_de: 'Liabilities / Equity', r_icr: 'Interest cover', r_dso: 'Days sales outstanding (DSO)', r_dio: 'Days inventory outstanding (DIO)', r_dpo: 'Days payables outstanding (DPO)', r_ccc: 'Cash conversion cycle', r_ocfnp: 'Earnings quality (OCF / Net profit)',
+  budNames: ['Sales', 'Other income', 'Cost of sales', 'Payroll', 'Rent and service charges', 'Marketing', 'IT and software', 'Other operating costs'],
+  months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+  acct: { 'Αναλώσιμα': 'Consumables', 'Υπηρεσίες IT': 'IT services', 'Μεταφορικά': 'Freight', 'Συντήρηση κτιρίων': 'Building maintenance', 'Ενέργεια': 'Energy', 'Μάρκετινγκ': 'Marketing', 'Τροφοδοσία': 'Catering', 'Νομικά': 'Legal', 'Ασφάλιστρα': 'Insurance', 'Καθαριότητα': 'Cleaning' }
+}
+};
+var GROUP_KEY = { 'Ρευστότητα': 'g_liq', 'Κερδοφορία': 'g_prof', 'Μόχλευση': 'g_lev', 'Κεφάλαιο κίνησης': 'g_wc', 'Ταμειακές ροές': 'g_cf' };
+
+</script>
+<script>
 (function () {
 'use strict';
 var $ = function (s) { return document.querySelector(s); };
 var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
-var nf0 = new Intl.NumberFormat('el-GR', { maximumFractionDigits: 0 });
-var nf2 = new Intl.NumberFormat('el-GR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-var eur = function (v, d) { return (d ? nf2 : nf0).format(v) + ' €'; };
-var keur = function (v) { return Math.abs(v) >= 1e6 ? nf2.format(v / 1e6) + ' εκ. €' : Math.abs(v) >= 1e4 ? nf0.format(v / 1e3) + ' χιλ. €' : nf0.format(v) + ' €'; };
-var pct = function (v, d) { return isFinite(v) ? (v * 100).toFixed(d == null ? 1 : d).replace('.', ',') + '%' : '–'; };
-var dec = function (v, d) { return isFinite(v) ? v.toFixed(d == null ? 2 : d).replace('.', ',') : '–'; };
-var MONTHS = ['Ιαν', 'Φεβ', 'Μαρ', 'Απρ', 'Μαΐ', 'Ιουν', 'Ιουλ', 'Αυγ', 'Σεπ', 'Οκτ', 'Νοε', 'Δεκ'];
-var mLabel = function (k) { var p = k.split('-'); return MONTHS[+p[1] - 1] + ' ' + p[0].slice(2); };
+
+/* ---------- language ---------- */
+var LANG = 'el';
+try { var savedLang = localStorage.getItem('ledgerlens:lang'); if (savedLang === 'en' || savedLang === 'el') LANG = savedLang; } catch (e) {}
+function t(k) {
+  var v = I18N[LANG][k]; if (v === undefined) v = I18N.el[k]; if (v === undefined) return k;
+  var args = Array.prototype.slice.call(arguments, 1);
+  if (typeof v === 'function') return v.apply(null, args);
+  if (typeof v !== 'string') return v;
+  return v.replace(/\{(\d)\}/g, function (_, i) { return args[+i]; });
+}
+var nf0, nf2;
+function setFormats() {
+  var loc = LANG === 'en' ? 'en-GB' : 'el-GR';
+  nf0 = new Intl.NumberFormat(loc, { maximumFractionDigits: 0 });
+  nf2 = new Intl.NumberFormat(loc, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+setFormats();
+function money(abs, sfxEl, sfxEn, neg) { return LANG === 'en' ? (neg ? '-' : '') + '€' + abs + sfxEn : (neg ? '-' : '') + abs + sfxEl + ' €'; }
+var eur = function (v, d) { return money((d ? nf2 : nf0).format(Math.abs(v)), '', '', v < 0); };
+var keur = function (v) {
+  var a = Math.abs(v), n = v < 0;
+  if (a >= 1e6) return money(nf2.format(a / 1e6), ' εκ.', 'm', n);
+  if (a >= 1e4) return money(nf0.format(a / 1e3), ' χιλ.', 'k', n);
+  return money(nf0.format(a), '', '', n);
+};
+var decSep = function (s) { return LANG === 'en' ? s : s.replace('.', ','); };
+var pct = function (v, d) { return isFinite(v) ? decSep((v * 100).toFixed(d == null ? 1 : d)) + '%' : '–'; };
+var dec = function (v, d) { return isFinite(v) ? decSep(v.toFixed(d == null ? 2 : d)) : '–'; };
+var signed = function (s, v) { return (v >= 0 ? '+' : '') + s; };
+var mLabel = function (k) { var p = k.split('-'); return t('months')[+p[1] - 1] + ' ' + p[0].slice(2); };
 var dfmt = function (d) { return d ? String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth() + 1).padStart(2, '0') + '/' + d.getFullYear() : '–'; };
-function toast(msg) { var t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; document.body.appendChild(t); setTimeout(function () { t.remove(); }, 2200); }
+function acct(a) { if (!S.sample || LANG !== 'en') return a; return I18N.en.acct[a] || a; }
+function noteText(n) {
+  if (!Array.isArray(n)) return String(n);
+  var k = 'n_' + n[0];
+  if (n[0] === 'below') return t(k, nf0.format(n[1]));
+  if (n[0] === 'z') return t(k, dec(n[1], 1), nf0.format(n[2]));
+  return t(k, n[1], n[2]);
+}
+function verdictKey(mad) { return mad < 0.006 ? 'vClose' : mad < 0.012 ? 'vAcc' : mad < 0.015 ? 'vMarg' : 'vNon'; }
+function toast(msg) { var tt = document.createElement('div'); tt.className = 'toast'; tt.setAttribute('role', 'status'); tt.textContent = msg; document.body.appendChild(tt); setTimeout(function () { tt.remove(); }, 2400); }
 function copyText(text, done) {
   var ok = function () { toast(done); };
-  var fallback = function () { var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); ok(); } catch (e) { toast('Επίλεξε και αντίγραψε χειροκίνητα'); } ta.remove(); };
+  var fallback = function () { var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); ok(); } catch (e) { toast(t('tManual')); } ta.remove(); };
   try { navigator.clipboard.writeText(text).then(ok, fallback); } catch (e) { fallback(); }
 }
 
 /* ---------- state ---------- */
 var STORE = 'ledgerlens:v1';
-var S = { rows: LL.sampleLedger(), sample: true, matrix: null, headers: null, fin: JSON.parse(JSON.stringify(LL.SAMPLE_FIN)), budget: JSON.parse(JSON.stringify(LL.SAMPLE_BUDGET)), horizon: 6, filter: null };
+function sampleBudget() { var names = t('budNames'); return LL.SAMPLE_BUDGET.map(function (l, i) { return { name: names[i], type: l.type, b: l.b, a: l.a }; }); }
+var S = { rows: LL.sampleLedger(), sample: true, matrix: null, headers: null, fin: JSON.parse(JSON.stringify(LL.SAMPLE_FIN)), budget: sampleBudget(), horizon: 6, filter: null, fileInfo: { k: 'sample' } };
+$('#client').value = t('defClient'); $('#period').value = t('defPeriod');
 try {
   var saved = JSON.parse(localStorage.getItem(STORE) || 'null');
   if (saved) {
@@ -780,9 +1007,11 @@ try {
     if (saved.thr != null) $('#thr').value = saved.thr;
   }
 } catch (e) {}
+(function () { var other = I18N[LANG === 'en' ? 'el' : 'en'].budNames, mine = t('budNames'); S.budget.forEach(function (l) { var i = other.indexOf(l.name); if (i > -1) l.name = mine[i]; }); })();
 function persist() { try { localStorage.setItem(STORE, JSON.stringify({ fin: S.fin, budget: S.budget, client: $('#client').value, period: $('#period').value, thr: $('#thr').value })); } catch (e) {} }
 
-var R = {}; // computed results
+var R = {};
+function filled(v) { return v !== null && v !== undefined && v !== '' && isFinite(v); }
 function compute() {
   var thr = parseFloat($('#thr').value) || 0;
   R.profile = LL.profile(S.rows);
@@ -791,8 +1020,8 @@ function compute() {
   R.conc = LL.concentration(S.rows);
   R.monthly = LL.monthly(S.rows);
   R.fc = LL.forecast(R.monthly, S.horizon);
-  var finOk = LL.FIN_FIELDS.every(function (f) { return isFinite(S.fin.cy[f[0]]); });
-  var pyOk = LL.FIN_FIELDS.every(function (f) { return isFinite(S.fin.py[f[0]]); });
+  var finOk = LL.FIN_FIELDS.every(function (f) { return filled(S.fin.cy[f[0]]); });
+  var pyOk = LL.FIN_FIELDS.every(function (f) { return filled(S.fin.py[f[0]]); });
   R.finOk = finOk;
   R.ratios = finOk ? LL.ratios(S.fin.cy, pyOk ? S.fin.py : null) : [];
   R.z = finOk ? LL.altman(S.fin.cy) : null;
@@ -825,23 +1054,23 @@ function makeChart(id, cfg, light) {
   charts[id] = new Chart(el, cfg);
   chartTheme(false);
 }
-var euroTick = function (v) { return Math.abs(v) >= 1e6 ? (v / 1e6).toFixed(1).replace('.', ',') + 'εκ' : Math.abs(v) >= 1e3 ? nf0.format(v / 1e3) + 'χ' : nf0.format(v); };
+var euroTick = function (v) { var a = Math.abs(v); return a >= 1e6 ? decSep((v / 1e6).toFixed(1)) + (LANG === 'en' ? 'm' : 'εκ') : a >= 1e3 ? nf0.format(v / 1e3) + (LANG === 'en' ? 'k' : 'χ') : nf0.format(v); };
 var tipEur = function (ctx) { var v = ctx.raw; if (Array.isArray(v)) v = v[1] - v[0]; return (ctx.dataset.label ? ctx.dataset.label + ': ' : '') + eur(v); };
 
 function bridgeCfg(c, light) {
-  var labels = ['Budget κέρδος'], data = [], colors = [], run = R.var.budgetProfit;
+  var labels = [t('bBudget')], data = [], colors = [], run = R.var.budgetProfit;
   data.push([0, run]); colors.push(c.muted);
   R.var.rows.forEach(function (r) { labels.push(r.name); data.push([run, run + r.impact]); colors.push(r.impact >= 0 ? c.good : c.bad); run += r.impact; });
-  labels.push('Πραγματικό κέρδος'); data.push([0, run]); colors.push(c.accent);
+  labels.push(t('bActual')); data.push([0, run]); colors.push(c.accent);
   return { type: 'bar', data: { labels: labels, datasets: [{ data: data, backgroundColor: colors, borderRadius: 2, maxBarThickness: 46 }] },
-    options: { plugins: { legend: { display: false }, tooltip: { callbacks: { label: function (ctx) { var v = ctx.raw; return (ctx.dataIndex === 0 || ctx.dataIndex === labels.length - 1) ? eur(v[1]) : (v[1] - v[0] >= 0 ? '+' : '') + eur(v[1] - v[0]); } } } },
+    options: { plugins: { legend: { display: false }, tooltip: { callbacks: { label: function (ctx) { var v = ctx.raw; return (ctx.dataIndex === 0 || ctx.dataIndex === labels.length - 1) ? eur(v[1]) : signed(eur(v[1] - v[0]), v[1] - v[0]); } } } },
       scales: { y: { ticks: { callback: euroTick } }, x: { grid: { display: false }, ticks: { autoSkip: false, maxRotation: light ? 0 : 40, font: { size: light ? 10 : 11 } } } } } };
 }
 function benfordCfg(c) {
   return { type: 'bar', data: { labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9'], datasets: [
-    { type: 'line', label: 'Αναμενόμενο (Benford)', data: R.benford.exp, borderColor: c.brass, backgroundColor: c.brass, pointRadius: 3, borderWidth: 2, tension: 0.3, order: 0 },
-    { label: 'Πραγματικό', data: R.benford.obs, backgroundColor: c.accent, borderRadius: 2, order: 1 }] },
-    options: { plugins: { tooltip: { callbacks: { label: function (ctx) { return ctx.dataset.label + ': ' + pct(ctx.raw); } } } }, scales: { y: { ticks: { callback: function (v) { return pct(v, 0); } } }, x: { grid: { display: false }, title: { display: true, text: 'Πρώτο ψηφίο' } } } } };
+    { type: 'line', label: t('benExp'), data: R.benford.exp, borderColor: c.brass, backgroundColor: c.brass, pointRadius: 3, borderWidth: 2, tension: 0.3, order: 0 },
+    { label: t('benObs'), data: R.benford.obs, backgroundColor: c.accent, borderRadius: 2, order: 1 }] },
+    options: { plugins: { tooltip: { callbacks: { label: function (ctx) { return ctx.dataset.label + ': ' + pct(ctx.raw); } } } }, scales: { y: { ticks: { callback: function (v) { return pct(v, 0); } } }, x: { grid: { display: false }, title: { display: true, text: t('firstDigit') } } } } };
 }
 function trendCfg(c) {
   var hist = R.monthly, fut = R.fc ? R.fc.future : [];
@@ -850,162 +1079,161 @@ function trendCfg(c) {
   var lastH = hist.length ? hist[hist.length - 1].value : null;
   var fcLine = pad.slice(0, -1).concat([lastH]).concat(fut.map(function (f) { return f.value; }));
   var ds = [
-    { type: 'bar', label: 'Πραγματικό', data: hist.map(function (m) { return m.value; }).concat(fut.map(function () { return null; })), backgroundColor: c.accent, borderRadius: 2, order: 3 },
-    { type: 'line', label: 'Τάση', data: R.fc ? R.fc.fitted.concat(fut.map(function () { return null; })) : [], borderColor: c.muted, borderDash: [4, 4], borderWidth: 1.5, pointRadius: 0, order: 2 },
-    { type: 'line', label: 'Κάτω όριο', data: pad.concat(fut.map(function (f) { return Math.max(0, f.lo); })), borderWidth: 0, pointRadius: 0, order: 1 },
-    { type: 'line', label: 'Διάστημα 95%', data: pad.concat(fut.map(function (f) { return f.hi; })), borderWidth: 0, pointRadius: 0, backgroundColor: c.soft, fill: '-1', order: 1 },
-    { type: 'line', label: 'Πρόβλεψη', data: fcLine, borderColor: c.brass, backgroundColor: c.brass, borderWidth: 2.5, pointRadius: function (ctx) { return ctx.dataIndex >= hist.length ? 3 : 0; }, order: 0 }
+    { type: 'bar', label: t('dsActual'), data: hist.map(function (m) { return m.value; }).concat(fut.map(function () { return null; })), backgroundColor: c.accent, borderRadius: 2, order: 3 },
+    { type: 'line', label: t('dsTrend'), data: R.fc ? R.fc.fitted.concat(fut.map(function () { return null; })) : [], borderColor: c.muted, borderDash: [4, 4], borderWidth: 1.5, pointRadius: 0, order: 2 },
+    { type: 'line', label: '_lo', data: pad.concat(fut.map(function (f) { return Math.max(0, f.lo); })), borderWidth: 0, pointRadius: 0, order: 1 },
+    { type: 'line', label: t('dsBand'), data: pad.concat(fut.map(function (f) { return f.hi; })), borderWidth: 0, pointRadius: 0, backgroundColor: c.soft, fill: '-1', order: 1 },
+    { type: 'line', label: t('dsFc'), data: fcLine, borderColor: c.brass, backgroundColor: c.brass, borderWidth: 2.5, pointRadius: function (ctx) { return ctx.dataIndex >= hist.length ? 3 : 0; }, order: 0 }
   ];
   return { type: 'bar', data: { labels: labels, datasets: ds }, options: { interaction: { mode: 'index', intersect: false },
-    plugins: { legend: { labels: { filter: function (i) { return i.text !== 'Κάτω όριο'; } } }, tooltip: { filter: function (i) { return i.raw != null && i.dataset.label !== 'Κάτω όριο'; }, callbacks: { label: tipEur } } },
+    plugins: { legend: { labels: { filter: function (i) { return i.text !== '_lo'; } } }, tooltip: { filter: function (i) { return i.raw != null && i.dataset.label !== '_lo'; }, callbacks: { label: tipEur } } },
     scales: { y: { beginAtZero: true, ticks: { callback: euroTick } }, x: { grid: { display: false } } } } };
+}
+function wcCfg(c, light) {
+  var g = function (id) { return R.ratios.filter(function (r) { return r.id === id; })[0]; }, ids = ['dso', 'dio', 'dpo', 'ccc'];
+  var labels = light ? ['DSO', 'DIO', 'DPO', t('cycle')] : [t('wcDSO'), t('wcDIO'), t('wcDPO'), t('wcCCC')];
+  return { type: 'bar', data: { labels: labels, datasets: [
+    { label: t('prevShort'), data: ids.map(function (i) { return g(i).py; }), backgroundColor: c.muted, borderRadius: 2 },
+    { label: t('curShort'), data: ids.map(function (i) { return g(i).cy; }), backgroundColor: c.accent, borderRadius: 2 }] },
+    options: light ? { plugins: { title: { display: true, text: t('wcTitle'), align: 'start', color: c.ink } }, scales: { x: { grid: { display: false } } } }
+      : { indexAxis: 'y', plugins: { tooltip: { callbacks: { label: function (ctx) { return ctx.dataset.label + ': ' + nf0.format(ctx.raw) + ' ' + t('daysLong'); } } } }, scales: { x: { title: { display: true, text: t('axisDays') } }, y: { grid: { display: false } } } } };
 }
 
 /* ---------- render: data ---------- */
+function statHtml(list) { return list.map(function (s) { return '<div class="stat ' + (s[3] ? 'flag-' + s[3] : '') + '"><div class="eyebrow">' + s[0] + '</div><div class="v">' + s[1] + '</div><div class="s">' + (s[2] || '') + '</div></div>'; }).join(''); }
+function fileInfoText() { var f = S.fileInfo; return f.k === 'sample' ? t('fileSample') : f.k === 'read' ? t('fileRead', f.name, nf0.format(f.n), f.sheet) : t('fileApplied', f.name, nf0.format(f.n)); }
 function renderData() {
   var p = R.profile;
   $('#sampleBadge').hidden = !S.sample;
-  $('#profileStats').innerHTML = [
-    ['Γραμμές', nf0.format(p.n), ''],
-    ['Συνολική αξία', keur(p.total), 'καθαρό, με πιστωτικά'],
-    ['Περίοδος', p.from ? dfmt(p.from) : '–', p.to ? 'έως ' + dfmt(p.to) : ''],
-    ['Αντισυμβαλλόμενοι', nf0.format(p.parties), 'μοναδικά ονόματα'],
-    ['Πιστωτικά / αρνητικά', nf0.format(p.negatives), 'γραμμές']
-  ].map(function (s) { return '<div class="stat"><div class="eyebrow">' + s[0] + '</div><div class="v">' + s[1] + '</div><div class="s">' + s[2] + '</div></div>'; }).join('');
-  var issues = [
-    ['Χωρίς έγκυρη ημερομηνία', p.missDate], ['Χωρίς ποσό', p.missAmount], ['Χωρίς αντισυμβαλλόμενο', p.missParty]
-  ];
+  $('#fileInfo').textContent = fileInfoText();
+  $('#profileStats').innerHTML = statHtml([
+    [t('stRows'), nf0.format(p.n), ''],
+    [t('stTotal'), keur(p.total), t('stTotalS')],
+    [t('stPeriod'), p.from ? dfmt(p.from) : '–', p.to ? t('until', dfmt(p.to)) : ''],
+    [t('stParties'), nf0.format(p.parties), t('stPartiesS')],
+    [t('stNeg'), nf0.format(p.negatives), t('rowsWord')]
+  ]);
+  var issues = [[t('dqDate'), p.missDate], [t('dqAmt'), p.missAmount], [t('dqParty'), p.missParty]];
   $('#dq').innerHTML = '<div class="tablewrap" style="border:0"><table><tbody>' + issues.map(function (i) {
     var lv = i[1] === 0 ? 'good' : i[1] / Math.max(1, p.n) < 0.02 ? 'warn' : 'bad';
-    return '<tr><td>' + i[0] + '</td><td class="num">' + nf0.format(i[1]) + '</td><td><span class="chip ' + lv + '">' + (lv === 'good' ? 'Πλήρες' : lv === 'warn' ? 'Μικρό κενό' : 'Χρειάζεται καθαρισμό') + '</span></td></tr>';
-  }).join('') + '</tbody></table></div><p class="note" style="margin-top:8px">Πριν από κάθε ανάλυση, συμφώνησε το σύνολο με το ισοζύγιο (trial balance) του λογαριασμού για την ίδια περίοδο.</p>';
-  var head = '<tr><th>Ημερομηνία</th><th>Αντισυμβαλλόμενος</th><th>Λογαριασμός</th><th>Παραστατικό</th><th class="num">Ποσό €</th></tr>';
+    return '<tr><td>' + i[0] + '</td><td class="num">' + nf0.format(i[1]) + '</td><td><span class="chip ' + lv + '">' + t(lv === 'good' ? 'dqGood' : lv === 'warn' ? 'dqWarn' : 'dqBad') + '</span></td></tr>';
+  }).join('') + '</tbody></table></div><p class="note" style="margin-top:8px">' + t('dqNote') + '</p>';
+  var head = '<tr><th>' + t('thDate') + '</th><th>' + t('thParty') + '</th><th>' + t('thAccount') + '</th><th>' + t('thDoc') + '</th><th class="num">' + t('thAmount') + '</th></tr>';
   $('#preview').innerHTML = '<table><thead>' + head + '</thead><tbody>' + S.rows.slice(0, 12).map(function (r) {
-    return '<tr><td class="num" style="text-align:left">' + dfmt(r.date) + '</td><td>' + esc(r.party) + '</td><td>' + esc(r.account) + '</td><td class="mono">' + esc(r.doc) + '</td><td class="num">' + (r.amount == null ? '–' : nf2.format(r.amount)) + '</td></tr>';
+    return '<tr><td class="mono">' + dfmt(r.date) + '</td><td>' + esc(r.party) + '</td><td>' + esc(acct(r.account)) + '</td><td class="mono">' + esc(r.doc) + '</td><td class="num">' + (r.amount == null ? '–' : nf2.format(r.amount)) + '</td></tr>';
   }).join('') + '</tbody></table>';
 }
 
 /* ---------- render: financial ---------- */
 function buildFinForm() {
   $('#finBody').innerHTML = LL.FIN_FIELDS.map(function (f) {
-    return '<tr><td>' + f[1] + '</td><td><input type="number" id="cy-' + f[0] + '" data-y="cy" data-k="' + f[0] + '" value="' + (S.fin.cy[f[0]] == null ? '' : S.fin.cy[f[0]]) + '"></td><td><input type="number" id="py-' + f[0] + '" data-y="py" data-k="' + f[0] + '" value="' + (S.fin.py[f[0]] == null ? '' : S.fin.py[f[0]]) + '"></td></tr>';
+    var cy = S.fin.cy[f[0]], py = S.fin.py[f[0]], lab = t('f_' + f[0]);
+    return '<tr><td>' + lab + '</td><td><input type="number" id="cy-' + f[0] + '" data-y="cy" data-k="' + f[0] + '" aria-label="' + esc(lab + ' · ' + t('thCY')) + '" value="' + (cy == null ? '' : cy) + '"></td><td><input type="number" id="py-' + f[0] + '" data-y="py" data-k="' + f[0] + '" aria-label="' + esc(lab + ' · ' + t('thPY')) + '" value="' + (py == null ? '' : py) + '"></td></tr>';
   }).join('');
 }
-function fmtRatio(v, u) { return !isFinite(v) ? '–' : u === '%' ? pct(v) : u === 'd' ? nf0.format(v) + ' ημ.' : dec(v) + 'x'; }
+function fmtRatio(v, u) { return !isFinite(v) ? '–' : u === '%' ? pct(v) : u === 'd' ? nf0.format(v) + ' ' + t('daysShort') : dec(v) + 'x'; }
 function renderFin() {
-  if (!R.finOk) { $('#ratioBody').innerHTML = '<tr><td colspan="6" class="muted">Συμπλήρωσε όλα τα πεδία της τρέχουσας χρήσης για να υπολογιστούν οι δείκτες.</td></tr>'; $('#zVal').textContent = '–'; $('#zChip').innerHTML = ''; return; }
+  $('#zt1').textContent = dec(1.1); $('#zt2').textContent = dec(2.6) + ' → ' + dec(5, 1) + '+';
+  if (!R.finOk) { $('#ratioBody').innerHTML = '<tr><td colspan="6" class="muted">' + t('finIncomplete') + '</td></tr>'; $('#zVal').textContent = '–'; $('#zChip').innerHTML = ''; $('#zPrev').textContent = ''; if (charts.cWC) { charts.cWC.destroy(); delete charts.cWC; } return; }
   var grp = '', html = '';
   R.ratios.forEach(function (r) {
-    if (r.group !== grp) { grp = r.group; html += '<tr class="grp"><td colspan="6">' + grp + '</td></tr>'; }
+    if (r.group !== grp) { grp = r.group; html += '<tr class="grp"><td colspan="6">' + t(GROUP_KEY[grp] || grp) + '</td></tr>'; }
     var ch = r.cy - r.py, better = r.dir === 0 ? null : (r.dir > 0 ? ch > 0 : ch < 0);
     var chTxt = !isFinite(ch) ? '–' : (ch >= 0 ? '+' : '−') + fmtRatio(Math.abs(ch), r.unit);
-    var lab = { good: 'Ισχυρό', warn: 'Προσοχή', bad: 'Αδύναμο', info: 'Πληροφοριακό' }[r.rag];
     var lim = r.dir === 0 ? '–' : (r.dir > 0 ? '≥ ' : '≤ ') + fmtRatio(r.good, r.unit) + ' / ' + (r.dir > 0 ? '≥ ' : '≤ ') + fmtRatio(r.warn, r.unit);
-    html += '<tr><td>' + r.label + '</td><td class="num">' + fmtRatio(r.cy, r.unit) + '</td><td class="num muted">' + fmtRatio(r.py, r.unit) + '</td><td class="num ' + (better == null || !isFinite(ch) ? '' : better ? 'pos' : 'neg') + '">' + chTxt + '</td><td><span class="chip ' + r.rag + '">' + lab + '</span></td><td class="num muted" style="text-align:left">' + lim + '</td></tr>';
+    html += '<tr><td>' + t('r_' + r.id) + '</td><td class="num">' + fmtRatio(r.cy, r.unit) + '</td><td class="num muted">' + fmtRatio(r.py, r.unit) + '</td><td class="num ' + (better == null || !isFinite(ch) ? '' : better ? 'pos' : 'neg') + '">' + chTxt + '</td><td><span class="chip ' + r.rag + '">' + t('r' + r.rag) + '</span></td><td class="num muted" style="text-align:left">' + lim + '</td></tr>';
   });
   $('#ratioBody').innerHTML = html;
   $('#zVal').textContent = dec(R.z.z);
-  $('#zChip').innerHTML = '<span class="chip ' + R.z.zone + '">' + R.z.label + '</span>';
-  $('#zPrev').textContent = R.zPy ? 'προηγ. ' + dec(R.zPy.z) : '';
+  $('#zChip').innerHTML = '<span class="chip ' + R.z.zone + '">' + t('z' + R.z.zone) + '</span>';
+  $('#zPrev').textContent = R.zPy ? t('prior', dec(R.zPy.z)) : '';
   $('#zMark').style.left = 'calc(' + Math.max(0, Math.min(100, R.z.z / 5 * 100)) + '% - 1px)';
-  var c = C(), g = function (id) { return R.ratios.filter(function (r) { return r.id === id; })[0]; };
-  var ids = ['dso', 'dio', 'dpo', 'ccc'];
-  makeChart('cWC', { type: 'bar', data: { labels: ['Είσπραξη (DSO)', 'Απόθεμα (DIO)', 'Πληρωμή (DPO)', 'Κύκλος μετρητών'], datasets: [
-    { label: 'Προηγ. χρήση', data: ids.map(function (i) { return g(i).py; }), backgroundColor: c.muted, borderRadius: 2 },
-    { label: 'Τρέχουσα', data: ids.map(function (i) { return g(i).cy; }), backgroundColor: c.accent, borderRadius: 2 }] },
-    options: { indexAxis: 'y', plugins: { tooltip: { callbacks: { label: function (ctx) { return ctx.dataset.label + ': ' + nf0.format(ctx.raw) + ' ημέρες'; } } } }, scales: { x: { title: { display: true, text: 'Ημέρες' } }, y: { grid: { display: false } } } } });
+  makeChart('cWC', wcCfg(C()));
 }
 
 /* ---------- render: budget ---------- */
 function renderBud(rebuildTable) {
-  var V = R.var, c = C();
-  $('#budStats').innerHTML = [
-    ['Budget κέρδος', keur(V.budgetProfit), '', ''],
-    ['Πραγματικό κέρδος', keur(V.actualProfit), '', ''],
-    ['Απόκλιση', (V.diff >= 0 ? '+' : '') + keur(V.diff), pct(V.pct) + ' έναντι budget', V.diff >= 0 ? 'good' : Math.abs(V.pct) < 0.05 ? 'warn' : 'bad']
-  ].map(function (s) { return '<div class="stat ' + (s[3] ? 'flag-' + s[3] : '') + '"><div class="eyebrow">' + s[0] + '</div><div class="v">' + s[1] + '</div><div class="s">' + s[2] + '</div></div>'; }).join('');
+  var V = R.var;
+  $('#budStats').innerHTML = statHtml([
+    [t('bBudget'), keur(V.budgetProfit), ''],
+    [t('bActual'), keur(V.actualProfit), ''],
+    [t('bVar'), signed(keur(V.diff), V.diff), t('bVarS', pct(V.pct)), V.diff >= 0 ? 'good' : Math.abs(V.pct) < 0.05 ? 'warn' : 'bad']
+  ]);
   if (rebuildTable) {
     $('#budBody').innerHTML = S.budget.map(function (l, i) {
-      return '<tr data-i="' + i + '"><td><input type="text" id="bn-' + i + '" data-f="name" value="' + esc(l.name) + '"></td><td><select id="bt-' + i + '" data-f="type"><option value="inc"' + (l.type === 'inc' ? ' selected' : '') + '>Έσοδο</option><option value="exp"' + (l.type === 'exp' ? ' selected' : '') + '>Έξοδο</option></select></td><td><input type="number" id="bb-' + i + '" data-f="b" value="' + l.b + '"></td><td><input type="number" id="ba-' + i + '" data-f="a" value="' + l.a + '"></td><td class="num" data-o="v"></td><td class="num" data-o="p"></td><td data-o="f"></td><td><button class="btn" data-del="' + i + '" aria-label="Διαγραφή γραμμής">✕</button></td></tr>';
-    }).join('') + '<tr class="total"><td colspan="2">Κέρδος</td><td class="num" id="tB"></td><td class="num" id="tA"></td><td class="num" id="tV"></td><td class="num" id="tP"></td><td colspan="2"></td></tr>';
+      return '<tr data-i="' + i + '"><td><input type="text" id="bn-' + i + '" data-f="name" aria-label="' + esc(t('thLine')) + '" value="' + esc(l.name) + '"></td><td><select id="bt-' + i + '" data-f="type" aria-label="' + esc(t('thType')) + '"><option value="inc"' + (l.type === 'inc' ? ' selected' : '') + '>' + t('inc') + '</option><option value="exp"' + (l.type === 'exp' ? ' selected' : '') + '>' + t('exp') + '</option></select></td><td><input type="number" id="bb-' + i + '" data-f="b" aria-label="' + esc(t('thBudget')) + '" value="' + l.b + '"></td><td><input type="number" id="ba-' + i + '" data-f="a" aria-label="' + esc(t('thActual')) + '" value="' + l.a + '"></td><td class="num" data-o="v"></td><td class="num" data-o="p"></td><td data-o="f"></td><td><button class="btn" data-del="' + i + '" aria-label="' + esc(t('delLine')) + '">✕</button></td></tr>';
+    }).join('') + '<tr class="total"><td colspan="2">' + t('profit') + '</td><td class="num" id="tB"></td><td class="num" id="tA"></td><td class="num" id="tV"></td><td class="num" id="tP"></td><td colspan="2"></td></tr>';
   }
   V.rows.forEach(function (r, i) {
     var tr = document.querySelector('#budBody tr[data-i="' + i + '"]'); if (!tr) return;
-    tr.querySelector('[data-o=v]').textContent = (r.v >= 0 ? '+' : '') + nf0.format(r.v);
+    tr.querySelector('[data-o=v]').textContent = signed(nf0.format(r.v), r.v);
     tr.querySelector('[data-o=p]').textContent = pct(r.pct);
     var big = Math.abs(r.pct) >= 0.1;
-    tr.querySelector('[data-o=f]').innerHTML = r.v === 0 ? '<span class="chip info">Χωρίς απόκλιση</span>' : '<span class="chip ' + (r.fav ? 'good' : big ? 'bad' : 'warn') + '">' + (r.fav ? 'Ευνοϊκή' : 'Δυσμενής') + '</span>';
+    tr.querySelector('[data-o=f]').innerHTML = r.v === 0 ? '<span class="chip info">' + t('noVar') + '</span>' : '<span class="chip ' + (r.fav ? 'good' : big ? 'bad' : 'warn') + '">' + t(r.fav ? 'fav' : 'adv') + '</span>';
   });
   $('#tB').textContent = nf0.format(V.budgetProfit); $('#tA').textContent = nf0.format(V.actualProfit);
-  $('#tV').textContent = (V.diff >= 0 ? '+' : '') + nf0.format(V.diff); $('#tP').textContent = pct(V.pct);
-  makeChart('cBridge', bridgeCfg(c));
+  $('#tV').textContent = signed(nf0.format(V.diff), V.diff); $('#tP').textContent = pct(V.pct);
+  makeChart('cBridge', bridgeCfg(C()));
 }
 
 /* ---------- render: audit ---------- */
-var TESTS = [
-  ['dup', 'Πιθανές διπλές πληρωμές', 'Ίδιος προμηθευτής και ποσό μέσα σε 30 ημέρες, ή ίδιος αριθμός παραστατικού'],
-  ['thr', 'Λίγο κάτω από το όριο', 'Ποσά 95–100% του ορίου έγκρισης: πιθανό σπάσιμο τιμολογίων'],
-  ['wkd', 'Εγγραφές Σαββατοκύριακου', 'Συναλλαγές με ημερομηνία Σάββατο ή Κυριακή'],
-  ['rnd', 'Στρογγυλά ποσά', 'Ακέραιες χιλιάδες ευρώ, συχνά εκτιμήσεις ή μη τυποποιημένες χρεώσεις'],
-  ['out', 'Ακραίες τιμές', 'Ποσό πάνω από 3 τυπικές αποκλίσεις από το σύνηθες του προμηθευτή']
-];
-var TLABEL = {}; TESTS.forEach(function (t) { TLABEL[t[0]] = t[1]; });
+var TESTS = ['dup', 'thr', 'wkd', 'rnd', 'out'];
 function renderAud() {
   var A = R.audit, B = R.benford, c = C();
   var rate = A.population ? A.count / A.population : 0;
-  $('#audStats').innerHTML = [
-    ['Πληθυσμός', nf0.format(A.population), 'θετικές συναλλαγές, 100% κάλυψη', ''],
-    ['Εξαιρέσεις', nf0.format(A.count), pct(rate) + ' του πληθυσμού', rate > 0.05 ? 'bad' : rate > 0.01 ? 'warn' : 'good'],
-    ['Αξία εξαιρέσεων', keur(A.value), 'προς διερεύνηση', ''],
-    ['Πιθανή ανάκτηση', keur(A.tests.dup.recover), 'από διπλές πληρωμές', A.tests.dup.recover > 0 ? 'bad' : 'good']
-  ].map(function (s) { return '<div class="stat ' + (s[3] ? 'flag-' + s[3] : '') + '"><div class="eyebrow">' + s[0] + '</div><div class="v">' + s[1] + '</div><div class="s">' + s[2] + '</div></div>'; }).join('');
-  $('#tests').innerHTML = TESTS.map(function (t) {
-    var r = A.tests[t[0]];
-    return '<button class="test" data-t="' + t[0] + '" aria-pressed="' + (S.filter === t[0]) + '"><span class="t">' + t[1] + '</span><span class="n">' + nf0.format(r.n) + ' <span class="muted" style="font-size:.85rem">· ' + keur(r.value) + '</span></span><span class="d">' + t[2] + '</span></button>';
+  $('#audStats').innerHTML = statHtml([
+    [t('aPop'), nf0.format(A.population), t('aPopS')],
+    [t('aEx'), nf0.format(A.count), t('aExS', pct(rate)), rate > 0.05 ? 'bad' : rate > 0.01 ? 'warn' : 'good'],
+    [t('aVal'), keur(A.value), t('aValS')],
+    [t('aRec'), keur(A.tests.dup.recover), t('aRecS'), A.tests.dup.recover > 0 ? 'bad' : 'good']
+  ]);
+  $('#tests').innerHTML = TESTS.map(function (k) {
+    var r = A.tests[k];
+    return '<button class="test" data-t="' + k + '" aria-pressed="' + (S.filter === k) + '"><span class="t">' + t('t_' + k) + '</span><span class="n">' + nf0.format(r.n) + ' <span class="muted" style="font-size:.85rem">· ' + keur(r.value) + '</span></span><span class="d">' + t('d_' + k) + '</span></button>';
   }).join('');
   makeChart('cBenford', benfordCfg(c));
-  $('#benNote').innerHTML = '<span class="chip ' + B.level + '">' + B.verdict + '</span> MAD ' + dec(B.mad, 4) + ' (όρια Nigrini: 0,006 / 0,012 / 0,015), χ² = ' + dec(B.chi, 1) + ' με κρίσιμη τιμή 15,51 στο 5%, n = ' + nf0.format(B.n) + '.';
+  $('#benNote').innerHTML = '<span class="chip ' + B.level + '">' + t(verdictKey(B.mad)) + '</span> ' + esc(t('benNote', dec(B.mad, 4), dec(B.chi, 1), nf0.format(B.n)));
   var top = R.conc.list.slice(0, 10);
-  makeChart('cConc', { type: 'bar', data: { labels: top.map(function (x) { return x.party.length > 24 ? x.party.slice(0, 23) + '…' : x.party; }), datasets: [{ label: 'Μερίδιο', data: top.map(function (x) { return x.share; }), backgroundColor: top.map(function (x, i) { return i < 5 ? c.accent : c.muted; }), borderRadius: 2 }] },
+  makeChart('cConc', { type: 'bar', data: { labels: top.map(function (x) { return x.party.length > 24 ? x.party.slice(0, 23) + '…' : x.party; }), datasets: [{ label: t('share'), data: top.map(function (x) { return x.share; }), backgroundColor: top.map(function (x, i) { return i < 5 ? c.accent : c.muted; }), borderRadius: 2 }] },
     options: { indexAxis: 'y', plugins: { legend: { display: false }, tooltip: { callbacks: { label: function (ctx) { return pct(ctx.raw) + ' · ' + eur(top[ctx.dataIndex].value); } } } }, scales: { x: { ticks: { callback: function (v) { return pct(v, 0); } } }, y: { grid: { display: false }, ticks: { font: { size: 11 } } } } } });
-  var hhiLv = R.conc.hhi > 2500 ? 'υψηλή' : R.conc.hhi > 1500 ? 'μέτρια' : 'χαμηλή';
-  $('#concNote').textContent = 'Οι 5 μεγαλύτεροι προμηθευτές συγκεντρώνουν ' + pct(R.conc.top5) + ' των πληρωμών. Δείκτης HHI ' + nf0.format(R.conc.hhi) + ' (' + hhiLv + ' συγκέντρωση).';
+  var hhiLv = t(R.conc.hhi > 2500 ? 'hhiHigh' : R.conc.hhi > 1500 ? 'hhiMid' : 'hhiLow');
+  $('#concNote').textContent = t('concNote', pct(R.conc.top5), nf0.format(R.conc.hhi), hhiLv);
   renderExceptions();
 }
 function exList() { return S.filter ? R.audit.list.filter(function (f) { return f.tests[S.filter]; }) : R.audit.list; }
 function renderExceptions() {
   var list = exList(), shown = list.slice(0, 300);
-  $('#exTitle').textContent = S.filter ? 'Εξαιρέσεις: ' + TLABEL[S.filter] : 'Όλες οι εξαιρέσεις';
-  $('#exNote').textContent = nf0.format(list.length) + ' γραμμές' + (list.length > 300 ? ', εμφανίζονται οι πρώτες 300' : '') + (S.filter ? ' · πάτα ξανά την κάρτα για όλες' : ' · ταξινόμηση κατά πλήθος ευρημάτων και ποσό');
-  $('#exTable').innerHTML = '<table><thead><tr><th>Ημερομηνία</th><th>Αντισυμβαλλόμενος</th><th>Παραστατικό</th><th class="num">Ποσό €</th><th>Ευρήματα</th></tr></thead><tbody>' + shown.map(function (f) {
+  $('#exTitle').textContent = S.filter ? t('exOne', t('t_' + S.filter)) : t('exAll');
+  $('#exNote').textContent = t('exNote', nf0.format(list.length), list.length > 300, !!S.filter);
+  $('#exTable').innerHTML = '<table><thead><tr><th>' + t('thDate') + '</th><th>' + t('thParty') + '</th><th>' + t('thDoc') + '</th><th class="num">' + t('thAmount') + '</th><th>' + t('thFindings') + '</th></tr></thead><tbody>' + shown.map(function (f) {
     var r = f.row;
-    var tags = Object.keys(f.tests).map(function (t) { return '<div><span class="chip ' + (t === 'dup' || t === 'thr' ? 'bad' : 'warn') + '">' + TLABEL[t] + '</span> <span class="muted" style="font-size:.8rem">' + esc(f.tests[t]) + '</span></div>'; }).join('');
-    return '<tr><td class="mono">' + dfmt(r.date) + '</td><td>' + esc(r.party) + '</td><td class="mono">' + esc(r.doc) + '</td><td class="num">' + nf2.format(r.amount) + '</td><td style="display:flex;flex-direction:column;gap:4px">' + tags + '</td></tr>';
+    var tags = Object.keys(f.tests).map(function (k) { return '<div><span class="chip ' + (k === 'dup' || k === 'thr' ? 'bad' : 'warn') + '">' + t('t_' + k) + '</span> <span class="muted" style="font-size:.8rem">' + esc(noteText(f.tests[k])) + '</span></div>'; }).join('');
+    return '<tr><td class="mono">' + dfmt(r.date) + '</td><td>' + esc(r.party) + '</td><td class="mono">' + esc(r.doc) + '</td><td class="num">' + nf2.format(r.amount) + '</td><td><div style="display:flex;flex-direction:column;gap:4px">' + tags + '</div></td></tr>';
   }).join('') + '</tbody></table>';
 }
 
 /* ---------- render: trend ---------- */
 function renderTrend() {
   var c = C(), M = R.monthly, F = R.fc;
-  if (!M.length) { $('#trendStats').innerHTML = '<div class="stat">Δεν υπάρχουν ημερομηνίες για ανάλυση.</div>'; return; }
+  if (!M.length) { $('#trendStats').innerHTML = '<div class="stat">' + t('noDates') + '</div>'; $('#fcTable').innerHTML = ''; return; }
   var last3 = M.slice(-3).reduce(function (s, m) { return s + m.value; }, 0);
   var prev3 = M.length >= 15 ? M.slice(-15, -12).reduce(function (s, m) { return s + m.value; }, 0) : NaN;
   var yoy = isFinite(prev3) && prev3 ? last3 / prev3 - 1 : NaN;
   var fsum = F ? F.future.reduce(function (s, f) { return s + f.value; }, 0) : NaN;
-  $('#trendStats').innerHTML = [
-    ['Μέσος όρος μήνα', keur(M.reduce(function (s, m) { return s + m.value; }, 0) / M.length), M.length + ' μήνες ιστορικού', ''],
-    ['Τελευταίο τρίμηνο', keur(last3), isFinite(yoy) ? (yoy >= 0 ? '+' : '') + pct(yoy) + ' έναντι ίδιου τριμήνου πέρσι' : '', ''],
-    ['Τάση ανά μήνα', F ? (F.b >= 0 ? '+' : '') + keur(F.b) : '–', F ? pct(F.monthlyGrowth) + ' του μέσου όρου · R² ' + dec(F.r2) : '', ''],
-    ['Πρόβλεψη ' + S.horizon + ' μηνών', F ? keur(fsum) : '–', 'σύνολο περιόδου', '']
-  ].map(function (s) { return '<div class="stat"><div class="eyebrow">' + s[0] + '</div><div class="v">' + s[1] + '</div><div class="s">' + s[2] + '</div></div>'; }).join('');
+  $('#trendStats').innerHTML = statHtml([
+    [t('tAvg'), keur(M.reduce(function (s, m) { return s + m.value; }, 0) / M.length), t('tAvgS', M.length)],
+    [t('tLast3'), keur(last3), isFinite(yoy) ? t('tYoy', signed(pct(yoy), yoy)) : ''],
+    [t('tSlope'), F ? signed(keur(F.b), F.b) : '–', F ? t('tSlopeS', pct(F.monthlyGrowth), dec(F.r2)) : ''],
+    [t('tFc', S.horizon), F ? keur(fsum) : '–', t('tFcS')]
+  ]);
   makeChart('cTrend', trendCfg(c));
-  var g = {}; S.rows.forEach(function (r) { if (r.amount > 0) { var k = r.account || 'Χωρίς κατηγορία'; g[k] = (g[k] || 0) + r.amount; } });
-  var acc = Object.keys(g).map(function (k) { return [k, g[k]]; }).sort(function (a, b) { return b[1] - a[1]; }).slice(0, 10);
-  makeChart('cAcct', { type: 'bar', data: { labels: acc.map(function (a) { return a[0]; }), datasets: [{ data: acc.map(function (a) { return a[1]; }), backgroundColor: c.accent, borderRadius: 2 }] },
+  var g = {}; S.rows.forEach(function (r) { if (r.amount > 0) { var k = r.account ? acct(r.account) : t('noCategory'); g[k] = (g[k] || 0) + r.amount; } });
+  var accs = Object.keys(g).map(function (k) { return [k, g[k]]; }).sort(function (a, b) { return b[1] - a[1]; }).slice(0, 10);
+  makeChart('cAcct', { type: 'bar', data: { labels: accs.map(function (a) { return a[0]; }), datasets: [{ data: accs.map(function (a) { return a[1]; }), backgroundColor: c.accent, borderRadius: 2 }] },
     options: { indexAxis: 'y', plugins: { legend: { display: false }, tooltip: { callbacks: { label: tipEur } } }, scales: { x: { ticks: { callback: euroTick } }, y: { grid: { display: false } } } } });
-  $('#fcTable').innerHTML = F ? '<table><thead><tr><th>Μήνας</th><th class="num">Πρόβλεψη €</th><th class="num">Χαμηλό 95%</th><th class="num">Υψηλό 95%</th></tr></thead><tbody>' + F.future.map(function (f) {
+  $('#fcTable').innerHTML = F ? '<table><thead><tr><th>' + t('fcMonth') + '</th><th class="num">' + t('fcVal') + '</th><th class="num">' + t('fcLo') + '</th><th class="num">' + t('fcHi') + '</th></tr></thead><tbody>' + F.future.map(function (f) {
     return '<tr><td>' + mLabel(f.key) + '</td><td class="num">' + nf0.format(f.value) + '</td><td class="num muted">' + nf0.format(Math.max(0, f.lo)) + '</td><td class="num muted">' + nf0.format(f.hi) + '</td></tr>';
-  }).join('') + '</tbody></table>' : '<p class="note" style="padding:14px">Χρειάζονται τουλάχιστον 4 μήνες δεδομένων για πρόβλεψη.</p>';
+  }).join('') + '</tbody></table>' : '<p class="note" style="padding:14px">' + t('fcNeed') + '</p>';
 }
 
 /* ---------- board narrative ---------- */
@@ -1015,101 +1243,93 @@ function narrative() {
   function add(area, lv, text) { out.findings.push({ area: area, lv: lv, text: text }); worst = Math.max(worst, sev[lv] || 0); }
   var g = function (id) { return R.ratios.filter(function (r) { return r.id === id; })[0]; };
   if (R.finOk) {
-    var fy = S.fin.cy, py = S.fin.py, growth = py.rev ? fy.rev / py.rev - 1 : NaN;
+    var fy = S.fin.cy, py = S.fin.py, growth = filled(py.rev) && py.rev ? fy.rev / py.rev - 1 : NaN;
     var nm = g('nm'), cur = g('cur'), dso = g('dso'), oq = g('ocfnp');
-    out.kpis.push({ l: 'Κύκλος εργασιών', v: keur(fy.rev), s: isFinite(growth) ? (growth >= 0 ? '+' : '') + pct(growth) + ' σε ετήσια βάση' : '', lv: growth >= 0 ? 'good' : 'warn' });
-    out.kpis.push({ l: 'Καθαρό περιθώριο', v: pct(nm.cy), s: 'προηγ. ' + pct(nm.py), lv: nm.rag });
-    out.kpis.push({ l: 'Altman Z\'\'', v: dec(R.z.z), s: R.z.label, lv: R.z.zone });
-    add('Αποτελέσματα', growth >= 0 ? 'good' : 'warn', 'Ο κύκλος εργασιών ' + (growth >= 0 ? 'αυξήθηκε' : 'μειώθηκε') + ' κατά ' + pct(Math.abs(growth)) + ' στα ' + keur(fy.rev) + ', με καθαρό περιθώριο ' + pct(nm.cy) + ' (προηγ. ' + pct(nm.py) + ').');
-    add('Ρευστότητα', cur.rag, 'Η τρέχουσα ρευστότητα είναι ' + dec(cur.cy) + 'x (προηγ. ' + dec(cur.py) + 'x) και τα μετρητά ' + (fy.cash < py.cash ? 'μειώθηκαν' : 'αυξήθηκαν') + ' στα ' + keur(fy.cash) + '.');
+    out.kpis.push({ l: t('kRev'), v: keur(fy.rev), s: isFinite(growth) ? t('kRevS', signed(pct(growth), growth)) : '', lv: !isFinite(growth) || growth >= 0 ? 'good' : 'warn' });
+    out.kpis.push({ l: t('kNm'), v: pct(nm.cy), s: isFinite(nm.py) ? t('prior', pct(nm.py)) : '', lv: nm.rag });
+    out.kpis.push({ l: t('kZ'), v: dec(R.z.z), s: t('z' + R.z.zone), lv: R.z.zone });
+    if (isFinite(growth)) add('res', growth >= 0 ? 'good' : 'warn', t('nRev', growth >= 0, pct(Math.abs(growth)), keur(fy.rev), pct(nm.cy), pct(nm.py)));
+    if (isFinite(cur.py)) add('liq', cur.rag, t('nLiq', dec(cur.cy), dec(cur.py), fy.cash < py.cash, keur(fy.cash)));
     if (isFinite(dso.py) && dso.cy - dso.py > 3) {
-      add('Κεφάλαιο κίνησης', dso.rag === 'good' ? 'warn' : dso.rag, 'Οι μέρες είσπραξης αυξήθηκαν από ' + nf0.format(dso.py) + ' σε ' + nf0.format(dso.cy) + '. Περίπου ' + keur((dso.cy - dso.py) / 365 * fy.rev) + ' επιπλέον ρευστότητα είναι δεσμευμένη στους χρεώστες.');
-      out.recs.push('Αυστηροποίηση πιστωτικού ελέγχου: ανασκόπηση ορίων πίστωσης και ηλικίας χρεωστών άνω των 60 ημερών, με στόχο επιστροφή των DSO στις ' + nf0.format(dso.py) + ' ημέρες.');
+      add('wc', dso.rag === 'good' ? 'warn' : dso.rag, t('nDso', nf0.format(dso.py), nf0.format(dso.cy), keur((dso.cy - dso.py) / 365 * fy.rev)));
+      out.recs.push(t('rDso', nf0.format(dso.py)));
     }
-    if (oq.cy < 1) {
-      add('Ταμειακές ροές', oq.rag, 'Οι λειτουργικές ταμειακές ροές καλύπτουν μόνο το ' + pct(oq.cy, 0) + ' του καθαρού κέρδους (προηγ. ' + pct(oq.py, 0) + '). Τα κέρδη δεν μετατρέπονται πλήρως σε μετρητά.');
-      out.recs.push('Μηνιαία παρακολούθηση της μετατροπής κερδών σε μετρητά (OCF / καθαρό κέρδος) και πρόβλεψη ρευστότητας 13 εβδομάδων.');
-    }
-    if (R.z.zone !== 'good') out.recs.push('Τριμηνιαία παρακολούθηση του Altman Z\'\' (σήμερα ' + dec(R.z.z) + ') και σχέδιο ενίσχυσης κεφαλαίου κίνησης.');
+    if (oq.cy < 1 && isFinite(oq.py)) { add('cash', oq.rag, t('nOcf', pct(oq.cy, 0), pct(oq.py, 0))); out.recs.push(t('rOcf')); }
+    if (R.z.zone !== 'good') out.recs.push(t('rZ', dec(R.z.z)));
   }
   var V = R.var;
   if (V.rows.length) {
     var adverse = V.rows.filter(function (r) { return r.impact < 0; }).sort(function (a, b) { return a.impact - b.impact; }).slice(0, 2);
     var vl = V.diff >= 0 ? 'good' : Math.abs(V.pct) < 0.05 ? 'warn' : 'bad';
-    out.kpis.push({ l: 'Κέρδος έναντι budget', v: (V.diff >= 0 ? '+' : '') + keur(V.diff), s: pct(V.pct) + ' · πραγματικό ' + keur(V.actualProfit), lv: vl });
-    add('Budget', vl, 'Το κέρδος περιόδου διαμορφώθηκε στα ' + keur(V.actualProfit) + ', ' + (V.diff >= 0 ? 'πάνω' : 'κάτω') + ' από το budget κατά ' + keur(Math.abs(V.diff)) + ' (' + pct(Math.abs(V.pct)) + ')' + (adverse.length ? '. Κύριοι παράγοντες: ' + adverse.map(function (a) { return a.name.toLowerCase() + ' (' + keur(a.impact) + ')'; }).join(' και ') : '') + '.');
-    if (adverse.length && V.diff < 0) out.recs.push('Αιτιολόγηση από τη Διεύθυνση των δυσμενών αποκλίσεων σε ' + adverse.map(function (a) { return a.name.toLowerCase(); }).join(' και ') + ', με διορθωτικές ενέργειες για το υπόλοιπο της χρήσης.');
+    out.kpis.push({ l: t('kBud'), v: signed(keur(V.diff), V.diff), s: t('kBudS', pct(V.pct), keur(V.actualProfit)), lv: vl });
+    var drivers = adverse.map(function (a) { return a.name.toLowerCase() + ' (' + keur(a.impact) + ')'; }).join(' ' + t('and') + ' ');
+    add('bud', vl, t('nBud', keur(V.actualProfit), V.diff >= 0, keur(Math.abs(V.diff)), pct(Math.abs(V.pct)), drivers));
+    if (adverse.length && V.diff < 0) out.recs.push(t('rBud', adverse.map(function (a) { return a.name.toLowerCase(); }).join(' ' + t('and') + ' ')));
   }
   var A = R.audit, T = A.tests;
   if (A.population) {
     var rate = A.count / A.population, al = rate > 0.05 ? 'bad' : rate > 0.01 ? 'warn' : 'good';
     if (T.dup.n || T.thr.n) al = 'bad';
-    out.kpis.push({ l: 'Εξαιρέσεις ελέγχου', v: nf0.format(A.count), s: keur(A.value) + ' σε ' + nf0.format(A.population) + ' συναλλαγές', lv: al });
-    add('Εσωτερικός έλεγχος', al, 'Ο έλεγχος του 100% των ' + nf0.format(A.population) + ' πληρωμών εντόπισε ' + nf0.format(A.count) + ' εξαιρέσεις αξίας ' + keur(A.value) + ', μεταξύ τους ' + nf0.format(T.dup.n) + ' συναλλαγές σε πιθανά διπλότυπα και ' + nf0.format(T.thr.n) + ' ποσά ακριβώς κάτω από το όριο έγκρισης.');
-    if (T.dup.recover > 0) out.recs.push('Διερεύνηση και ανάκτηση πιθανών διπλών πληρωμών έως ' + keur(T.dup.recover) + ', και ενεργοποίηση ελέγχου διπλοτύπων στο σύστημα πληρωμών.');
-    if (T.thr.n) out.recs.push('Ανασκόπηση των ' + nf0.format(T.thr.n) + ' πληρωμών μεταξύ 95% και 100% του ορίου έγκρισης (' + eur(R.thr) + ') για πιθανό σπάσιμο τιμολογίων.');
-    if (T.wkd.n) out.recs.push('Έλεγχος δικαιωμάτων πρόσβασης για τις ' + nf0.format(T.wkd.n) + ' εγγραφές με ημερομηνία Σαββατοκύριακου.');
-    add('Benford', R.benford.level, 'Η κατανομή πρώτου ψηφίου δείχνει ' + R.benford.verdict.toLowerCase() + ' με τον νόμο του Benford (MAD ' + dec(R.benford.mad, 4) + ').');
+    out.kpis.push({ l: t('kAud'), v: nf0.format(A.count), s: t('kAudS', keur(A.value), nf0.format(A.population)), lv: al });
+    add('aud', al, t('nAud', nf0.format(A.population), nf0.format(A.count), keur(A.value), nf0.format(T.dup.n), nf0.format(T.thr.n)));
+    if (T.dup.recover > 0) out.recs.push(t('rDup', keur(T.dup.recover)));
+    if (T.thr.n) out.recs.push(t('rThr', nf0.format(T.thr.n), eur(R.thr)));
+    if (T.wkd.n) out.recs.push(t('rWkd', nf0.format(T.wkd.n)));
+    add('ben', R.benford.level, t('nBen', t(verdictKey(R.benford.mad)), dec(R.benford.mad, 4)));
   }
   if (R.fc) {
     var fs = R.fc.future.reduce(function (s, f) { return s + f.value; }, 0);
-    add('Πρόβλεψη', 'info', 'Με βάση την τάση ' + R.monthly.length + ' μηνών, οι πληρωμές των επόμενων ' + S.horizon + ' μηνών εκτιμώνται σε ' + keur(fs) + ' (διάστημα 95% ανά μήνα ±' + keur(1.96 * R.fc.se) + ').');
+    add('fc', 'info', t('nFc', R.monthly.length, S.horizon, keur(fs), keur(1.96 * R.fc.se)));
   }
   out.level = worst === 2 ? 'bad' : worst === 1 ? 'warn' : 'good';
-  var client = $('#client').value || 'ο οργανισμός';
-  out.headline = out.level === 'good'
-    ? 'Η οικονομική θέση του ' + client + ' είναι υγιής και δεν εντοπίστηκαν σημαντικές εξαιρέσεις ελέγχου.'
-    : out.level === 'warn'
-      ? 'Η οικονομική θέση του ' + client + ' παραμένει σταθερή, αλλά η ρευστότητα και ορισμένοι έλεγχοι χρειάζονται προσοχή.'
-      : 'Η οικονομική θέση του ' + client + ' παραμένει σταθερή, όμως εντοπίστηκαν ευρήματα ελέγχου και αποκλίσεις που απαιτούν απόφαση του ΔΣ.';
-  if (!out.recs.length) out.recs.push('Συνέχιση της τριμηνιαίας παρακολούθησης δεικτών και ελέγχων.');
+  var client = $('#client').value || t('clientFallback');
+  out.headline = t(out.level === 'good' ? 'headGood' : out.level === 'warn' ? 'headWarn' : 'headBad', client);
+  if (!out.recs.length) out.recs.push(t('rDefault'));
   return out;
 }
-var LVL = { good: 'Σε τάξη', warn: 'Προσοχή', bad: 'Απαιτεί ενέργεια', info: 'Πληροφορία' };
 function renderBoard() {
-  var N = narrative(), today = new Date();
+  var N = narrative();
   $('#report').innerHTML =
-    '<header><div><div class="eyebrow">Αναφορά προς το Διοικητικό Συμβούλιο</div><h2>' + esc($('#client').value) + '</h2><p class="muted">' + esc($('#period').value) + '</p></div><div class="muted num" style="text-align:right">' + dfmt(today) + '<br>Εμπιστευτικό</div></header>' +
+    '<header><div><div class="eyebrow">' + t('rEyebrow') + '</div><h2>' + esc($('#client').value) + '</h2><p class="muted">' + esc($('#period').value) + '</p></div><div class="muted num" style="text-align:right">' + dfmt(new Date()) + '<br>' + t('confidential') + '</div></header>' +
     '<div class="overall ' + N.level + '"><span class="dot"></span><p>' + esc(N.headline) + '</p></div>' +
     '<div class="stats">' + N.kpis.map(function (k) { return '<div class="stat flag-' + k.lv + '"><div class="eyebrow">' + k.l + '</div><div class="v">' + k.v + '</div><div class="s">' + k.s + '</div></div>'; }).join('') + '</div>' +
-    '<div><h3>Βασικά ευρήματα</h3><ul class="findings" style="margin-top:8px">' + N.findings.map(function (f) { return '<li><span class="area">' + f.area + '</span><div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap"><span class="chip ' + f.lv + '">' + LVL[f.lv] + '</span><span style="flex:1;min-width:220px">' + esc(f.text) + '</span></div></li>'; }).join('') + '</ul></div>' +
-    '<div><h3>Προτεινόμενες αποφάσεις και ενέργειες</h3><ol class="recs" style="margin-top:10px">' + N.recs.map(function (r) { return '<li>' + esc(r) + '</li>'; }).join('') + '</ol></div>' +
-    '<p class="note">Πηγές: οικονομικές καταστάσεις και budget όπως καταχωρήθηκαν, αρχείο συναλλαγών ' + nf0.format(R.profile.n) + ' γραμμών' + (S.sample ? ' (δείγμα δεδομένων)' : '') + '. Οι εξαιρέσεις ελέγχου αποτελούν ενδείξεις για περαιτέρω διερεύνηση.</p>';
-  return N;
+    '<div><h3>' + t('keyFindings') + '</h3><ul class="findings" style="margin-top:8px">' + N.findings.map(function (f) { return '<li><span class="area">' + t('a_' + f.area) + '</span><div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap"><span class="chip ' + f.lv + '">' + t('lv_' + f.lv) + '</span><span style="flex:1;min-width:220px">' + esc(f.text) + '</span></div></li>'; }).join('') + '</ul></div>' +
+    '<div><h3>' + t('recsTitle') + '</h3><ol class="recs" style="margin-top:10px">' + N.recs.map(function (r) { return '<li>' + esc(r) + '</li>'; }).join('') + '</ol></div>' +
+    '<p class="note">' + esc(t('sources', nf0.format(R.profile.n), S.sample)) + '</p>';
 }
 function reportText() {
   var N = narrative();
-  return 'ΑΝΑΦΟΡΑ ΠΡΟΣ ΤΟ ΔΙΟΙΚΗΤΙΚΟ ΣΥΜΒΟΥΛΙΟ\n' + $('#client').value + ' · ' + $('#period').value + '\n\n' + N.headline + '\n\nΒΑΣΙΚΑ ΜΕΓΕΘΗ\n' +
-    N.kpis.map(function (k) { return '- ' + k.l + ': ' + k.v + ' (' + k.s + ')'; }).join('\n') + '\n\nΒΑΣΙΚΑ ΕΥΡΗΜΑΤΑ\n' +
-    N.findings.map(function (f) { return '- [' + f.area + ' · ' + LVL[f.lv] + '] ' + f.text; }).join('\n') + '\n\nΠΡΟΤΕΙΝΟΜΕΝΕΣ ΕΝΕΡΓΕΙΕΣ\n' +
+  return t('txtHead') + '\n' + $('#client').value + ' · ' + $('#period').value + '\n\n' + N.headline + '\n\n' + t('txtKpi') + '\n' +
+    N.kpis.map(function (k) { return '- ' + k.l + ': ' + k.v + (k.s ? ' (' + k.s + ')' : ''); }).join('\n') + '\n\n' + t('txtFind') + '\n' +
+    N.findings.map(function (f) { return '- [' + t('a_' + f.area) + ' · ' + t('lv_' + f.lv) + '] ' + f.text; }).join('\n') + '\n\n' + t('txtRecs') + '\n' +
     N.recs.map(function (r, i) { return (i + 1) + '. ' + r; }).join('\n');
 }
 
 /* ---------- presentation ---------- */
 var deckI = 0, deck = [];
+function firstSentence(s) { return s.split(/\.\s(?=[A-ZΑ-ΩΆΈΉΊΌΎΏ])/)[0].replace(/\.$/, '') + '.'; }
 function slides() {
   var N = narrative(), client = esc($('#client').value), period = esc($('#period').value);
-  var foot = function (n) { return '<div class="s-foot"><span>' + client + ' · ' + period + '</span><span>Εμπιστευτικό · ' + n + '</span></div>'; };
+  var foot = function (n) { return '<div class="s-foot"><span>' + client + ' · ' + period + '</span><span>' + t('confidential') + ' · ' + n + '</span></div>'; };
   var kpiHtml = function (list) { return '<div class="s-kpis">' + list.map(function (k) { return '<div class="s-kpi ' + k.lv + '"><div class="l">' + k.l + '</div><div class="v">' + k.v + '</div><div class="s">' + k.s + '</div></div>'; }).join('') + '</div>'; };
   var find = function (area) { return N.findings.filter(function (f) { return f.area === area; })[0]; };
-  var S1 = [];
-  S1.push({ html: '<div class="s-body s-title" style="display:flex;flex-direction:column;gap:2.4cqw"><div class="s-eyebrow">Αναφορά προς το Διοικητικό Συμβούλιο</div><h1>' + client + '</h1><div class="s-rule"></div><p style="font-size:2.2cqw">Οικονομική επισκόπηση, απόδοση έναντι budget και ευρήματα ελέγχου<br><span style="color:#5a6a63">' + period + '</span></p></div>' + foot(dfmt(new Date())) });
-  S1.push({ html: '<div class="s-eyebrow">Σύνοψη</div><h2>' + esc(N.headline) + '</h2><div class="s-body" style="align-content:start">' + kpiHtml(N.kpis.slice(0, 6)) + '</div>' + foot(2) });
+  var L = [];
+  L.push({ html: '<div class="s-body s-title" style="display:flex;flex-direction:column;gap:2.4cqw"><div class="s-eyebrow">' + t('rEyebrow') + '</div><h1>' + client + '</h1><div class="s-rule"></div><p style="font-size:2.2cqw">' + t('sTitleSub') + '<br><span style="color:#5a6a63">' + period + '</span></p></div>' + foot(dfmt(new Date())) });
+  L.push({ html: '<div class="s-eyebrow">' + t('sSummary') + '</div><h2>' + esc(N.headline) + '</h2><div class="s-body" style="align-content:start">' + kpiHtml(N.kpis.slice(0, 6)) + '</div>' + foot(2) });
   if (R.finOk) {
-    var fA = find('Ρευστότητα'), fK = find('Κεφάλαιο κίνησης'), fT = find('Ταμειακές ροές');
-    S1.push({ html: '<div class="s-eyebrow">Οικονομική υγεία</div><h2>' + esc((fK || fA).text.split('. ')[0]) + '.</h2><div class="s-body s-two"><div class="s-chart"><canvas id="sc-wc"></canvas></div><ul>' + [find('Αποτελέσματα'), fA, fT].filter(Boolean).map(function (f) { return '<li>' + esc(f.text) + '</li>'; }).join('') + '</ul></div>' + foot(3),
-      after: function () { var c = C(true), g = function (id) { return R.ratios.filter(function (r) { return r.id === id; })[0]; }, ids = ['dso', 'dio', 'dpo', 'ccc'];
-        makeChart('sc-wc', { type: 'bar', data: { labels: ['DSO', 'DIO', 'DPO', 'Κύκλος'], datasets: [{ label: 'Προηγ.', data: ids.map(function (i) { return g(i).py; }), backgroundColor: c.muted }, { label: 'Τρέχουσα', data: ids.map(function (i) { return g(i).cy; }), backgroundColor: c.accent }] }, options: { plugins: { title: { display: true, text: 'Κεφάλαιο κίνησης σε ημέρες', align: 'start', color: c.ink } }, scales: { x: { grid: { display: false } } } } }, true); } });
+    var fA = find('liq'), fK = find('wc'), fT = find('cash'), lead = fK || fA || find('res');
+    L.push({ html: '<div class="s-eyebrow">' + t('sFin') + '</div><h2>' + esc(lead ? firstSentence(lead.text) : t('sFin')) + '</h2><div class="s-body s-two"><div class="s-chart"><canvas id="sc-wc"></canvas></div><ul>' + [find('res'), fA, fT].filter(Boolean).map(function (f) { return '<li>' + esc(f.text) + '</li>'; }).join('') + '</ul></div>' + foot(L.length + 1),
+      after: function () { makeChart('sc-wc', wcCfg(C(true), true), true); } });
   }
-  S1.push({ html: '<div class="s-eyebrow">Απόδοση έναντι budget</div><h2>' + esc(find('Budget').text) + '</h2><div class="s-body"><div class="s-chart"><canvas id="sc-br"></canvas></div></div>' + foot(S1.length + 1), after: function () { makeChart('sc-br', bridgeCfg(C(true), true), true); } });
-  if (R.fc) S1.push({ html: '<div class="s-eyebrow">Τάση πληρωμών και πρόβλεψη</div><h2>' + esc(find('Πρόβλεψη').text) + '</h2><div class="s-body"><div class="s-chart"><canvas id="sc-tr"></canvas></div></div>' + foot(S1.length + 1), after: function () { makeChart('sc-tr', trendCfg(C(true)), true); } });
+  if (find('bud')) L.push({ html: '<div class="s-eyebrow">' + t('sBud') + '</div><h2>' + esc(find('bud').text) + '</h2><div class="s-body"><div class="s-chart"><canvas id="sc-br"></canvas></div></div>' + foot(L.length + 1), after: function () { makeChart('sc-br', bridgeCfg(C(true), true), true); } });
+  if (R.fc) L.push({ html: '<div class="s-eyebrow">' + t('sTrend') + '</div><h2>' + esc(find('fc').text) + '</h2><div class="s-body"><div class="s-chart"><canvas id="sc-tr"></canvas></div></div>' + foot(L.length + 1), after: function () { makeChart('sc-tr', trendCfg(C(true)), true); } });
   var T = R.audit.tests;
-  S1.push({ html: '<div class="s-eyebrow">Εσωτερικός έλεγχος · 100% των συναλλαγών</div><h2>' + esc(find('Εσωτερικός έλεγχος').text) + '</h2><div class="s-body s-two"><div class="s-chart"><canvas id="sc-bf"></canvas></div><div>' +
-    '<table style="font-size:1.5cqw;width:100%"><thead><tr><th style="background:#eef2f0;color:#5a6a63">Τεστ</th><th class="num" style="background:#eef2f0;color:#5a6a63">Πλήθος</th><th class="num" style="background:#eef2f0;color:#5a6a63">Αξία</th></tr></thead><tbody>' +
-    TESTS.map(function (t) { return '<tr><td style="border-color:#d3ddd9">' + t[1] + '</td><td class="num" style="border-color:#d3ddd9">' + nf0.format(T[t[0]].n) + '</td><td class="num" style="border-color:#d3ddd9">' + keur(T[t[0]].value) + '</td></tr>'; }).join('') + '</tbody></table></div></div>' + foot(S1.length + 1),
+  if (find('aud')) L.push({ html: '<div class="s-eyebrow">' + t('sAud') + '</div><h2>' + esc(find('aud').text) + '</h2><div class="s-body s-two"><div class="s-chart"><canvas id="sc-bf"></canvas></div><div>' +
+    '<table style="width:100%"><thead><tr><th>' + t('thTest') + '</th><th class="num">' + t('thCount') + '</th><th class="num">' + t('thValue') + '</th></tr></thead><tbody>' +
+    TESTS.map(function (k) { return '<tr><td>' + t('t_' + k) + '</td><td class="num">' + nf0.format(T[k].n) + '</td><td class="num">' + keur(T[k].value) + '</td></tr>'; }).join('') + '</tbody></table></div></div>' + foot(L.length + 1),
     after: function () { makeChart('sc-bf', benfordCfg(C(true)), true); } });
-  S1.push({ html: '<div class="s-eyebrow">Προς απόφαση</div><h2>Προτεινόμενες ενέργειες</h2><div class="s-body" style="align-content:start"><ul>' + N.recs.slice(0, 6).map(function (r) { return '<li>' + esc(r) + '</li>'; }).join('') + '</ul></div>' + foot(S1.length + 1) });
-  return S1;
+  L.push({ html: '<div class="s-eyebrow">' + t('sDecide') + '</div><h2>' + t('sActions') + '</h2><div class="s-body" style="align-content:start"><ul>' + N.recs.slice(0, 6).map(function (r) { return '<li>' + esc(r) + '</li>'; }).join('') + '</ul></div>' + foot(L.length + 1) });
+  return L;
 }
 function showSlide(i) {
   deckI = Math.max(0, Math.min(deck.length - 1, i));
@@ -1133,9 +1353,31 @@ function show(tab) {
 }
 function refresh() { compute(); RENDER[current](); persist(); }
 
+/* ---------- language switching ---------- */
+function applyStatic() {
+  document.documentElement.lang = LANG;
+  document.querySelectorAll('[data-i18n]').forEach(function (el) { el.textContent = t(el.dataset.i18n); });
+  $('nav.rail').setAttribute('aria-label', t('navLabel'));
+  document.querySelectorAll('.langsw button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.lang === LANG); });
+  if (!$('#mapPanel').hidden && S.matrix) buildMapping(currentMapping());
+}
+function setLang(next) {
+  if (next === LANG) return;
+  var prev = LANG; LANG = next;
+  try { localStorage.setItem('ledgerlens:lang', LANG); } catch (e) {}
+  setFormats();
+  if ($('#client').value === I18N[prev].defClient) $('#client').value = t('defClient');
+  if ($('#period').value === I18N[prev].defPeriod) $('#period').value = t('defPeriod');
+  var oldNames = I18N[prev].budNames, newNames = t('budNames');
+  S.budget.forEach(function (l) { var i = oldNames.indexOf(l.name); if (i > -1) l.name = newNames[i]; });
+  applyStatic(); buildFinForm(); persist();
+  if (!$('#deck').hidden) { compute(); deck = slides(); showSlide(deckI); }
+  RENDER[current]();
+}
+
 /* ---------- file loading ---------- */
 function loadFile(file) {
-  if (typeof XLSX === 'undefined') { toast('Η βιβλιοθήκη Excel δεν φορτώθηκε. Δοκίμασε ξανά σε λίγο.'); return; }
+  if (typeof XLSX === 'undefined') { toast(t('tLib')); return; }
   var isCsv = /\.(csv|txt)$/i.test(file.name);
   var rd = new FileReader();
   rd.onload = function (e) {
@@ -1144,41 +1386,45 @@ function loadFile(file) {
       var ws = wb.Sheets[wb.SheetNames[0]];
       var m = XLSX.utils.sheet_to_json(ws, { header: 1, raw: true, defval: null, blankrows: false });
       var hIdx = 0; for (var i = 0; i < Math.min(10, m.length); i++) { if ((m[i] || []).filter(function (x) { return typeof x === 'string' && x.trim(); }).length >= 2) { hIdx = i; break; } }
-      S.headers = (m[hIdx] || []).map(function (h, j) { return h == null || h === '' ? 'Στήλη ' + (j + 1) : String(h); });
+      S.rawHeaders = (m[hIdx] || []).map(function (h) { return h == null || h === '' ? null : String(h); });
       S.matrix = m.slice(hIdx + 1);
       S.fileName = file.name;
-      buildMapping(LL.detectColumns(S.headers));
-      $('#fileInfo').textContent = file.name + ' · ' + nf0.format(S.matrix.length) + ' γραμμές στο φύλλο «' + wb.SheetNames[0] + '». Έλεγξε την αντιστοίχιση στηλών.';
-    } catch (err) { toast('Το αρχείο δεν διαβάστηκε. Αποθήκευσέ το ως .xlsx ή .csv και δοκίμασε ξανά.'); }
+      buildMapping(LL.detectColumns(S.rawHeaders.map(function (h) { return h || ''; })));
+      S.fileInfo = { k: 'read', name: file.name, n: S.matrix.length, sheet: wb.SheetNames[0] };
+      $('#fileInfo').textContent = fileInfoText();
+    } catch (err) { toast(t('tReadFail')); }
   };
   if (isCsv) rd.readAsText(file); else rd.readAsArrayBuffer(file);
 }
-var FIELDS = [['date', 'Ημερομηνία *'], ['amount', 'Ποσό *'], ['party', 'Προμηθευτής / πελάτης'], ['account', 'Λογαριασμός / κατηγορία'], ['doc', 'Αρ. παραστατικού']];
+var FIELDS = [['date', 'mDate'], ['amount', 'mAmount'], ['party', 'mParty'], ['account', 'mAccount'], ['doc', 'mDoc']];
+function currentMapping() { var map = {}; FIELDS.forEach(function (f) { var el = $('#map-' + f[0]); map[f[0]] = el ? +el.value : -1; }); return map; }
 function buildMapping(map) {
+  var heads = (S.rawHeaders || []).map(function (h, i) { return h == null ? t('colN', i + 1) : h; });
   $('#mapping').innerHTML = FIELDS.map(function (f) {
-    return '<div class="field"><label for="map-' + f[0] + '">' + f[1] + '</label><select id="map-' + f[0] + '"><option value="-1">— καμία —</option>' + S.headers.map(function (h, i) { return '<option value="' + i + '"' + (map[f[0]] === i ? ' selected' : '') + '>' + esc(h) + '</option>'; }).join('') + '</select></div>';
+    return '<div class="field"><label for="map-' + f[0] + '">' + t(f[1]) + '</label><select id="map-' + f[0] + '"><option value="-1">' + t('none') + '</option>' + heads.map(function (h, i) { return '<option value="' + i + '"' + (map[f[0]] === i ? ' selected' : '') + '>' + esc(h) + '</option>'; }).join('') + '</select></div>';
   }).join('');
   $('#mapPanel').hidden = false;
 }
 function applyMapping() {
-  var map = {}; FIELDS.forEach(function (f) { map[f[0]] = +$('#map-' + f[0]).value; });
-  if (map.amount < 0 || map.date < 0) { toast('Επίλεξε τουλάχιστον στήλη ημερομηνίας και ποσού.'); return; }
+  var map = currentMapping();
+  if (map.amount < 0 || map.date < 0) { toast(t('tPickCols')); return; }
   var rows = LL.buildRows(S.matrix, map);
-  if (!rows.length) { toast('Δεν βρέθηκαν γραμμές με έγκυρο ποσό ή ημερομηνία.'); return; }
+  if (!rows.length) { toast(t('tNoRows')); return; }
   S.rows = rows; S.sample = false; S.filter = null;
   $('#mapPanel').hidden = true;
-  $('#fileInfo').textContent = S.fileName + ' · φορτώθηκαν ' + nf0.format(rows.length) + ' γραμμές.';
-  refresh(); toast('Φορτώθηκαν ' + nf0.format(rows.length) + ' συναλλαγές');
+  S.fileInfo = { k: 'applied', name: S.fileName, n: rows.length };
+  refresh(); toast(t('tLoaded', nf0.format(rows.length)));
 }
 
 /* ---------- events ---------- */
 document.querySelectorAll('.rail [role=tab]').forEach(function (b) { b.addEventListener('click', function () { show(b.dataset.tab); }); });
+document.querySelectorAll('.langsw button').forEach(function (b) { b.addEventListener('click', function () { setLang(b.dataset.lang); }); });
 $('#presentBtn').addEventListener('click', openDeck);
 $('#presentBtn2').addEventListener('click', openDeck);
 $('#prevS').addEventListener('click', function () { showSlide(deckI - 1); });
 $('#nextS').addEventListener('click', function () { showSlide(deckI + 1); });
 $('#closeS').addEventListener('click', closeDeck);
-$('#fsS').addEventListener('click', function () { try { var p = $('#deck').requestFullscreen(); if (p && p.catch) p.catch(function () { toast('Η πλήρης οθόνη δεν υποστηρίζεται εδώ'); }); } catch (e) { toast('Η πλήρης οθόνη δεν υποστηρίζεται εδώ'); } });
+$('#fsS').addEventListener('click', function () { try { var p = $('#deck').requestFullscreen(); if (p && p.catch) p.catch(function () { toast(t('tFs')); }); } catch (e) { toast(t('tFs')); } });
 $('#slide').addEventListener('click', function () { showSlide(deckI + 1); });
 document.addEventListener('keydown', function (e) {
   if ($('#deck').hidden) return;
@@ -1193,37 +1439,40 @@ var drop = $('#drop');
 ['dragenter', 'dragover'].forEach(function (ev) { drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.add('over'); }); });
 ['dragleave', 'drop'].forEach(function (ev) { drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.remove('over'); }); });
 drop.addEventListener('drop', function (e) { var f = e.dataTransfer && e.dataTransfer.files[0]; if (f) loadFile(f); });
-$('#resetSample').addEventListener('click', function (e) { e.preventDefault(); S.rows = LL.sampleLedger(); S.sample = true; S.filter = null; $('#mapPanel').hidden = true; $('#fileInfo').textContent = 'Αυτή τη στιγμή φορτωμένο: δείγμα 1.800 πληρωμών προμηθευτών (Ιαν 2025 – Σεπ 2026).'; refresh(); });
+$('#resetSample').addEventListener('click', function (e) { e.preventDefault(); S.rows = LL.sampleLedger(); S.sample = true; S.filter = null; $('#mapPanel').hidden = true; S.fileInfo = { k: 'sample' }; refresh(); });
 $('#applyMap').addEventListener('click', applyMapping);
-$('#finBody').addEventListener('input', function (e) { var t = e.target; if (!t.dataset.k) return; var v = parseFloat(t.value); S.fin[t.dataset.y][t.dataset.k] = isFinite(v) ? v : null; compute(); renderFin(); persist(); });
+$('#finBody').addEventListener('input', function (e) { var el = e.target; if (!el.dataset.k) return; var v = parseFloat(el.value); S.fin[el.dataset.y][el.dataset.k] = isFinite(v) ? v : null; compute(); renderFin(); persist(); });
 $('#finSample').addEventListener('click', function () { S.fin = JSON.parse(JSON.stringify(LL.SAMPLE_FIN)); buildFinForm(); refresh(); });
 $('#finClear').addEventListener('click', function () { S.fin = { cy: {}, py: {} }; buildFinForm(); refresh(); });
 $('#budBody').addEventListener('input', function (e) {
-  var t = e.target, tr = t.closest('tr[data-i]'); if (!tr || !t.dataset.f) return;
-  var l = S.budget[+tr.dataset.i]; l[t.dataset.f] = (t.dataset.f === 'b' || t.dataset.f === 'a') ? (parseFloat(t.value) || 0) : t.value;
+  var el = e.target, tr = el.closest('tr[data-i]'); if (!tr || !el.dataset.f) return;
+  var l = S.budget[+tr.dataset.i]; l[el.dataset.f] = (el.dataset.f === 'b' || el.dataset.f === 'a') ? (parseFloat(el.value) || 0) : el.value;
   compute(); renderBud(false); persist();
 });
 $('#budBody').addEventListener('change', function (e) { if (e.target.dataset.f === 'type') { compute(); renderBud(false); persist(); } });
 $('#budBody').addEventListener('click', function (e) { var b = e.target.closest('[data-del]'); if (!b) return; S.budget.splice(+b.dataset.del, 1); compute(); renderBud(true); persist(); });
-$('#budAdd').addEventListener('click', function () { S.budget.push({ name: 'Νέα γραμμή', type: 'exp', b: 0, a: 0 }); compute(); renderBud(true); persist(); });
-$('#budSample').addEventListener('click', function () { S.budget = JSON.parse(JSON.stringify(LL.SAMPLE_BUDGET)); compute(); renderBud(true); persist(); });
+$('#budAdd').addEventListener('click', function () { S.budget.push({ name: t('newLine'), type: 'exp', b: 0, a: 0 }); compute(); renderBud(true); persist(); });
+$('#budSample').addEventListener('click', function () { S.budget = sampleBudget(); compute(); renderBud(true); persist(); });
 $('#tests').addEventListener('click', function (e) { var b = e.target.closest('.test'); if (!b) return; S.filter = S.filter === b.dataset.t ? null : b.dataset.t; document.querySelectorAll('.test').forEach(function (x) { x.setAttribute('aria-pressed', x.dataset.t === S.filter); }); renderExceptions(); });
 $('#copyEx').addEventListener('click', function () {
-  var lines = ['Ημερομηνία\tΑντισυμβαλλόμενος\tΛογαριασμός\tΠαραστατικό\tΠοσό\tΕυρήματα'].concat(exList().map(function (f) { var r = f.row; return [dfmt(r.date), r.party, r.account, r.doc, String(r.amount).replace('.', ','), Object.keys(f.tests).map(function (t) { return TLABEL[t] + ' (' + f.tests[t] + ')'; }).join('; ')].join('\t'); }));
-  copyText(lines.join('\n'), 'Αντιγράφηκαν ' + nf0.format(lines.length - 1) + ' γραμμές. Κάνε επικόλληση στο Excel.');
+  var lines = [[t('thDate'), t('thParty'), t('thAccount'), t('thDoc'), t('thAmountPlain'), t('thFindings')].join('\t')].concat(exList().map(function (f) { var r = f.row; return [dfmt(r.date), r.party, acct(r.account), r.doc, decSep(String(r.amount)), Object.keys(f.tests).map(function (k) { return t('t_' + k) + ' (' + noteText(f.tests[k]) + ')'; }).join('; ')].join('\t'); }));
+  copyText(lines.join('\n'), t('tCopied', nf0.format(lines.length - 1)));
 });
-$('#copyReport').addEventListener('click', function () { copyText(reportText(), 'Η αναφορά αντιγράφηκε'); });
+$('#copyReport').addEventListener('click', function () { copyText(reportText(), t('tReportCopied')); });
 $('#horizon').addEventListener('change', function (e) { S.horizon = +e.target.value; refresh(); });
 try { window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () { RENDER[current](); }); } catch (e) {}
 new MutationObserver(function () { RENDER[current](); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
 /* ---------- boot ---------- */
+applyStatic();
 buildFinForm();
 compute();
 var startTab = 'data';
 try { var h = (location.hash || '').slice(1); var st = localStorage.getItem(STORE + ':tab'); startTab = RENDER[h] ? h : RENDER[st] ? st : 'data'; } catch (e) {}
 show(startTab);
+window.__ll = { setLang: setLang, show: show, openDeck: openDeck, reportText: reportText, lang: function () { return LANG; } };
 })();
+
 </script>
 
 </body>
